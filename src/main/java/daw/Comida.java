@@ -9,6 +9,7 @@ package daw;
  * @author aiman
  */
 public class Comida {
+    
     private Entrantes entrante;
     private double precioEntrante;
     private ComidaPrincipal comidaPrincipal;
@@ -108,8 +109,4 @@ public class Comida {
         sb.append('}');
         return sb.toString();
     }
-    
-    
-    
-    
 }

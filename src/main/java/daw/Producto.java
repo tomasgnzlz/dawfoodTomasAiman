@@ -12,7 +12,7 @@ import java.util.Objects;
  * @author aiman
  */
 public class Producto {
-     Comida 
+    
 //
 //    // Declaración de atributos;
 //    private int ID;
