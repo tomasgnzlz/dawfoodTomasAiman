@@ -8,10 +8,6 @@ package daw;
  *
  * @author tomas
  */
-public class Main {
-    public static void main(String[] args) {
-        // Aqui ira el main del proyecto
-        //
-    }
+public class TPV {
     
 }

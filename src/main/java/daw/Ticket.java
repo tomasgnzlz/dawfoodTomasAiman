@@ -6,8 +6,8 @@ package daw;
 
 /**
  *
- * @author aiman
+ * @author tomas
  */
-public class Compras {
+public class Ticket {
     
 }
