@@ -16,5 +16,6 @@ public class MainAiman {
         // pruebas tarjeta 
         Tarjeta t1 = new Tarjeta("Aiman",12341,LocalDate.of(2034, 6, 5),953,1000);
         System.out.println(t1);
+        //funciona
     }
 }
