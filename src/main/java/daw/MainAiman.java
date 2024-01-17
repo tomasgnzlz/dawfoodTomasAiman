@@ -16,6 +16,10 @@ public class MainAiman {
         // pruebas tarjeta 
         Tarjeta t1 = new Tarjeta("Aiman",12341,LocalDate.of(2034, 6, 5),953,1000);
         System.out.println(t1);
-        //funciona
+        //pruebas producto 
+        Comida c1 = new Comida(Entrantes.Croquetas,19.99,ComidaPrincipal.Hamburguesa_Ternera,19.99,Bebidas.Agua,1,Postres.Batido,1);
+        System.out.println(c1);
+        
+        
     }
 }

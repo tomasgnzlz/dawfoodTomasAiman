@@ -16,6 +16,7 @@ public class Tarjeta {
     private LocalDate fechaVencimiento;
     private int CVV;
     private double saldoTarjeta;
+    
 
     public Tarjeta(String nombreTitular, int numeroTarjeta, LocalDate fechaVencimiento, int CVV, double saldoTarjeta) {
         this.nombreTitular = nombreTitular;
