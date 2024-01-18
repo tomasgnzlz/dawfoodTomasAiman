@@ -20,6 +20,7 @@ public class MainAiman {
 //        Comida c1 = new Comida(Entrantes.Croquetas,19.99,ComidaPrincipal.Hamburguesa_Ternera,19.99,Bebidas.Agua,1,Postres.Batido,1);
 //        System.out.println(c1);
 //        
-        
+       String pass = Contraseñas.generarContraseña();
+        System.out.println(pass);
     }
 }
