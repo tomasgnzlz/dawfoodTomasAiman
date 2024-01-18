@@ -10,4 +10,6 @@ package daw;
  */
 public enum SubCategoriasComidas {
     ENSALADAS,CARNES,PASTAS,TACOS;
+    
+    
 }

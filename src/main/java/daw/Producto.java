@@ -19,8 +19,7 @@ public class Producto {
     private String descripción;
     private Categorias categorias;      // enum
     private SubCategorias subCategorias;// enum
-    private IVA tipoIva;
-    
+    private IVA tipoIva; 
     // 
     private SubCategoriasComidas subCategoriasComidas;// enum
 
