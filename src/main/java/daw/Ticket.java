@@ -28,8 +28,8 @@ public class Ticket {
         this.importeTotal = importeTotal;
         this.fechaHora = fechaHora;
     }
-    // Getters y Setters
 
+    // Getters y Setters
     public String getId() {
         return id;
     }
@@ -80,31 +80,26 @@ public class Ticket {
 
         // Solo guardaremos el ID,descripción,precio y el IVA de ese producto
         //sb.append(", listaProductosSeleccionados=").append(listaProductosSeleccionados);
-        Producto pAux;
-//        for (Producto productosPasados : listaProductosSeleccionados) {
-//            pAux.setID(productosPasados.getID()); // CONSTRUCTOR VACIO EN CLASE PRODUCTO
-//            //pAux.setPrecio(productosPasados.getPrecio()); // ATRIBUTO PRECIO EN CLASE PRODUCTO
-//            pAux.setDescripción(productosPasados.getDescripción());
-//            pAux.setTipoIva(productosPasados.getTipoIva());
-//            sb.append(", ").append(pAux);
-//        }
+        Producto pAux = new Producto();
+        for (Producto productosPasados : listaProductosSeleccionados) {
+            pAux.setID(productosPasados.getID()); // CONSTRUCTOR VACIO EN CLASE PRODUCTO
+            pAux.setPrecio(productosPasados.getPrecio()); // ATRIBUTO PRECIO EN CLASE PRODUCTO
+            pAux.setDescripción(productosPasados.getDescripción());
+            pAux.setTipoIva(productosPasados.getTipoIva());
+            sb.append(", ").append(pAux);
+        }
 
-        // 
         sb.append(", importeTotal=").append(importeTotal);
         sb.append(", fechaHora=").append(fechaHora);
         sb.append('}');
         return sb.toString();
     }
 
-    // Métodos Tickets
     // Método para que cada vez que se genere un ticket, se haga una llamada a este método
     // y queden guardadas las ventas que se han realizado.
-    // PUEDO PONERLO EN LA CLASE TICKET TAMBIEN;
-    public  static ArrayList<Ticket> guardarTickets(Ticket ticketAux, ArrayList<Ticket> listaTickets) {
+    public static ArrayList<Ticket> guardarTickets(Ticket ticketAux, ArrayList<Ticket> listaTickets) {
         listaTickets.add(ticketAux);
         return listaTickets;
     }
-    
-    
 
 }

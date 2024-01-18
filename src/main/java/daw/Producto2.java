@@ -9,11 +9,12 @@ package daw;
  * @author aiman
  */
 public class Producto2 {
-    private int ID ;
+
+    private int ID;
     private String descripcion;
     private Categorias categoria;
     private SubCategorias subcategorias;
-    private double precio ; 
+    private double precio;
     private IVA iva;
     private int stock;
 
@@ -67,7 +68,7 @@ public class Producto2 {
         this.subcategorias = subcategorias;
     }
 
-    public int getPrecio() {
+    public double getPrecio() {
         return precio;
     }
 
@@ -96,5 +97,5 @@ public class Producto2 {
         sb.append(", stock=").append(stock);
         sb.append('}');
         return sb.toString();
-    }    
+    }
 }

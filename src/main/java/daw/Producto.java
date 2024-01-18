@@ -12,68 +12,56 @@ import java.util.Objects;
  * @author aiman
  */
 public class Producto {
-    
 
     // Declaración de atributos;
     private int ID;
     private String descripción;
     private Categorias categorias;      // enum
     private SubCategorias subCategorias;// enum
-    private IVA tipoIva; 
+    private IVA tipoIva;
+    private double precio;
     // 
     private SubCategoriasComidas subCategoriasComidas;// enum
 
-    public Producto(int ID, String descripción, Categorias categorias, SubCategorias subCategorias, IVA tipoIva, SubCategoriasComidas subCategoriasComidas) {
+    // Constructor vacío
+    public Producto() {
+    }
+
+    public Producto(int ID, String descripción, Categorias categorias, SubCategorias subCategorias) {
         this.ID = ID;
         this.descripción = descripción;
         this.categorias = categorias;
-        this.subCategorias = subCategorias;
-        this.tipoIva = tipoIva;
-        this.subCategoriasComidas = subCategoriasComidas;
+
+        // Controlo que si la categoria es comida solo se puedan acceder a los
+        // a las subcategorias de las comidas y no de las bebidas o postres.
+        if (categorias == categorias.COMIDAS && (subCategorias == SubCategorias.ENSALADAS || subCategorias == SubCategorias.CARNES || subCategorias == SubCategorias.PASTAS || subCategorias == SubCategorias.TACOS)) {
+            this.subCategorias = subCategorias;
+        } else {
+            this.subCategorias = null;
+            //throw new IllegalArgumentException("Subcategoría no válida para COMIDAS");
+        }
+
+        if (categorias == categorias.BEBIDAS && (subCategorias == SubCategorias.ALCOHOL || subCategorias == SubCategorias.VINOS || subCategorias == SubCategorias.REFRESCOS)) {
+            this.subCategorias = subCategorias;
+        } else {
+            this.subCategorias = null;
+            //throw new IllegalArgumentException("Subcategoría no válida para BEBIDAS");
+        }
+
+        if (categorias == categorias.POSTRES && (subCategorias == SubCategorias.HELADOS || subCategorias == SubCategorias.TARTAS || subCategorias == SubCategorias.VARIOS)) {
+            this.subCategorias = subCategorias;
+        } else {
+            this.subCategorias = null;
+            //throw new IllegalArgumentException("Subcategoría no válida para POSTRES");
+        }
+
+        // El iva se asigna automaticamente
+        if (this.categorias.equals(categorias.BEBIDAS)) {
+            this.tipoIva = IVA.VEINTIUNO;
+        } else {
+            this.tipoIva = IVA.DIEZ;
+        }
     }
-    
-    
-    
-//    public Producto(int ID, String descripción, Categorias categorias, SubCategorias subCategorias) {
-//        this.ID = ID;
-//        this.descripción = descripción;
-//        this.categorias = categorias;
-//
-//        // Controlo que si la categoria es comida solo se puedan acceder a los
-//        // a las subcategorias de las comidas y no de las bebidas
-//        if (this.categorias == categorias.COMIDAS 
-//                || this.subCategorias == subCategorias.ENSALADAS 
-//                || this.subCategorias == subCategorias.CARNES 
-//                || this.subCategorias == subCategorias.PASTAS 
-//                || this.subCategorias == subCategorias.TACOS) {
-////            this.subCategorias = subCategorias.ENSALADAS;
-////            this.subCategorias = subCategorias.CARNES;
-////            this.subCategorias = subCategorias.PASTAS;
-////            this.subCategorias = subCategorias.TACOS;
-//              this.subCategorias = subCategorias;
-//        } else{
-//            throw new IllegalArgumentException("Debe de Escoger una Comida");
-//        }
-//        /*
-//        if (this.categorias == categorias.BEBIDAS) {
-//            this.subCategorias = subCategorias.ALCOHOL;
-//            this.subCategorias = subCategorias.REFRESCOS;
-//            this.subCategorias = subCategorias.VINOS;
-//        } else{
-//            throw new IllegalArgumentException("Debe de Escoger una Bebida");
-//        }
-//        if (this.categorias == categorias.POSTRES) {
-//            this.subCategorias = subCategoriasComidas;
-//        }else{
-//            throw new IllegalArgumentException("Debe de Escoger un Postre");
-//        }*/
-//
-//        if (this.categorias.equals(categorias.BEBIDAS)) {
-//            this.tipoIva = IVA.VEINTIUNO;
-//        } else {
-//            this.tipoIva = IVA.DIEZ;
-//        }
-//    }
 
     // Getters y Setters
     public int getID() {
@@ -114,6 +102,22 @@ public class Producto {
 
     public void setTipoIva(IVA tipoIva) {
         this.tipoIva = tipoIva;
+    }
+
+    public double getPrecio() {
+        return precio;
+    }
+
+    public void setPrecio(double precio) {
+        this.precio = precio;
+    }
+
+    public SubCategoriasComidas getSubCategoriasComidas() {
+        return subCategoriasComidas;
+    }
+
+    public void setSubCategoriasComidas(SubCategoriasComidas subCategoriasComidas) {
+        this.subCategoriasComidas = subCategoriasComidas;
     }
 
     // toString
