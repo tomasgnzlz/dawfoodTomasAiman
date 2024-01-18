@@ -9,5 +9,8 @@ package daw;
  * @author aiman
  */
 public enum Entrantes {
-    Patatas_bravas,Croquetas,Ensaladilla_rusa,
+    Patatas,Croquetas,Ensaladilla,
+    
+    //enum patatas
+    //enum ensaladas
 }
