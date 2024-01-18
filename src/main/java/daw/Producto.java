@@ -15,11 +15,12 @@ public class Producto {
 
     // Declaración de atributos;
     private int ID;
-    private String descripción;
+    private String descripcion;
     private Categorias categorias;      // enum
-    private SubCategorias subCategorias;// enum
+    private SubCategorias subCategoria;// enum
     private IVA tipoIva;
     private double precio;
+    private int stock;
     // 
     private SubCategoriasComidas subCategoriasComidas;// enum
 
@@ -27,31 +28,31 @@ public class Producto {
     public Producto() {
     }
 
-    public Producto(int ID, String descripción, Categorias categorias, SubCategorias subCategorias) {
+    public Producto(int ID, String descripción, Categorias categorias, SubCategorias subCategorias, int stock) {
         this.ID = ID;
-        this.descripción = descripción;
+        this.descripcion = descripción;
         this.categorias = categorias;
 
         // Controlo que si la categoria es comida solo se puedan acceder a los
         // a las subcategorias de las comidas y no de las bebidas o postres.
-        if (categorias == categorias.COMIDAS && (subCategorias == SubCategorias.ENSALADAS || subCategorias == SubCategorias.CARNES || subCategorias == SubCategorias.PASTAS || subCategorias == SubCategorias.TACOS)) {
-            this.subCategorias = subCategorias;
+        if (categorias == Categorias.COMIDAS && (subCategorias == SubCategorias.ENSALADAS || subCategorias == SubCategorias.CARNES || subCategorias == SubCategorias.PASTAS || subCategorias == SubCategorias.TACOS)) {
+            this.subCategoria = subCategorias;
         } else {
-            this.subCategorias = null;
-            //throw new IllegalArgumentException("Subcategoría no válida para COMIDAS");
+            //this.subCategoria = null;
+            //throw new IllegalArgumentException("Subcategoría no válida para BEBIDAS");
         }
 
         if (categorias == categorias.BEBIDAS && (subCategorias == SubCategorias.ALCOHOL || subCategorias == SubCategorias.VINOS || subCategorias == SubCategorias.REFRESCOS)) {
-            this.subCategorias = subCategorias;
+            this.subCategoria = subCategorias;
         } else {
-            this.subCategorias = null;
+            //this.subCategoria = null;
             //throw new IllegalArgumentException("Subcategoría no válida para BEBIDAS");
         }
 
         if (categorias == categorias.POSTRES && (subCategorias == SubCategorias.HELADOS || subCategorias == SubCategorias.TARTAS || subCategorias == SubCategorias.VARIOS)) {
-            this.subCategorias = subCategorias;
+            this.subCategoria = subCategorias;
         } else {
-            this.subCategorias = null;
+            //this.subCategoria = null;
             //throw new IllegalArgumentException("Subcategoría no válida para POSTRES");
         }
 
@@ -61,6 +62,8 @@ public class Producto {
         } else {
             this.tipoIva = IVA.DIEZ;
         }
+
+        this.stock = stock;
     }
 
     // Getters y Setters
@@ -73,11 +76,11 @@ public class Producto {
     }
 
     public String getDescripción() {
-        return descripción;
+        return descripcion;
     }
 
     public void setDescripción(String descripción) {
-        this.descripción = descripción;
+        this.descripcion = descripción;
     }
 
     public Categorias getCategorias() {
@@ -89,11 +92,11 @@ public class Producto {
     }
 
     public SubCategorias getSubCategorias() {
-        return subCategorias;
+        return subCategoria;
     }
 
     public void setSubCategorias(SubCategorias subCategorias) {
-        this.subCategorias = subCategorias;
+        this.subCategoria = subCategorias;
     }
 
     public IVA getTipoIva() {
@@ -126,9 +129,9 @@ public class Producto {
         StringBuilder sb = new StringBuilder();
         sb.append("Producto{");
         sb.append("ID=").append(ID);
-        sb.append(", descripci\u00f3n=").append(descripción);
+        sb.append(", descripcion=").append(descripcion);
         sb.append(", categorias=").append(categorias);
-        sb.append(", subCategorias=").append(subCategorias);
+        sb.append(", subCategorias=").append(subCategoria);
         sb.append(", tipoIva=").append(tipoIva);
         sb.append('}');
         return sb.toString();
@@ -139,9 +142,9 @@ public class Producto {
     public int hashCode() {
         int hash = 7;
         hash = 43 * hash + this.ID;
-        hash = 43 * hash + Objects.hashCode(this.descripción);
+        hash = 43 * hash + Objects.hashCode(this.descripcion);
         hash = 43 * hash + Objects.hashCode(this.categorias);
-        hash = 43 * hash + Objects.hashCode(this.subCategorias);
+        hash = 43 * hash + Objects.hashCode(this.subCategoria);
         hash = 43 * hash + Objects.hashCode(this.tipoIva);
         return hash;
     }
@@ -161,13 +164,13 @@ public class Producto {
         if (this.ID != other.ID) {
             return false;
         }
-        if (!Objects.equals(this.descripción, other.descripción)) {
+        if (!Objects.equals(this.descripcion, other.descripcion)) {
             return false;
         }
         if (this.categorias != other.categorias) {
             return false;
         }
-        if (this.subCategorias != other.subCategorias) {
+        if (this.subCategoria != other.subCategoria) {
             return false;
         }
         return this.tipoIva == other.tipoIva;
