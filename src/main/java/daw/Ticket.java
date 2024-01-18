@@ -19,7 +19,6 @@ public class Ticket {
     private ArrayList<Producto> listaProductosSeleccionados;
     private Double importeTotal;
     private LocalDateTime fechaHora; // fecha y hora de la operación;
-    
     // Constructores
 
     public Ticket(String id, int numeroPedido, ArrayList<Producto> listaProductosSeleccionados, Double importeTotal, LocalDateTime fechaHora) {
@@ -29,7 +28,7 @@ public class Ticket {
         this.importeTotal = importeTotal;
         this.fechaHora = fechaHora;
     }
-     // Getters y Setters
+    // Getters y Setters
 
     public String getId() {
         return id;
@@ -70,8 +69,7 @@ public class Ticket {
     public void setFechaHora(LocalDateTime fechaHora) {
         this.fechaHora = fechaHora;
     }
-    
-    
+
     // toString
     @Override
     public String toString() {
@@ -79,7 +77,7 @@ public class Ticket {
         sb.append("Ticket{");
         sb.append("id=").append(id);
         sb.append(", numeroPedido=").append(numeroPedido);
-        
+
         // Solo guardaremos el ID,descripción,precio y el IVA de ese producto
         //sb.append(", listaProductosSeleccionados=").append(listaProductosSeleccionados);
         Producto pAux;
@@ -90,20 +88,23 @@ public class Ticket {
             pAux.setTipoIva(productosPasados.getTipoIva());
             sb.append(", ").append(pAux);
         }
-        
+
         // 
         sb.append(", importeTotal=").append(importeTotal);
         sb.append(", fechaHora=").append(fechaHora);
         sb.append('}');
         return sb.toString();
-        
-        
-        
+    }
+
+    // Métodos Tickets
+    // Método para que cada vez que se genere un ticket, se haga una llamada a este método
+    // y queden guardadas las ventas que se han realizado.
+    // PUEDO PONERLO EN LA CLASE TICKET TAMBIEN;
+    public  static ArrayList<Ticket> guardarTickets(Ticket ticketAux, ArrayList<Ticket> listaTickets) {
+        listaTickets.add(ticketAux);
+        return listaTickets;
     }
     
-    
-            
-            
     
 
 }

@@ -4,10 +4,44 @@
  */
 package daw;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.chrono.ChronoLocalDateTime;
+import java.util.ArrayList;
+
 /**
  *
  * @author aiman
  */
 public class UtilidadesAdmin {
+
+    // ■ Consultar las ventas realizadas:
+    //   ● en un día concreto,
+    //   ● hasta una fecha concreta, y
+    //   ● todas las ventas que haya registradas.
     
+    public void consultarVentasPorDia(LocalDate dia,ArrayList<Ticket> lista){
+        for (Ticket ticket : lista) {
+            if (ticket.getFechaHora().getDayOfMonth() == dia.getDayOfMonth()) {
+                System.out.println(ticket);
+            }
+        }
+    }
+    
+    public void consultarVentasPorFecha(LocalDate fecha,ArrayList<Ticket> lista){
+        for (Ticket ticket : lista) {
+            if (ticket.getFechaHora().isBefore(ChronoLocalDateTime.from(fecha))) { //PROBAR
+                System.out.println(ticket);
+            }
+        }
+    }
+    
+    
+//    public void consultarVentasPorFecha(LocalDate fecha,ArrayList<Ticket> lista){
+//        for (Ticket ticket : lista) {
+//            if (ticket.getFechaHora().isBefore(ChronoLocalDateTime.from(fecha))) { //PROBAR
+//                System.out.println(ticket);
+//            }
+//        }
+//    }
 }
