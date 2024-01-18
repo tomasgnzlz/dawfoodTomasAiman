@@ -13,7 +13,7 @@ public class Producto2 {
     private String descripcion;
     private Categorias categoria;
     private SubCategorias subcategorias;
-    private int precio ; 
+    private double precio ; 
     private IVA iva;
     private int stock;
 

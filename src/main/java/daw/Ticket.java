@@ -81,13 +81,13 @@ public class Ticket {
         // Solo guardaremos el ID,descripción,precio y el IVA de ese producto
         //sb.append(", listaProductosSeleccionados=").append(listaProductosSeleccionados);
         Producto pAux;
-        for (Producto productosPasados : listaProductosSeleccionados) {
-            pAux.setID(productosPasados.getID()); // CONSTRUCTOR VACIO EN CLASE PRODUCTO
-            //pAux.setPrecio(productosPasados.getPrecio()); // ATRIBUTO PRECIO EN CLASE PRODUCTO
-            pAux.setDescripción(productosPasados.getDescripción());
-            pAux.setTipoIva(productosPasados.getTipoIva());
-            sb.append(", ").append(pAux);
-        }
+//        for (Producto productosPasados : listaProductosSeleccionados) {
+//            pAux.setID(productosPasados.getID()); // CONSTRUCTOR VACIO EN CLASE PRODUCTO
+//            //pAux.setPrecio(productosPasados.getPrecio()); // ATRIBUTO PRECIO EN CLASE PRODUCTO
+//            pAux.setDescripción(productosPasados.getDescripción());
+//            pAux.setTipoIva(productosPasados.getTipoIva());
+//            sb.append(", ").append(pAux);
+//        }
 
         // 
         sb.append(", importeTotal=").append(importeTotal);
