@@ -18,6 +18,8 @@ public class Comida {
     private double precioBebidas;
     private Postres postres;
     private double precioPostres;
+    
+    //De cada entrante se muestra en el menu una opcion desplegable con joption 
 
     public Comida(Entrantes entrante,  double precioEntrante, ComidaPrincipal comidaPrincipal,  double precioComidaPrincipal, Bebidas bebidas,  double precioBebidas, Postres postres,  double precioPostres) {
         this.entrante = entrante;
