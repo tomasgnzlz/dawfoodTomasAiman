@@ -38,7 +38,7 @@ public class UtilidadesUsuario {
         for (Producto producto : lista) {
             elementosLista.append(producto).append("\n");
         }
-
+        
         do {
             try {
                 id = Integer.parseInt(JOptionPane.showInputDialog(null, elementosLista.toString()
@@ -50,17 +50,18 @@ public class UtilidadesUsuario {
                 } else {
                     JOptionPane.showMessageDialog(null, "ID Incorrecto,vuelva a intentarlo");
                 }
-
+                
             } catch (NumberFormatException nfe) {
                 JOptionPane.showMessageDialog(null, "ERROR,Formato incorrecto");
-
+                
             }
         } while (!valido);
-
+        
         return id;
     }
 
-    public static ArrayList<Producto> añadirAlCarrito(ArrayList<Producto> listaProductosSeleccionados,ArrayList<Producto> listaProductos, int idAux) {
+    // Métodos de la opvión VerCarrito
+    public static ArrayList<Producto> añadirAlCarrito(ArrayList<Producto> listaProductosSeleccionados, ArrayList<Producto> listaProductos, int idAux) {
         
         for (int i = 0; i < listaProductos.size(); i++) {
             if (listaProductos.get(i).getID() == idAux) {
@@ -70,4 +71,25 @@ public class UtilidadesUsuario {
         return listaProductosSeleccionados;
     }
 
+    //Método que muestra la lista de productos con importe por producto y PrecioFinal(ConIVA/SinIVA)
+    public static int verCarrito(ArrayList<Producto> listaProductosSeleccionados) {
+        StringBuilder sb = new StringBuilder();
+        JCheckBox chec = new JCheckBox();
+
+        // Categoria , Descripcion, precio
+        //PRECIOsTOTALES (CON/SinIVA)
+        sb.append("{ ");
+        for (Producto producto : listaProductosSeleccionados) {
+            sb.append(" ").append(producto.getCategorias());
+            sb.append(", ").append(producto.getDescripción());
+            sb.append(", ").append(Math.round(producto.getPrecio())).append("€\n");
+        }
+        sb.append(" }");
+        
+        int opcion = JOptionPane.showOptionDialog(null, sb.toString(), "Decision Compra", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null,// null para icono por defecto.
+                new Object[]{"Comprar", "No Comprar"}, "");
+        
+        return opcion;
+    }
+    
 }

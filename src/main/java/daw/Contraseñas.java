@@ -15,7 +15,6 @@ public class Contraseñas {
         String randomLetraMayus = RandomStringUtils.randomAlphabetic(1).toUpperCase();
         String signosRandom = RandomStringUtils.random(1,"#$%&()*+-.:,;>=@");
         String numRandom = RandomStringUtils.randomNumeric(3);
-        
         String randomContraseña = randomLetra+randomLetraMayus+signosRandom+numRandom;
         return randomContraseña;
     }

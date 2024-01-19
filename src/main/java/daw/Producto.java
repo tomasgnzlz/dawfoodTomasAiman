@@ -30,7 +30,7 @@ public class Producto {
     public Producto() {
     }
 
-    public Producto(/*int ID,*/String descripción, Categorias categorias, SubCategorias subCategorias, int stock) {
+    public Producto(/*int ID,*/String descripción, Categorias categorias, SubCategorias subCategorias, int stock, Double precio) {
 
         this.ID = contador++;
         this.descripcion = descripción;
@@ -72,6 +72,14 @@ public class Producto {
         } else {
             this.stock = 0;
         }
+
+        // Controlo que el saldo sea positivo
+        if (precio < 0) {
+            this.precio = 0;
+        } else {
+            this.precio = precio;
+        }
+
     }
 
     // Getters y Setters
@@ -181,10 +189,10 @@ public class Producto {
     public static ArrayList<Producto> listaProductos() {
         ArrayList<Producto> listaProductos = new ArrayList<>();
         //el id lo ponemos segun la posicion del producto para que no pete, mientras buscamos otra manera d llegar al producto
-        Producto p1 = new Producto("Pizza", Categorias.COMIDAS, SubCategorias.PASTAS, 7);
-        Producto p2 = new Producto("Tacos gratinados", Categorias.COMIDAS, SubCategorias.TACOS, 2);
-        Producto p3 = new Producto("Entrecot", Categorias.COMIDAS, SubCategorias.CARNES, 7);
-        Producto p4 = new Producto("Ensalada", Categorias.COMIDAS, SubCategorias.ENSALADAS, 2);
+        Producto p1 = new Producto("Pizza", Categorias.COMIDAS, SubCategorias.PASTAS, 7, 10.0);
+        Producto p2 = new Producto("Tacos gratinados", Categorias.COMIDAS, SubCategorias.TACOS, 2, 19.99);
+        Producto p3 = new Producto("Entrecot", Categorias.COMIDAS, SubCategorias.CARNES, 7, 1.0);
+        Producto p4 = new Producto("Ensalada", Categorias.COMIDAS, SubCategorias.ENSALADAS, 2, 12.50);
         listaProductos.add(p1);
         listaProductos.add(p2);
         listaProductos.add(p3);

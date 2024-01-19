@@ -73,7 +73,7 @@ public class TPV {
         int tipoComida = 9999;
         boolean salirPrimario = false;
         boolean salirSecundario = false;
-        ArrayList<Producto> listaProductos = Producto.listaProductos(); // La lista de todos los productos que hay
+        ArrayList<Producto> carta = Producto.listaProductos(); // La lista de todos los productos que hay
         ArrayList<Producto> listaProductosSeleccionados = new ArrayList<>(); // La lista de los productos que se seleccionan(los que van al ticket)
 
         do {
@@ -90,10 +90,10 @@ public class TPV {
                             case 0 -> {
                                 System.out.println("Ha seleccionado comida\n");
 
-                                int idProductoDeseado = UtilidadesUsuario.preguntarIDComida(listaProductos);
-                                listaProductosSeleccionados = UtilidadesUsuario.añadirAlCarrito(listaProductosSeleccionados, listaProductos, idProductoDeseado);
+                                int idProductoDeseado = UtilidadesUsuario.preguntarIDComida(carta);
+                                listaProductosSeleccionados = UtilidadesUsuario.añadirAlCarrito(listaProductosSeleccionados, carta, idProductoDeseado);
                                 //
-                                listaProductos.forEach(System.out::println);
+                                carta.forEach(System.out::println);
                                 System.out.println("ID del producto Deseado: " + idProductoDeseado);
                                 //
                             }
@@ -105,7 +105,17 @@ public class TPV {
                             }
                             case 3 -> {
                                 System.out.println("Ha seleccionado Ver Carrito");
-                                UtilidadesUsuario.mostrarListas(listaProductosSeleccionados);
+                                //UtilidadesUsuario.mostrarListas(listaProductosSeleccionados);
+                                int n = UtilidadesUsuario.verCarrito(listaProductosSeleccionados);
+                                
+                                
+                                
+                                
+                                
+                                
+                                
+                                
+                                // MENSAJE EN CONSOLA PARA PRUEBAS
                                 System.out.println(listaProductosSeleccionados);
                             }
                             case 4 -> {
