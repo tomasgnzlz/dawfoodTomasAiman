@@ -4,6 +4,7 @@
  */
 package daw;
 
+import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Objects;
 
@@ -65,7 +66,39 @@ public class Producto {
 
         this.stock = stock;
     }
-
+    
+    
+    //metodo para mostrar producto , los productos se crean desde aqui ?
+    
+    public  ArrayList<Producto> mostrarProducto(){
+        ArrayList<Producto> productos = new ArrayList<>();
+        //el id lo ponemos segun la posicion del producto para que no pete, mientras buscamos otra manera d llegar al producto
+        Producto p1 = new Producto(0,"Pizza",Categorias.COMIDAS,SubCategorias.PASTAS,7);
+        Producto p2 = new Producto(1,"Tacos gratinados",Categorias.COMIDAS,SubCategorias.TACOS,2);
+        productos.add(p1);
+        productos.add(p2);
+        
+        return productos;
+    }
+    public  ArrayList<Producto> añadirProductoCarrito(ArrayList<Producto> productos, int num){
+        ArrayList<Producto> carrito = new ArrayList<>();
+           try{
+                carrito.add(productos.get(num));
+           }catch(IndexOutOfBoundsException iofbe){
+                System.out.println("Ya has pedido ese producto");
+           }
+        return carrito ;
+        
+        //funciona
+        
+        //falta hacer que si se añade un producto anteriormente añadido que salte la excepcion y se pregunte de nuevo 
+        
+    }
+    //* comentarios para explicar entre nosotros para luego borrar *
+    //he pensado que mostrando el arrayList de productos y que el cliente elija n producto
+    //se intercambie la posicion que el cliente elija introduciendo el id del producto, y desde 
+    // ese id llegas a la posicion del producto y se iguala y se añade ese producto , al arrayList carrito
+    
     // Getters y Setters
     public int getID() {
         return ID;
