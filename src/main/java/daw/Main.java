@@ -17,7 +17,5 @@ public class Main {
         // Aqui ira el main del proyecto
         TPV t1 = new TPV();
         t1.encenderTPV();
-
     }
-
 }

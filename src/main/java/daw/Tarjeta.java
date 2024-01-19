@@ -4,7 +4,12 @@
  */
 package daw;
 
+import java.text.DecimalFormat;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Random;
+import org.apache.commons.lang3.RandomStringUtils;
 
 /**
  *
@@ -17,6 +22,7 @@ public class Tarjeta {
     private int CVV;
     private double saldoTarjeta;
     
+    private static Random random = new Random();
 
     public Tarjeta(String nombreTitular, int numeroTarjeta, LocalDate fechaVencimiento, int CVV, double saldoTarjeta) {
         this.nombreTitular = nombreTitular;
@@ -26,6 +32,25 @@ public class Tarjeta {
         this.saldoTarjeta = saldoTarjeta;
     }
     
+    public static Tarjeta generarTarjeta(String nombre){;
+        int numTarjeta = numTarjetaAleatorio();
+        int numCVV = numCvvAleatorio();
+        double saldo = saldoCuentaAleatorio();
+        Tarjeta t1 = new Tarjeta(nombre,numTarjeta,LocalDate.now().plusYears(5),numCVV,Math.round(saldo * 100.0) / 100.0);
+        return t1;
+    }
+    private static int numTarjetaAleatorio(){
+        int numRandom = 0;
+        return numRandom = Integer.parseInt(RandomStringUtils.randomNumeric(4));
+    }
+    private static int numCvvAleatorio(){
+        int numRandom = 0;
+        return numRandom = Integer.parseInt(RandomStringUtils.randomNumeric(3));
+    }
+    private static double saldoCuentaAleatorio(){
+        double numAleatorio = 0;
+        return numAleatorio = random.nextDouble(10,100);
+    }
     public Tarjeta() {
     }
     
