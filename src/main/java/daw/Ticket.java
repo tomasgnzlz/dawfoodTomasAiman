@@ -29,6 +29,13 @@ public class Ticket {
         this.fechaHora = fechaHora;
     }
 
+    // Método para que cada vez que se genere un ticket, se haga una llamada a este método
+    // y queden guardadas las ventas que se han realizado.
+    public static ArrayList<Ticket> guardarTickets(Ticket ticketAux, ArrayList<Ticket> listaTickets) {
+        listaTickets.add(ticketAux);
+        return listaTickets;
+    }
+
     // Getters y Setters
     public String getId() {
         return id;
@@ -94,12 +101,4 @@ public class Ticket {
         sb.append('}');
         return sb.toString();
     }
-
-    // Método para que cada vez que se genere un ticket, se haga una llamada a este método
-    // y queden guardadas las ventas que se han realizado.
-    public static ArrayList<Ticket> guardarTickets(Ticket ticketAux, ArrayList<Ticket> listaTickets) {
-        listaTickets.add(ticketAux);
-        return listaTickets;
-    }
-
 }
