@@ -22,15 +22,17 @@ public class Producto {
     private IVA tipoIva;
     private double precio;
     private int stock;
-    // 
-    private SubCategoriasComidas subCategoriasComidas;// enum
+
+    // Atributos secundarios.
+    private static int contador = 1;
 
     // Constructor vacío
     public Producto() {
     }
 
-    public Producto(int ID, String descripción, Categorias categorias, SubCategorias subCategorias, int stock) {
-        this.ID = ID;
+    public Producto(/*int ID,*/String descripción, Categorias categorias, SubCategorias subCategorias, int stock) {
+
+        this.ID = contador++;
         this.descripcion = descripción;
         this.categorias = categorias;
 
@@ -64,41 +66,14 @@ public class Producto {
             this.tipoIva = IVA.DIEZ;
         }
 
-        this.stock = stock;
+        // Controlo que el Stock no sea negativo
+        if (stock >= 1 && stock < 1000) {
+            this.stock = stock;
+        } else {
+            this.stock = 0;
+        }
     }
-    
-    
-    //metodo para mostrar producto , los productos se crean desde aqui ?
-    
-    public  ArrayList<Producto> mostrarProducto(){
-        ArrayList<Producto> productos = new ArrayList<>();
-        //el id lo ponemos segun la posicion del producto para que no pete, mientras buscamos otra manera d llegar al producto
-        Producto p1 = new Producto(0,"Pizza",Categorias.COMIDAS,SubCategorias.PASTAS,7);
-        Producto p2 = new Producto(1,"Tacos gratinados",Categorias.COMIDAS,SubCategorias.TACOS,2);
-        productos.add(p1);
-        productos.add(p2);
-        
-        return productos;
-    }
-    public  ArrayList<Producto> añadirProductoCarrito(ArrayList<Producto> productos, int num){
-        ArrayList<Producto> carrito = new ArrayList<>();
-           try{
-                carrito.add(productos.get(num));
-           }catch(IndexOutOfBoundsException iofbe){
-                System.out.println("Ya has pedido ese producto");
-           }
-        return carrito ;
-        
-        //funciona
-        
-        //falta hacer que si se añade un producto anteriormente añadido que salte la excepcion y se pregunte de nuevo 
-        
-    }
-    //* comentarios para explicar entre nosotros para luego borrar *
-    //he pensado que mostrando el arrayList de productos y que el cliente elija n producto
-    //se intercambie la posicion que el cliente elija introduciendo el id del producto, y desde 
-    // ese id llegas a la posicion del producto y se iguala y se añade ese producto , al arrayList carrito
-    
+
     // Getters y Setters
     public int getID() {
         return ID;
@@ -146,14 +121,6 @@ public class Producto {
 
     public void setPrecio(double precio) {
         this.precio = precio;
-    }
-
-    public SubCategoriasComidas getSubCategoriasComidas() {
-        return subCategoriasComidas;
-    }
-
-    public void setSubCategoriasComidas(SubCategoriasComidas subCategoriasComidas) {
-        this.subCategoriasComidas = subCategoriasComidas;
     }
 
     // toString
@@ -209,4 +176,37 @@ public class Producto {
         return this.tipoIva == other.tipoIva;
     }
 
+    // ****************************** MÉTODOS ****************************** 
+    //metodo para mostrar producto , los productos se crean desde aqui?
+    public static ArrayList<Producto> listaProductos() {
+        ArrayList<Producto> listaProductos = new ArrayList<>();
+        //el id lo ponemos segun la posicion del producto para que no pete, mientras buscamos otra manera d llegar al producto
+        Producto p1 = new Producto("Pizza", Categorias.COMIDAS, SubCategorias.PASTAS, 7);
+        Producto p2 = new Producto("Tacos gratinados", Categorias.COMIDAS, SubCategorias.TACOS, 2);
+        Producto p3 = new Producto("Entrecot", Categorias.COMIDAS, SubCategorias.CARNES, 7);
+        Producto p4 = new Producto("Ensalada", Categorias.COMIDAS, SubCategorias.ENSALADAS, 2);
+        listaProductos.add(p1);
+        listaProductos.add(p2);
+        listaProductos.add(p3);
+        listaProductos.add(p4);
+
+        return listaProductos;
+    }
+
+////    public ArrayList<Producto> añadirProductoCarrito(ArrayList<Producto> productos, int num) {
+////        ArrayList<Producto> carrito = new ArrayList<>();
+////        try {
+////            carrito.add(productos.get(num));
+////        } catch (IndexOutOfBoundsException iofbe) {
+////            System.out.println("Ya has pedido ese producto");
+////        }
+////        return carrito;
+////
+////        //funciona
+////        //falta hacer que si se añade un producto anteriormente añadido que salte la excepcion y se pregunte de nuevo 
+////    }
+////    //* comentarios para explicar entre nosotros para luego borrar *
+////    //he pensado que mostrando el arrayList de productos y que el cliente elija n producto
+////    //se intercambie la posicion que el cliente elija introduciendo el id del producto, y desde 
+////    // ese id llegas a la posicion del producto y se iguala y se añade ese producto , al arrayList carrito
 }

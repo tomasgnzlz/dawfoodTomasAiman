@@ -38,12 +38,5 @@ public class UtilidadesAdmin {
     public void consultarTodasLasVentas(ArrayList<Ticket> lista){
         lista.forEach(System.out::println);
     }
-    
-//    public void consultarVentasPorFecha(LocalDate fecha,ArrayList<Ticket> lista){
-//        for (Ticket ticket : lista) {
-//            if (ticket.getFechaHora().isBefore(ChronoLocalDateTime.from(fecha))) { //PROBAR
-//                System.out.println(ticket);
-//            }
-//        }
-//    }
+
 }
