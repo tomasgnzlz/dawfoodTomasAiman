@@ -53,8 +53,8 @@ public class MainAiman {
 //        int seleccion = JOptionPane.showOptionDialog(null, "Seleccion el tipo de usuario", "Tipo de Usuarios", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null,// null para icono por defecto.
 //                new Object[]{"Modo Usuario", "Modo Administrador"}, "");
 //
-//        Producto p1 = new Producto(2,"Pizza",Categorias.COMIDAS,SubCategorias.CARNES,3);
-//        System.out.println(p1);
+          Producto p1 = new Producto("Pizza", Categorias.COMIDAS, SubCategorias.PASTAS, 7, 10.0); 
+          System.out.println(p1);
 //        
 //        ArrayList<Producto> productos = p1.mostrarProducto();
 //        int num = Integer.parseInt(JOptionPane.showInputDialog("Elige el producto: "+productos));
@@ -64,7 +64,9 @@ public class MainAiman {
 //        carrito = p1.añadirProductoCarrito(productos, num2);
 //        carrito.forEach(System.out::println);
 //        
-          String nombre = "Aiman";
-          System.out.println(Tarjeta.generarTarjeta(nombre));
+//          String nombre = "Aiman";
+//          System.out.println(Tarjeta.generarTarjeta(nombre));
+            UtilidadesAdmin.modificarProducto(p1);
+            System.out.println(p1);
     }
 }

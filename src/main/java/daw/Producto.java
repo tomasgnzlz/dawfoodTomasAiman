@@ -131,7 +131,15 @@ public class Producto {
         this.precio = precio;
     }
 
+    public int getStock() {
+        return stock;
+    }
+
+    public void setStock(int stock) {
+        this.stock = stock;
+    }
     // toString
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
@@ -139,25 +147,28 @@ public class Producto {
         sb.append("ID=").append(ID);
         sb.append(", descripcion=").append(descripcion);
         sb.append(", categorias=").append(categorias);
-        sb.append(", subCategorias=").append(subCategoria);
+        sb.append(", subCategoria=").append(subCategoria);
         sb.append(", tipoIva=").append(tipoIva);
+        sb.append(", precio=").append(precio);
+        sb.append(", stock=").append(stock);
         sb.append('}');
         return sb.toString();
     }
-
-    // Equals y HashCode
-    @Override
+    @Override    
     public int hashCode() {
-        int hash = 7;
-        hash = 43 * hash + this.ID;
-        hash = 43 * hash + Objects.hashCode(this.descripcion);
-        hash = 43 * hash + Objects.hashCode(this.categorias);
-        hash = 43 * hash + Objects.hashCode(this.subCategoria);
-        hash = 43 * hash + Objects.hashCode(this.tipoIva);
+        int hash = 5;
+        hash = 29 * hash + this.ID;
+        hash = 29 * hash + Objects.hashCode(this.descripcion);
+        hash = 29 * hash + Objects.hashCode(this.categorias);
+        hash = 29 * hash + Objects.hashCode(this.subCategoria);
+        hash = 29 * hash + Objects.hashCode(this.tipoIva);
+        hash = 29 * hash + (int) (Double.doubleToLongBits(this.precio) ^ (Double.doubleToLongBits(this.precio) >>> 32));
+        hash = 29 * hash + this.stock;
         return hash;
     }
 
-    @Override
+    // Equals y HashCode
+    @Override    
     public boolean equals(Object obj) {
         if (this == obj) {
             return true;
@@ -170,6 +181,12 @@ public class Producto {
         }
         final Producto other = (Producto) obj;
         if (this.ID != other.ID) {
+            return false;
+        }
+        if (Double.doubleToLongBits(this.precio) != Double.doubleToLongBits(other.precio)) {
+            return false;
+        }
+        if (this.stock != other.stock) {
             return false;
         }
         if (!Objects.equals(this.descripcion, other.descripcion)) {
@@ -200,7 +217,6 @@ public class Producto {
 
         return listaProductos;
     }
-
 ////    public ArrayList<Producto> añadirProductoCarrito(ArrayList<Producto> productos, int num) {
 ////        ArrayList<Producto> carrito = new ArrayList<>();
 ////        try {
