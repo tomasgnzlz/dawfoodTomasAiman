@@ -103,20 +103,27 @@ public class TPV {
                             case 2 -> {
                                 System.out.println("Ha seleccionado Postre");
                             }
+                            
                             case 3 -> {
                                 System.out.println("Ha seleccionado Ver Carrito");
-                                //UtilidadesUsuario.mostrarListas(listaProductosSeleccionados);
-                                int n = UtilidadesUsuario.verCarrito(listaProductosSeleccionados);
-                                
-                                
-                                
-                                
-                                
-                                
-                                
-                                
+                                int decisionComprar = UtilidadesUsuario.opcionesCarrito(listaProductosSeleccionados);
+
                                 // MENSAJE EN CONSOLA PARA PRUEBAS
                                 System.out.println(listaProductosSeleccionados);
+                                
+                                
+                                switch (decisionComprar) {
+                                    case 0 -> { // Cuando escoge la opción comprar
+                                        
+                                }
+                                    case 1 -> { // Cuando escoge la opción de no comprar
+                                        salirSecundario=true;
+                                        
+                                    }
+                                }
+                                
+                                
+                                
                             }
                             case 4 -> {
                                 System.out.println("Ha SeleccionadoSalir");
@@ -136,7 +143,7 @@ public class TPV {
             if (tipoUsuario == 2) {
                 salirPrimario = true;
             }
-            System.out.println("**********HA_SALIDO_DEL_MENU**********");
+            System.out.println("**********HA_SALIDO_DEL_MENU_SECUNDARIO**********");
         } while (!salirPrimario);
 
     }

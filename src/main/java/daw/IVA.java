@@ -10,8 +10,8 @@ package daw;
  */
 public enum IVA {
 
-    VEINTIUNO(0.21), // refrescos y bebidad alcoholicas 
-    DIEZ(0.10);      // comida y postres
+    VEINTIUNO(1.21), // refrescos y bebidad alcoholicas 
+    DIEZ(1.10);      // comida y postres
 
     // Atributo que tendrá asociado cada opción del enum.
     double iva;

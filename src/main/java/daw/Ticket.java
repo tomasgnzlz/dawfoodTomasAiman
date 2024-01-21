@@ -6,6 +6,7 @@ package daw;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import org.apache.commons.lang3.RandomStringUtils;
 
 /**
  *
@@ -19,14 +20,21 @@ public class Ticket {
     private ArrayList<Producto> listaProductosSeleccionados;
     private Double importeTotal;
     private LocalDateTime fechaHora; // fecha y hora de la operación;
-    // Constructores
 
-    public Ticket(String id, int numeroPedido, ArrayList<Producto> listaProductosSeleccionados, Double importeTotal, LocalDateTime fechaHora) {
-        this.id = id;
-        this.numeroPedido = numeroPedido;
+    // AtributosSecundarios
+    public static int contador = 1;
+
+    // Constructores
+    public Ticket(/*String id, int numeroPedido,*/ArrayList<Producto> listaProductosSeleccionados/*, Double importeTotal, LocalDateTime fechaHora*/) {
+        this.id = RandomStringUtils.random(4);
+        this.numeroPedido = contador++; // Se increementa cada vez que se crea uno
         this.listaProductosSeleccionados = listaProductosSeleccionados;
-        this.importeTotal = importeTotal;
-        this.fechaHora = fechaHora;
+        this.importeTotal =  Math.round(obtenerImporteTotal(listaProductosSeleccionados) * 100.0) / 100.0;
+        this.fechaHora = LocalDateTime.now(); // La del sistema cuando se genera el ticket
+    }
+
+    public Ticket() {
+
     }
 
     // Método para que cada vez que se genere un ticket, se haga una llamada a este método
@@ -83,7 +91,7 @@ public class Ticket {
         StringBuilder sb = new StringBuilder();
         sb.append("Ticket{");
         sb.append("id=").append(id);
-        sb.append(", numeroPedido=").append(numeroPedido);
+        sb.append(", numeroPedido=").append(numeroPedido).append("\n");
 
         // Solo guardaremos el ID,descripción,precio y el IVA de ese producto
         //sb.append(", listaProductosSeleccionados=").append(listaProductosSeleccionados);
@@ -93,12 +101,21 @@ public class Ticket {
             pAux.setPrecio(productosPasados.getPrecio()); // ATRIBUTO PRECIO EN CLASE PRODUCTO
             pAux.setDescripción(productosPasados.getDescripción());
             pAux.setTipoIva(productosPasados.getTipoIva());
-            sb.append(", ").append(pAux);
+            sb.append(", ").append(pAux).append("\n");
         }
 
         sb.append(", importeTotal=").append(importeTotal);
-        sb.append(", fechaHora=").append(fechaHora);
+        sb.append(", fechaHora=").append(fechaHora.getDayOfMonth()+ "/"+fechaHora.getMonthValue()+fechaHora.getYear());
         sb.append('}');
         return sb.toString();
+    }
+
+    // Método que recorre la lista y calcula el precioTotal
+    public static double obtenerImporteTotal(ArrayList<Producto> lista) {
+        double importeTotal = 0;
+        for (Producto producto : lista) {
+            importeTotal += producto.getPrecio() * producto.getTipoIva().iva;
+        }
+        return importeTotal;
     }
 }

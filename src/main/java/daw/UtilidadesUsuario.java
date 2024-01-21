@@ -78,18 +78,34 @@ public class UtilidadesUsuario {
 
         // Categoria , Descripcion, precio
         //PRECIOsTOTALES (CON/SinIVA)
-        sb.append("{ ");
+        sb.append("\n");
         for (Producto producto : listaProductosSeleccionados) {
             sb.append(" ").append(producto.getCategorias());
             sb.append(", ").append(producto.getDescripción());
             sb.append(", ").append(Math.round(producto.getPrecio())).append("€\n");
         }
-        sb.append(" }");
+        sb.append("\n");
         
         int opcion = JOptionPane.showOptionDialog(null, sb.toString(), "Decision Compra", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null,// null para icono por defecto.
                 new Object[]{"Comprar", "No Comprar"}, "");
         
         return opcion;
+    }
+
+    // Método que termina la compra una vez se selecciona comprar en el carrito
+    public static int opcionesCarrito(ArrayList<Producto> listaProductosSeleccionados) {
+        
+        StringBuilder sb = new StringBuilder();
+        JCheckBox chec = new JCheckBox();
+        Ticket t1 = new Ticket(listaProductosSeleccionados);
+
+        // Categoria , Descripcion, precio
+        //PRECIOsTOTALES (CON/SinIVA)
+        int opcion = JOptionPane.showOptionDialog(null, t1.toString(), "Decision Compra", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null,// null para icono por defecto.
+                new Object[]{"Comprar", "No Comprar"}, "");
+        
+        return opcion;
+        
     }
     
 }
