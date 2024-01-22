@@ -66,7 +66,10 @@ public class MainAiman {
 //        
 //          String nombre = "Aiman";
 //          System.out.println(Tarjeta.generarTarjeta(nombre));
-            UtilidadesAdmin.modificarProducto(p1);
-            System.out.println(p1);
+//            System.out.println(p1);
+            ArrayList<Producto> p = Producto.listaProductos();
+            int id = Integer.parseInt(JOptionPane.showInputDialog("Introduce el id del producto"));
+            UtilidadesAdmin.modificarProducto(p,id);
+            System.out.println(p);
     }
 }

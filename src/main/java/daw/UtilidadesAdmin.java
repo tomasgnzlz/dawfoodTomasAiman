@@ -40,11 +40,12 @@ public class UtilidadesAdmin {
         lista.forEach(System.out::println);
     }
     //Modificar cualquier dato del producto excepto id;
-    public static Producto modificarProducto(Producto p){
+    public static ArrayList<Producto> modificarProducto(ArrayList<Producto> p,int id){
        String modificar = "";
        boolean menu = true;
        boolean repetir = true;
        String opcionRepetir = "";
+       boolean modValido = true;
        final String opcion = """
                              
                        ¿Que dato del producto deseas modificar?
@@ -67,94 +68,146 @@ public class UtilidadesAdmin {
             }while(menu);
             switch(modificar){
                 case "1":
-                   String modDescripcion = JOptionPane.showInputDialog("Introduce la nueva descripción: ");
-                   p.setDescripción(modDescripcion);
+                    String modDescripcion = JOptionPane.showInputDialog("Introduce la nueva descripción: ");
+                    for (Producto producto : p) {
+////                        do{
+                            if (producto.getID() ==id ) {
+//                                try{
+//                                    producto.setDescripción(modDescripcion);
+//                                    modValido=false;
+//                                }catch(NumberFormatException nfe){
+//                                    System.out.println("Debes introducir el nombre del producto");
+//                                }catch(NullPointerException npe){
+//                                    System.out.println("El nombre no puede ser nulo");
+//                                }
+                            }    
+//                        }while(modValido); 
+                    }
                 break;
                 case "2":
                     int modCategorias = JOptionPane.showOptionDialog(null, "¿Qué categoría desea poner?", "Categorías", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null,// null para icono por defecto.
                     new Object[]{"Comidas", "Bebidas", "Postres"}, "");
                     switch(modCategorias){
                         case 0: 
-                            p.setCategorias(Categorias.COMIDAS);
+                            for(Producto producto : p){
+                                if(producto.getID()==id){
+                                    do{
+                                        if((producto.getSubCategorias()==SubCategorias.CARNES)||(producto.getSubCategorias()==SubCategorias.ENSALADAS)||(producto.getSubCategorias()==SubCategorias.PASTAS)||(producto.getSubCategorias()==SubCategorias.TACOS)){
+                                        producto.setCategorias(Categorias.COMIDAS);
+                                        modValido=false;
+                                        }else{
+                                            System.out.println("Esa categoría no es válida");
+                                            modValido=true;
+                                        }   
+                                    }while(modValido);
+                                }
+                            }
                         break;
                         case 1: 
-                            p.setCategorias(Categorias.BEBIDAS);
+                            for(Producto producto : p){
+                                if(producto.getID()==id){
+                                    do{
+                                        if((producto.getSubCategorias()==SubCategorias.ALCOHOL)||(producto.getSubCategorias()==SubCategorias.REFRESCOS)||(producto.getSubCategorias()==SubCategorias.VINOS)){
+                                        producto.setCategorias(Categorias.BEBIDAS);
+                                        modValido=false;
+                                        }else{
+                                            System.out.println("Esa categoría no es válida");
+                                            modValido=true;
+                                        }
+                                    }while(modValido);
+                                }
+                            }
                         break;
                         case 2: 
-                            p.setCategorias(Categorias.POSTRES);
+                            for(Producto producto : p){
+                                if(producto.getID()==id){
+                                    do{
+                                        if((producto.getSubCategorias()==SubCategorias.HELADOS)||(producto.getSubCategorias()==SubCategorias.TARTAS)||(producto.getSubCategorias()==SubCategorias.VARIOS)){
+                                        producto.setCategorias(Categorias.POSTRES);
+                                        modValido=false;
+                                        }else{
+                                            System.out.println("Esa categoría no es válida");
+                                            modValido=true;
+                                        }
+                                    }while(modValido);
+                                }
+                            }
                         break;
                     }
                     //falta controlar que en el caso de que producto tenga la subcategoria refrescos x ejemplo, que luego no se pueda cambiar de categoria 
                 break;
                 case "3":
                     int modSubCategorias ;
-                    if(p.getCategorias()==Categorias.COMIDAS){
+                    for(Producto producto : p){
+                        if(producto.getCategorias()==Categorias.COMIDAS){
                         modSubCategorias = JOptionPane.showOptionDialog(null, "¿Qué subcategoría  desea poner?", "Subcategorías de comidas", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null,// null para icono por defecto.
                     new Object[]{"Ensaladas", "Carnes", "Pastas","Tacos"}, "");
                         switch(modSubCategorias){
                             case 0: 
-                                p.setSubCategorias(SubCategorias.ENSALADAS);
+                                producto.setSubCategorias(SubCategorias.ENSALADAS);
                             break;
                             case 1: 
-                                p.setSubCategorias(SubCategorias.CARNES);
+                                producto.setSubCategorias(SubCategorias.CARNES);
                             break;
                             case 2: 
-                                p.setSubCategorias(SubCategorias.PASTAS);
+                                producto.setSubCategorias(SubCategorias.PASTAS);
                             break;
                             case 3: 
-                                p.setSubCategorias(SubCategorias.TACOS);
+                                producto.setSubCategorias(SubCategorias.TACOS);
                             break;
                         }
-                    }else if(p.getCategorias()==Categorias.BEBIDAS){
+                    }else if(producto.getCategorias()==Categorias.BEBIDAS){
                         modSubCategorias = JOptionPane.showOptionDialog(null, "¿Qué subcategoría desea poner?", "Subcategorías de bebidas", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null,// null para icono por defecto.
                     new Object[]{"Refrescos", "Vinos", "Alcohol"}, "");
                         switch(modSubCategorias){
                             case 0: 
-                                p.setSubCategorias(SubCategorias.REFRESCOS);
+                                producto.setSubCategorias(SubCategorias.REFRESCOS);
                             break;
                             case 1: 
-                                p.setSubCategorias(SubCategorias.VINOS);
+                                producto.setSubCategorias(SubCategorias.VINOS);
                             break;
                             case 2: 
-                                p.setSubCategorias(SubCategorias.ALCOHOL);
+                                producto.setSubCategorias(SubCategorias.ALCOHOL);
                             break;
                         }
-                    }else if(p.getCategorias()==Categorias.POSTRES){
+                    }else if(producto.getCategorias()==Categorias.POSTRES){
                         modSubCategorias = JOptionPane.showOptionDialog(null, "¿Qué subcategoría desea poner?", "Subcategorias de postres", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null,// null para icono por defecto.
                     new Object[]{"Tartas", "Helados", "Varios"}, "");
                         switch(modSubCategorias){
                             case 0: 
-                                p.setSubCategorias(SubCategorias.TARTAS);
+                                producto.setSubCategorias(SubCategorias.TARTAS);
                             break;
                             case 1: 
-                                p.setSubCategorias(SubCategorias.HELADOS);
+                                producto.setSubCategorias(SubCategorias.HELADOS);
                             break;
                             case 2: 
-                                p.setSubCategorias(SubCategorias.VARIOS);
+                                producto.setSubCategorias(SubCategorias.VARIOS);
                             break;
                         }
                     } 
+                }
                 break;
-                case "4":
-                    int modIVA = JOptionPane.showOptionDialog(null, "¿Qué IVA desea poner?", "IVA", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null,// null para icono por defecto.
-                    new Object[]{"21%", "10%"}, "");
-                        switch(modIVA){
-                            case 0: 
-                                p.setTipoIva(IVA.VEINTIUNO);
-                            break;
-                            case 1: 
-                                p.setTipoIva(IVA.DIEZ);
-                            break;
-                        }
-                break;
-                case "5":
-                    double modPrecio = Double.parseDouble(JOptionPane.showInputDialog("Introduce el nuevo precio: "));
-                    p.setPrecio(modPrecio);
-                break;
-                case "6":
-                    int modStock = Integer.parseInt( JOptionPane.showInputDialog("Introduce la cantidad nueva de stock: "));
-                    p.setStock(modStock);
-                break;
+//                case "4":
+//                    int modIVA = JOptionPane.showOptionDialog(null, "¿Qué IVA desea poner?", "IVA", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null,// null para icono por defecto.
+//                    new Object[]{"21%", "10%"}, "");
+//                        switch(modIVA){
+//                            case 0: 
+//                                p.setTipoIva(IVA.VEINTIUNO);
+//                            break;
+//                            case 1: 
+//                                p.setTipoIva(IVA.DIEZ);
+//                            break;
+//                        }
+//                break;
+//                case "5":
+//                    double modPrecio = Double.parseDouble(JOptionPane.showInputDialog("Introduce el nuevo precio: "));
+//                    p.setPrecio(modPrecio);
+//                break;
+//                case "6":
+//                    int modStock = Integer.parseInt( JOptionPane.showInputDialog("Introduce la cantidad nueva de stock: "));
+//                    p.setStock(modStock);
+//                break;
+                default: System.out.println("Número inválido");
             }
             opcionRepetir = JOptionPane.showInputDialog("¿Deseas cambiar otro dato del producto?: ");
             if(!(opcionRepetir.equalsIgnoreCase("si"))){
