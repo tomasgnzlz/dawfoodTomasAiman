@@ -73,11 +73,17 @@ public class TPV {
         int tipoComida = 9999;
         boolean salirPrimario = false;
         boolean salirSecundario = false;
-        ArrayList<Producto> carta = Producto.listaProductos(); // La lista de todos los productos que hay
+        ArrayList<Producto> listaProductos = Producto.listaProductos(); // La lista de todos los productos que hay
         ArrayList<Producto> listaProductosSeleccionados = new ArrayList<>(); // La lista de los productos que se seleccionan(los que van al ticket)
+//        ArrayList<Producto> listaComidas = UtilidadesUsuario.devolverListasPorCategoria(listaProductos, Categorias.COMIDAS);
+//        ArrayList<Producto> listaBebidas = UtilidadesUsuario.devolverListasPorCategoria(listaProductos, Categorias.BEBIDAS);
+//        ArrayList<Producto> listaPostres = UtilidadesUsuario.devolverListasPorCategoria(listaProductos, Categorias.POSTRES);
+
+        ArrayList<Producto> listaComidas = UtilidadesUsuario.devolverListaCategoriaComida(listaProductos);
+        ArrayList<Producto> listaBebidas = UtilidadesUsuario.devolverListaCategoriaBebida(listaProductos);
+        ArrayList<Producto> listaPostres = UtilidadesUsuario.devolverListaCategoriaPostre(listaProductos);
 
         do {
-
             tipoUsuario = seleccionarTipoUsuario();
 
             switch (tipoUsuario) {
@@ -89,21 +95,31 @@ public class TPV {
                         switch (tipoComida) {
                             case 0 -> {
                                 System.out.println("Ha seleccionado comida\n");
-
-                                int idProductoDeseado = UtilidadesUsuario.preguntarIDComida(carta);
-                                listaProductosSeleccionados = UtilidadesUsuario.añadirAlCarrito(listaProductosSeleccionados, carta, idProductoDeseado);
+                                int idProductoDeseado = UtilidadesUsuario.preguntarIDProductoComida(listaProductos);
+                                listaProductosSeleccionados = UtilidadesUsuario.añadirAlCarrito(listaProductosSeleccionados, listaProductos, idProductoDeseado);
                                 //
-                                carta.forEach(System.out::println);
+                                listaProductos.forEach(System.out::println);
                                 System.out.println("ID del producto Deseado: " + idProductoDeseado);
-                                //
                             }
                             case 1 -> {
                                 System.out.println("Ha seleccionado Bebida");
+                                System.out.println("TAMAÑO LISTA BEBIDAS: " + listaBebidas.size());
+                                int idProductoDeseado = UtilidadesUsuario.preguntarIDProductoBebida(listaProductos); // Cuando pongo la lista de solo bebidas no me deja escoger ningun id.
+                                listaProductosSeleccionados = UtilidadesUsuario.añadirAlCarrito(listaProductosSeleccionados, listaProductos, idProductoDeseado);
+                                //
+                                listaProductos.forEach(System.out::println);
+                                System.out.println("ID del producto Deseado: " + idProductoDeseado);
                             }
                             case 2 -> {
                                 System.out.println("Ha seleccionado Postre");
+                                System.out.println("TAMAÑO LISTA POSTRES: " + listaPostres.size());
+                                int idProductoDeseado = UtilidadesUsuario.preguntarIDProductoComida(listaPostres);
+                                listaProductosSeleccionados = UtilidadesUsuario.añadirAlCarrito(listaProductosSeleccionados, listaProductos, idProductoDeseado);
+                                //
+                                listaProductos.forEach(System.out::println);
+                                System.out.println("ID del producto Deseado: " + idProductoDeseado);
                             }
-                            
+
                             case 3 -> {
                                 System.out.println("Ha seleccionado Ver Carrito");
                                 int decisionComprar = UtilidadesUsuario.verCarrito(listaProductosSeleccionados);
@@ -111,21 +127,18 @@ public class TPV {
 
                                 // MENSAJE EN CONSOLA PARA PRUEBAS
                                 System.out.println(listaProductosSeleccionados);
-                                
-                                
+
                                 switch (decisionComprar) {
                                     case 0 -> { // Cuando escoge la opción comprar
                                         
-                                }
-                                    case 1 -> { // Cuando escoge la opción de no comprar
-                                        salirSecundario=true;
-                                        
+
                                     }
-                                
+                                    case 1 -> { // Cuando escoge la opción de no comprar
+                                        salirSecundario = true;
+                                    }
+
                                 }
-                                
-                                
-                                
+
                             }
                             case 4 -> {
                                 System.out.println("Ha SeleccionadoSalir");

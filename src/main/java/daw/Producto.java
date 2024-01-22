@@ -154,7 +154,8 @@ public class Producto {
         sb.append('}');
         return sb.toString();
     }
-    @Override    
+
+    @Override
     public int hashCode() {
         int hash = 5;
         hash = 29 * hash + this.ID;
@@ -168,7 +169,7 @@ public class Producto {
     }
 
     // Equals y HashCode
-    @Override    
+    @Override
     public boolean equals(Object obj) {
         if (this == obj) {
             return true;
@@ -206,14 +207,31 @@ public class Producto {
     public static ArrayList<Producto> listaProductos() {
         ArrayList<Producto> listaProductos = new ArrayList<>();
         //el id lo ponemos segun la posicion del producto para que no pete, mientras buscamos otra manera d llegar al producto
+        // comidas
         Producto p1 = new Producto("Pizza", Categorias.COMIDAS, SubCategorias.PASTAS, 7, 10.0);
         Producto p2 = new Producto("Tacos gratinados", Categorias.COMIDAS, SubCategorias.TACOS, 2, 19.99);
         Producto p3 = new Producto("Entrecot", Categorias.COMIDAS, SubCategorias.CARNES, 7, 1.0);
         Producto p4 = new Producto("Ensalada", Categorias.COMIDAS, SubCategorias.ENSALADAS, 2, 12.50);
+        // bebidas
+        Producto p5 = new Producto("Coca-Cola", Categorias.BEBIDAS, SubCategorias.REFRESCOS, 76, 1.80);
+        Producto p6 = new Producto("RonCola", Categorias.BEBIDAS, SubCategorias.ALCOHOL, 76, 1.80);
+        Producto p7 = new Producto("Ribera", Categorias.BEBIDAS, SubCategorias.VINOS, 76, 1.80);
+        // postres
+        Producto p8 = new Producto("Helado", Categorias.POSTRES, SubCategorias.HELADOS, 20, 3.50);
+        Producto p9 = new Producto("Brownie", Categorias.POSTRES, SubCategorias.TARTAS, 20, 4.50);
+        Producto p10 = new Producto("Tarta aueso", Categorias.POSTRES, SubCategorias.VARIOS, 20, 4.0);
+
+        // añado los elementos a la carta
         listaProductos.add(p1);
         listaProductos.add(p2);
         listaProductos.add(p3);
         listaProductos.add(p4);
+        listaProductos.add(p5);
+        listaProductos.add(p6);
+        listaProductos.add(p7);
+        listaProductos.add(p8);
+        listaProductos.add(p9);
+        listaProductos.add(p10);
 
         return listaProductos;
     }
