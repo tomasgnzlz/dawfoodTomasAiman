@@ -29,7 +29,7 @@ public class Ticket {
         this.id = RandomStringUtils.random(4);
         this.numeroPedido = contador++; // Se increementa cada vez que se crea uno
         this.listaProductosSeleccionados = listaProductosSeleccionados;
-        this.importeTotal =  Math.round(obtenerImporteTotal(listaProductosSeleccionados) * 100.0) / 100.0;
+        this.importeTotal = Math.round(obtenerImporteTotal(listaProductosSeleccionados) * 100.0) / 100.0;
         this.fechaHora = LocalDateTime.now(); // La del sistema cuando se genera el ticket
     }
 
@@ -95,18 +95,24 @@ public class Ticket {
 
         // Solo guardaremos el ID,descripción,precio y el IVA de ese producto
         //sb.append(", listaProductosSeleccionados=").append(listaProductosSeleccionados);
-        Producto pAux = new Producto();
-        for (Producto productosPasados : listaProductosSeleccionados) {
-            pAux.setID(productosPasados.getID()); // CONSTRUCTOR VACIO EN CLASE PRODUCTO
-            pAux.setPrecio(productosPasados.getPrecio()); // ATRIBUTO PRECIO EN CLASE PRODUCTO
-            pAux.setDescripción(productosPasados.getDescripción());
-            pAux.setTipoIva(productosPasados.getTipoIva());
-            sb.append(", ").append(pAux).append("\n");
+//        Producto pAux = new Producto();
+//        for (Producto productosPasados : listaProductosSeleccionados) {
+//            pAux.setID(productosPasados.getID()); // CONSTRUCTOR VACIO EN CLASE PRODUCTO
+//            pAux.setPrecio(productosPasados.getPrecio()); // ATRIBUTO PRECIO EN CLASE PRODUCTO
+//            pAux.setDescripción(productosPasados.getDescripción());
+//            pAux.setTipoIva(productosPasados.getTipoIva());
+//            sb.append(", ").append(pAux).append("\n");
+//        }
+        sb.append("\n");
+        for (Producto p : listaProductosSeleccionados) {
+            sb.append(p.getID()).append(" - ").append(p.getDescripción()).append(" -").append(p.getPrecio());
+            sb.append("\n");
         }
+        sb.append("\n");
 
         sb.append(", importeTotal=").append(importeTotal);
-        sb.append(", fechaHora=").append(fechaHora.getDayOfMonth()+ "/"+fechaHora.getMonthValue()+fechaHora.getYear());
-        sb.append('}');
+        sb.append(", fechaHora=").append(fechaHora.getDayOfMonth()).append("/").append(fechaHora.getMonthValue()).append("/").append(fechaHora.getYear());
+        sb.append("\n").append('}');
         return sb.toString();
     }
 

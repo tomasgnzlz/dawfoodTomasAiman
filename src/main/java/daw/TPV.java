@@ -106,7 +106,8 @@ public class TPV {
                             
                             case 3 -> {
                                 System.out.println("Ha seleccionado Ver Carrito");
-                                int decisionComprar = UtilidadesUsuario.opcionesCarrito(listaProductosSeleccionados);
+                                int decisionComprar = UtilidadesUsuario.verCarrito(listaProductosSeleccionados);
+                                //int decisionComprar = UtilidadesUsuario.opcionesCarrito(listaProductosSeleccionados);
 
                                 // MENSAJE EN CONSOLA PARA PRUEBAS
                                 System.out.println(listaProductosSeleccionados);
@@ -120,6 +121,7 @@ public class TPV {
                                         salirSecundario=true;
                                         
                                     }
+                                
                                 }
                                 
                                 

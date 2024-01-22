@@ -38,7 +38,7 @@ public class UtilidadesUsuario {
         for (Producto producto : lista) {
             elementosLista.append(producto).append("\n");
         }
-        
+
         do {
             try {
                 id = Integer.parseInt(JOptionPane.showInputDialog(null, elementosLista.toString()
@@ -50,19 +50,19 @@ public class UtilidadesUsuario {
                 } else {
                     JOptionPane.showMessageDialog(null, "ID Incorrecto,vuelva a intentarlo");
                 }
-                
+
             } catch (NumberFormatException nfe) {
                 JOptionPane.showMessageDialog(null, "ERROR,Formato incorrecto");
-                
+
             }
         } while (!valido);
-        
+
         return id;
     }
 
     // Métodos de la opvión VerCarrito
     public static ArrayList<Producto> añadirAlCarrito(ArrayList<Producto> listaProductosSeleccionados, ArrayList<Producto> listaProductos, int idAux) {
-        
+
         for (int i = 0; i < listaProductos.size(); i++) {
             if (listaProductos.get(i).getID() == idAux) {
                 listaProductosSeleccionados.add(listaProductos.get(i));
@@ -80,32 +80,35 @@ public class UtilidadesUsuario {
         //PRECIOsTOTALES (CON/SinIVA)
         sb.append("\n");
         for (Producto producto : listaProductosSeleccionados) {
-            sb.append(" ").append(producto.getCategorias());
-            sb.append(", ").append(producto.getDescripción());
-            sb.append(", ").append(Math.round(producto.getPrecio())).append("€\n");
+            //sb.append(" ").append(producto.getCategorias());
+            sb.append("Producto: ").append(producto.getDescripción());
+            sb.append(", Precio: ").append(producto.getPrecio()).append("€ - ")
+                    .append(producto.getPrecio() * producto.getTipoIva().iva).append("€ (IVA) \n");
+
         }
         sb.append("\n");
-        
+
         int opcion = JOptionPane.showOptionDialog(null, sb.toString(), "Decision Compra", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null,// null para icono por defecto.
                 new Object[]{"Comprar", "No Comprar"}, "");
-        
+
         return opcion;
     }
 
-    // Método que termina la compra una vez se selecciona comprar en el carrito
-    public static int opcionesCarrito(ArrayList<Producto> listaProductosSeleccionados) {
-        
-        StringBuilder sb = new StringBuilder();
-        JCheckBox chec = new JCheckBox();
-        Ticket t1 = new Ticket(listaProductosSeleccionados);
-
-        // Categoria , Descripcion, precio
-        //PRECIOsTOTALES (CON/SinIVA)
-        int opcion = JOptionPane.showOptionDialog(null, t1.toString(), "Decision Compra", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null,// null para icono por defecto.
-                new Object[]{"Comprar", "No Comprar"}, "");
-        
-        return opcion;
-        
-    }
-    
+//////////////////    
+//////////////////    // ESTO CUANDO SE DECIDA COMPRAR,COMPRUEBA LA TARJETA Y CUANDO SE TERMINA LA COMPRA ENSEÑA EL TICKET Y LO METE EN UNA NUEVA  LISTA DE TCKETS
+//////////////////    // Método que termina la compra una vez se selecciona comprar en el carrito
+//////////////////    public static int opcionesCarrito(ArrayList<Producto> listaProductosSeleccionados) {
+//////////////////        
+//////////////////        StringBuilder sb = new StringBuilder();
+//////////////////        JCheckBox chec = new JCheckBox();
+//////////////////        Ticket t1 = new Ticket(listaProductosSeleccionados);
+//////////////////
+//////////////////        // Categoria , Descripcion, precio
+//////////////////        //PRECIOsTOTALES (CON/SinIVA)
+//////////////////        int opcion = JOptionPane.showOptionDialog(null, t1.toString(), "Decision Compra", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null,// null para icono por defecto.
+//////////////////                new Object[]{"Comprar", "No Comprar"}, "");
+//////////////////        
+//////////////////        return opcion;
+//////////////////        
+//////////////////    }
 }
