@@ -7,6 +7,7 @@ package daw;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
+import java.util.List;
 import javax.swing.JCheckBox;
 import javax.swing.JOptionPane;
 
@@ -70,6 +71,43 @@ public class UtilidadesUsuario {
             elementosLista.append(producto).append("\n");
         }
         JOptionPane.showMessageDialog(null, elementosLista.toString());
+    }
+
+    // me da error cuando pregunto las bebidas o los postres
+    public static int preguntarIDProductoGeneral(ArrayList<Producto> lista) {
+        StringBuilder elementosLista = new StringBuilder();
+        int id = 999999999;
+        boolean valido = false;
+        for (Producto producto : lista) {
+            elementosLista.append(producto).append("\n");
+        }
+
+        do {
+            try {
+                id = Integer.parseInt(JOptionPane.showInputDialog(null, elementosLista.toString()
+                        + "\nIntroduce el ID del producto:"));
+                // Controlo que el valor que introduzca este en la lista
+
+//                for (Producto producto : lista) {
+//                    if (producto.getID() == id) {
+//                        valido = true;
+//                    } else {
+//                        JOptionPane.showMessageDialog(null, "ID Incorrecto,vuelva a intentarlo");
+//                    }
+//                }
+                // ESTO NO ME FUNCIONA CUANDO MUESTRO LOS PRODUCTOS EN LISTAS DIFERENTES, ME COGE ALGUNOS QUE NO SON O NO COGE LOS QUE DEBERIA
+                if (id >= 1 && id <= lista.size()) {
+                    valido = true;
+                } else {
+                    JOptionPane.showMessageDialog(null, "ID Incorrecto,vuelva a intentarlo");
+                }
+            } catch (NumberFormatException nfe) {
+                JOptionPane.showMessageDialog(null, "ERROR,Formato incorrecto");
+
+            }
+        } while (!valido);
+
+        return id;
     }
 
     // Método que pregunta al usuario el id del elemento que quiere pedir.
@@ -149,6 +187,43 @@ public class UtilidadesUsuario {
         return id;
     }
 
+    public static int preguntarIDProductoPostres(ArrayList<Producto> lista) {
+        StringBuilder elementosLista = new StringBuilder();
+        int id = 999999999;
+        boolean valido = false;
+        for (Producto producto : lista) {
+            if (producto.getCategorias() == Categorias.POSTRES) {
+                elementosLista.append(producto).append("\n");
+            }
+        }
+
+        do {
+            try {
+                id = Integer.parseInt(JOptionPane.showInputDialog(null, elementosLista.toString()
+                        + "\nIntroduce el ID del producto:"));
+                // Controlo que el valor que introduzca este en la lista
+
+//                for (Producto producto : lista) {
+//                    if (producto.getID() == id) {
+//                        valido = true;
+//                    } else {
+//                        JOptionPane.showMessageDialog(null, "ID Incorrecto,vuelva a intentarlo");
+//                    }
+//                }
+                // ESTO NO ME FUNCIONA CUANDO MUESTRO LOS PRODUCTOS EN LISTAS DIFERENTES, ME COGE ALGUNOS QUE NO SON O NO COGE LOS QUE DEBERIA
+                if (id >= 1 && id <= lista.size()) {
+                    valido = true;
+                } else {
+                    JOptionPane.showMessageDialog(null, "ID Incorrecto,vuelva a intentarlo");
+                }
+            } catch (NumberFormatException nfe) {
+                JOptionPane.showMessageDialog(null, "ERROR,Formato incorrecto");
+            }
+        } while (!valido);
+
+        return id;
+    }
+
     // Métodos de la opvión VerCarrito
     public static ArrayList<Producto> añadirAlCarrito(ArrayList<Producto> listaProductosSeleccionados, ArrayList<Producto> listaProductos, int idAux) {
 
@@ -157,6 +232,8 @@ public class UtilidadesUsuario {
                 listaProductosSeleccionados.add(listaProductos.get(i));
             }
         }
+        // Modifico stock
+        modificarStock(listaProductos, idAux);
         return listaProductosSeleccionados;
     }
 
@@ -166,13 +243,13 @@ public class UtilidadesUsuario {
         JCheckBox chec = new JCheckBox();
 
         // Categoria , Descripcion, precio
-        //PRECIOsTOTALES (CON/SinIVA)
+        //PRECIOsTOTALES (CON/SinIVA)sss
+        
+        
         sb.append("\n");
         for (Producto producto : listaProductosSeleccionados) {
-            //sb.append(" ").append(producto.getCategorias());
             sb.append("Producto: ").append(producto.getDescripción());
-            sb.append(", Precio: ").append(producto.getPrecio()).append("€ - ")
-                    .append(producto.getPrecio() * producto.getTipoIva().iva).append("€ (IVA) \n");
+            sb.append(", Precio: ").append(producto.getPrecio()).append("\n");
 
         }
         sb.append("\n");
@@ -183,23 +260,36 @@ public class UtilidadesUsuario {
         return opcion;
     }
 
-//////////////////    
-//////////////////    // ESTO CUANDO SE DECIDA COMPRAR,COMPRUEBA LA TARJETA Y CUANDO SE TERMINA LA COMPRA ENSEÑA EL TICKET Y LO METE EN UNA NUEVA  LISTA DE TCKETS
-//////////////////    // Método que termina la compra una vez se selecciona comprar en el carrito
-//////////////////    public static int opcionesCarrito(ArrayList<Producto> listaProductosSeleccionados) {
-//////////////////        
-//////////////////        StringBuilder sb = new StringBuilder();
-//////////////////        JCheckBox chec = new JCheckBox();
-//////////////////        Ticket t1 = new Ticket(listaProductosSeleccionados);
-//////////////////
-//////////////////        // Categoria , Descripcion, precio
-//////////////////        //PRECIOsTOTALES (CON/SinIVA)
-//////////////////        int opcion = JOptionPane.showOptionDialog(null, t1.toString(), "Decision Compra", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null,// null para icono por defecto.
-//////////////////                new Object[]{"Comprar", "No Comprar"}, "");
-//////////////////        
-//////////////////        return opcion;
-//////////////////        
-//////////////////    }
+    public static void modificarStock(List<Producto> lista, int id) {
+        for (Producto p : lista) {
+            if (p.getID() == id) {
+                System.out.println(p.toString());
+                p.setStock(p.getStock() - 1);
+
+                System.out.println("EL STOCK DE ID: " + id + " HA CAMBIADO" + p.toString());
+            }
+        }
+    }
+
+    /*
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+     */
     //+++++++++++++++++++++++++++++++METODOS_SI_DECIDE_COMPRAR+++++++++++++++++++++++++++++++
     public static Tarjeta mostrarTarjeta() {
         Tarjeta tarjetaCompra = new Tarjeta();
@@ -275,3 +365,60 @@ public class UtilidadesUsuario {
     }
 
 }
+/*
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ */
+//////////////////    
+//////////////////    // ESTO CUANDO SE DECIDA COMPRAR,COMPRUEBA LA TARJETA Y CUANDO SE TERMINA LA COMPRA ENSEÑA EL TICKET Y LO METE EN UNA NUEVA  LISTA DE TCKETS
+//////////////////    // Método que termina la compra una vez se selecciona comprar en el carrito
+//////////////////    public static int opcionesCarrito(ArrayList<Producto> listaProductosSeleccionados) {
+//////////////////        
+//////////////////        StringBuilder sb = new StringBuilder();
+//////////////////        JCheckBox chec = new JCheckBox();
+//////////////////        Ticket t1 = new Ticket(listaProductosSeleccionados);
+//////////////////
+//////////////////        // Categoria , Descripcion, precio
+//////////////////        //PRECIOsTOTALES (CON/SinIVA)
+//////////////////        int opcion = JOptionPane.showOptionDialog(null, t1.toString(), "Decision Compra", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null,// null para icono por defecto.
+//////////////////                new Object[]{"Comprar", "No Comprar"}, "");
+//////////////////        
+//////////////////        return opcion;
+//////////////////        
+//////////////////    }
+

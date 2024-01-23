@@ -84,49 +84,40 @@ public class TPV {
         ArrayList<Producto> listaPostres = UtilidadesUsuario.devolverListaCategoriaPostre(listaProductos);
 
         do {
-            tipoUsuario = seleccionarTipoUsuario();
-
+            tipoUsuario = seleccionarTipoUsuario();ss
             switch (tipoUsuario) {
                 case 0 -> {//TIPO USUARIO
-                    // Se llamarán a los metodos de la clase UtilidadesUsuario
-
                     do {
                         tipoComida = UtilidadesUsuario.opcionesMenu();
                         switch (tipoComida) {
                             case 0 -> {
                                 System.out.println("Ha seleccionado comida\n");
+                                
                                 int idProductoDeseado = UtilidadesUsuario.preguntarIDProductoComida(listaProductos);
                                 listaProductosSeleccionados = UtilidadesUsuario.añadirAlCarrito(listaProductosSeleccionados, listaProductos, idProductoDeseado);
-                                //
-                                listaProductos.forEach(System.out::println);
-                                System.out.println("ID del producto Deseado: " + idProductoDeseado);
+                                
+                                
+                                
                             }
                             case 1 -> {
                                 System.out.println("Ha seleccionado Bebida");
-                                System.out.println("TAMAÑO LISTA BEBIDAS: " + listaBebidas.size());
+                                
+                                
                                 int idProductoDeseado = UtilidadesUsuario.preguntarIDProductoBebida(listaProductos); // Cuando pongo la lista de solo bebidas no me deja escoger ningun id.
                                 listaProductosSeleccionados = UtilidadesUsuario.añadirAlCarrito(listaProductosSeleccionados, listaProductos, idProductoDeseado);
-                                //
-                                listaProductos.forEach(System.out::println);
-                                System.out.println("ID del producto Deseado: " + idProductoDeseado);
+                                
                             }
                             case 2 -> {
                                 System.out.println("Ha seleccionado Postre");
-                                System.out.println("TAMAÑO LISTA POSTRES: " + listaPostres.size());
-                                int idProductoDeseado = UtilidadesUsuario.preguntarIDProductoComida(listaPostres);
+                                int idProductoDeseado = UtilidadesUsuario.preguntarIDProductoPostres(listaProductos);
                                 listaProductosSeleccionados = UtilidadesUsuario.añadirAlCarrito(listaProductosSeleccionados, listaProductos, idProductoDeseado);
-                                //
-                                listaProductos.forEach(System.out::println);
-                                System.out.println("ID del producto Deseado: " + idProductoDeseado);
+
                             }
 
                             case 3 -> {
                                 System.out.println("Ha seleccionado Ver Carrito");
                                 int decisionComprar = UtilidadesUsuario.verCarrito(listaProductosSeleccionados);
-                                //int decisionComprar = UtilidadesUsuario.opcionesCarrito(listaProductosSeleccionados);
-
-                                // MENSAJE EN CONSOLA PARA PRUEBAS
-                                System.out.println(listaProductosSeleccionados);
+                                
 
                                 switch (decisionComprar) {
                                     case 0 -> { // Cuando escoge la opción comprar
