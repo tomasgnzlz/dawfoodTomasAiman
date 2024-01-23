@@ -31,7 +31,7 @@ public class Tarjeta {
         this.CVV = CVV;
         this.saldoTarjeta = saldoTarjeta;
     }
-    
+    //genera una tarjeta automática 
     public static Tarjeta generarTarjeta(String nombre){;
         int numTarjeta = numTarjetaAleatorio();
         int numCVV = numCvvAleatorio();
@@ -39,7 +39,7 @@ public class Tarjeta {
         Tarjeta t1 = new Tarjeta(nombre,numTarjeta,LocalDate.now().plusYears(5),numCVV,Math.round(saldo * 100.0) / 100.0);
         return t1;
     }
-    private static int numTarjetaAleatorio(){
+   private static int numTarjetaAleatorio(){
         int numRandom = 0;
         return numRandom = Integer.parseInt(RandomStringUtils.randomNumeric(4));
     }
@@ -52,7 +52,7 @@ public class Tarjeta {
         return numAleatorio = random.nextDouble(10,100);
     }
     public Tarjeta() {
-    }
+    } 
     
     public String getNombreTitular() {
         return nombreTitular;
