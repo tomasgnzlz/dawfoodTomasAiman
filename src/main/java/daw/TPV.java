@@ -84,7 +84,7 @@ public class TPV {
         ArrayList<Producto> listaPostres = UtilidadesUsuario.devolverListaCategoriaPostre(listaProductos);
 
         do {
-            tipoUsuario = seleccionarTipoUsuario();ss
+            tipoUsuario = seleccionarTipoUsuario();
             switch (tipoUsuario) {
                 case 0 -> {//TIPO USUARIO
                     do {
@@ -94,10 +94,7 @@ public class TPV {
                                 System.out.println("Ha seleccionado comida\n");
                                 
                                 int idProductoDeseado = UtilidadesUsuario.preguntarIDProductoComida(listaProductos);
-                                listaProductosSeleccionados = UtilidadesUsuario.añadirAlCarrito(listaProductosSeleccionados, listaProductos, idProductoDeseado);
-                                
-                                
-                                
+                                listaProductosSeleccionados = UtilidadesUsuario.añadirAlCarrito(listaProductosSeleccionados, listaProductos, idProductoDeseado); 
                             }
                             case 1 -> {
                                 System.out.println("Ha seleccionado Bebida");
@@ -121,15 +118,14 @@ public class TPV {
 
                                 switch (decisionComprar) {
                                     case 0 -> { // Cuando escoge la opción comprar
-                                        
+                                        UtilidadesUsuario.pasarelaDePago(listaProductosSeleccionados);
 
                                     }
                                     case 1 -> { // Cuando escoge la opción de no comprar
+                                        listaProductosSeleccionados.clear();
                                         salirSecundario = true;
                                     }
-
                                 }
-
                             }
                             case 4 -> {
                                 System.out.println("Ha SeleccionadoSalir");
@@ -159,7 +155,7 @@ public class TPV {
            los metodos del usuario o los de administrador  */
         JCheckBox chec = new JCheckBox();
         return JOptionPane.showOptionDialog(null, "+++++ Seleccion el tipo de usuario +++++", "Tipo de Usuarios", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null,// null para icono por defecto.
-                new Object[]{"Modo Usuario", "Modo Administrador", "Salir"}, "");
+                new Object[]{"Modo Usuario", "Modo Administrador", "Apagar TPV"}, "");
 
     }
 

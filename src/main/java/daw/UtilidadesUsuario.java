@@ -86,16 +86,8 @@ public class UtilidadesUsuario {
             try {
                 id = Integer.parseInt(JOptionPane.showInputDialog(null, elementosLista.toString()
                         + "\nIntroduce el ID del producto:"));
-                // Controlo que el valor que introduzca este en la lista
 
-//                for (Producto producto : lista) {
-//                    if (producto.getID() == id) {
-//                        valido = true;
-//                    } else {
-//                        JOptionPane.showMessageDialog(null, "ID Incorrecto,vuelva a intentarlo");
-//                    }
-//                }
-                // ESTO NO ME FUNCIONA CUANDO MUESTRO LOS PRODUCTOS EN LISTAS DIFERENTES, ME COGE ALGUNOS QUE NO SON O NO COGE LOS QUE DEBERIA
+                // Controlo que el valor que introduzca este en la lista
                 if (id >= 1 && id <= lista.size()) {
                     valido = true;
                 } else {
@@ -125,16 +117,8 @@ public class UtilidadesUsuario {
             try {
                 id = Integer.parseInt(JOptionPane.showInputDialog(null, elementosLista.toString()
                         + "\nIntroduce el ID del producto:"));
-                // Controlo que el valor que introduzca este en la lista
 
-//                for (Producto producto : lista) {
-//                    if (producto.getID() == id) {
-//                        valido = true;
-//                    } else {
-//                        JOptionPane.showMessageDialog(null, "ID Incorrecto,vuelva a intentarlo");
-//                    }
-//                }
-                // ESTO NO ME FUNCIONA CUANDO MUESTRO LOS PRODUCTOS EN LISTAS DIFERENTES, ME COGE ALGUNOS QUE NO SON O NO COGE LOS QUE DEBERIA
+                // Controlo que el valor que introduzca este en la lista
                 if (id >= 1 && id <= lista.size()) {
                     valido = true;
                 } else {
@@ -163,16 +147,8 @@ public class UtilidadesUsuario {
             try {
                 id = Integer.parseInt(JOptionPane.showInputDialog(null, elementosLista.toString()
                         + "\nIntroduce el ID del producto:"));
-                // Controlo que el valor que introduzca este en la lista
 
-//                for (Producto producto : lista) {
-//                    if (producto.getID() == id) {
-//                        valido = true;
-//                    } else {
-//                        JOptionPane.showMessageDialog(null, "ID Incorrecto,vuelva a intentarlo");
-//                    }
-//                }
-                // ESTO NO ME FUNCIONA CUANDO MUESTRO LOS PRODUCTOS EN LISTAS DIFERENTES, ME COGE ALGUNOS QUE NO SON O NO COGE LOS QUE DEBERIA
+                // Controlo que el valor que introduzca este en la lista
                 if (id >= 1 && id <= lista.size()) {
                     valido = true;
                 } else {
@@ -244,18 +220,15 @@ public class UtilidadesUsuario {
 
         // Categoria , Descripcion, precio
         //PRECIOsTOTALES (CON/SinIVA)sss
-        
-        
         sb.append("\n");
         for (Producto producto : listaProductosSeleccionados) {
             sb.append("Producto: ").append(producto.getDescripción());
-            sb.append(", Precio: ").append(producto.getPrecio()).append("\n");
-
+            sb.append(", Precio: ").append(producto.getPrecio()).append("€ \n");
         }
         sb.append("\n");
 
         int opcion = JOptionPane.showOptionDialog(null, sb.toString(), "Decision Compra", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null,// null para icono por defecto.
-                new Object[]{"Comprar", "No Comprar"}, "");
+                new Object[]{"Comprar", "No Comprar", "SeguirComprando"}, "");
 
         return opcion;
     }
@@ -291,15 +264,9 @@ public class UtilidadesUsuario {
     
      */
     //+++++++++++++++++++++++++++++++METODOS_SI_DECIDE_COMPRAR+++++++++++++++++++++++++++++++
-    public static Tarjeta mostrarTarjeta() {
-        Tarjeta tarjetaCompra = new Tarjeta();
-        tarjetaCompra.generarTarjeta("Aiman");
-        System.out.println("DatosTarjeta: " + tarjetaCompra);
-        return tarjetaCompra;
-    }
-
     public static void pasarelaDePago(ArrayList<Producto> listaProductosSeleccionados) {
-        Tarjeta tarjeta = mostrarTarjeta();
+        Tarjeta tarjeta = Tarjeta.generarTarjeta("aiman");
+        System.out.println("Datos Tarjeta: " + tarjeta);
         int numerosTarjeta = 0;
         int numCVV = 0;
         LocalDate fechaVencimiento = LocalDate.MAX; // para inicializar la variable
@@ -307,14 +274,14 @@ public class UtilidadesUsuario {
         // PreguntarDatos de la tarjeta al usuario y si son todos los datos correctos pasa una cosa u otra
         // si sale todo bien el metodo devuelve un booleano y sino sale true el proceso se cancela
 
-        String texto = "Introduce los ultimos 4 digitos de tu tarjeta";
-        numerosTarjeta = pedirEntero(texto);
         //
         // IMPORTE TOTAL DEL CARRITO
         double importeTotal = obtenerImporteTotal(listaProductosSeleccionados);
         //
         if (tarjeta.getSaldoTarjeta() >= importeTotal) {
-
+            String texto = "Introduce los ultimos 4 digitos de tu tarjeta";
+            numerosTarjeta = pedirEntero(texto);
+            
             if (tarjeta.getNumeroTarjeta() == numerosTarjeta) { // si los digitos son iguales
 
                 texto = "Introduce el CVV de tu tarjeta";
@@ -334,6 +301,8 @@ public class UtilidadesUsuario {
                 }
 
             }
+        }else{
+            JOptionPane.showMessageDialog(null, "Saldo de tarjeta insuficiente");
         }
 
     }

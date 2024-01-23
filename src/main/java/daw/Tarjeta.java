@@ -45,7 +45,8 @@ public class Tarjeta {
     }
     private static int numCvvAleatorio(){
         int numRandom = 0;
-        return numRandom = Integer.parseInt(RandomStringUtils.randomNumeric(3));
+        //return numRandom = Integer.parseInt(RandomStringUtils.randomNumeric(3));
+       return new Random().nextInt(999);
     }
     private static double saldoCuentaAleatorio(){
         double numAleatorio = 0;
@@ -80,7 +81,7 @@ public class Tarjeta {
         sb.append("Tarjeta{");
         sb.append("nombre del titular=").append(nombreTitular);
         sb.append(", numero de la tarjeta=").append(numeroTarjeta);
-        sb.append(", fecha de vencimiento=").append(fechaVencimiento.getMonthValue()+"/"+fechaVencimiento.getYear());
+        sb.append(", fecha de vencimiento=").append(fechaVencimiento.getMonthValue()+fechaVencimiento.getYear());
         sb.append(", CVV=").append(CVV);
         sb.append(", saldo en la tarjeta=").append(saldoTarjeta);
         sb.append('}');

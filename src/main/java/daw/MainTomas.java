@@ -30,6 +30,9 @@ public class MainTomas {
 //        
 //        System.out.println(seleccion);
 //        
+
+Tarjeta t1 = Tarjeta.generarTarjeta("tomas");
+        System.out.println(t1);
       
        
 
