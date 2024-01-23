@@ -72,9 +72,9 @@ public class MainAiman {
             ArrayList<Producto> p = Producto.listaProductos();
 //            p.add(p1);
             p.add(p4);
-//            int id = Integer.parseInt(JOptionPane.showInputDialog("Introduce el id del producto:"));
-//            UtilidadesAdmin.modificarProducto(p,id);
-            UtilidadesAdmin.añadirProducto(p);
+            int id = Integer.parseInt(JOptionPane.showInputDialog("Introduce el id del producto:"));
+            UtilidadesAdmin.modificarProducto(p,id);
+//            UtilidadesAdmin.añadirProducto(p);
             System.out.println(p);
     }
 }
