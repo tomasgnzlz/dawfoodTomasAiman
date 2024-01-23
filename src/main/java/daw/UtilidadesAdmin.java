@@ -46,6 +46,7 @@ public class UtilidadesAdmin {
        boolean repetir = true;
        String opcionRepetir = "";
        boolean modValido = false;
+       boolean repetirFinal = true;
        final String opcion = """
                              
                        ¿Que dato del producto deseas modificar?
@@ -81,51 +82,35 @@ public class UtilidadesAdmin {
                     switch(modCategorias){
                         case 0: 
                            for(Producto producto : p){
-                           modCategorias=JOptionPane.showOptionDialog(null, "¿Qué categoría desea poner?", "Categorías", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null,// null para icono por defecto.
-                           new Object[]{"Comidas", "Bebidas", "Postres"}, "");
-                           if(producto.getID()==id){
-                              producto.setCategorias(Categorias.COMIDAS);
-                              break;
-                           }
+                                modCategorias=JOptionPane.showOptionDialog(null, "¿Qué categoría desea poner?", "Categorías", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null,// null para icono por defecto.
+                                new Object[]{"Comidas", "Bebidas", "Postres"}, "");
+                                 if(producto.getID()==id){
+                                    producto.setCategorias(Categorias.COMIDAS);
+                                 }
+                                 break;
                                     
                            }
                         break;
                         case 1: 
-                             for(Producto producto : p){
-                              do{
-                               modCategorias=JOptionPane.showOptionDialog(null, "¿Qué categoría desea poner?", "Categorías", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null,// null para icono por defecto.
-                               new Object[]{"Comidas", "Bebidas", "Postres"}, "");
-                                if(producto.getID()==id){
-                                    if((producto.getSubCategorias()==SubCategorias.REFRESCOS)||(producto.getSubCategorias()==SubCategorias.ALCOHOL)||(producto.getSubCategorias()==SubCategorias.VINOS)){
-                                        producto.setCategorias(Categorias.BEBIDAS);
-                                        modValido=true;
-                                        break;
-                                    }else{
-                                        System.out.println("Esa categoría no es válida");
-                                        modValido=false;    
-                                    }  
-                                }
-                                break;
-                              }while(!modValido);
-                           }
+                            for(Producto producto : p){
+                                modCategorias=JOptionPane.showOptionDialog(null, "¿Qué categoría desea poner?", "Categorías", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null,// null para icono por defecto.
+                                new Object[]{"Comidas", "Bebidas", "Postres"}, "");
+                                 if(producto.getID()==id){
+                                    producto.setCategorias(Categorias.COMIDAS);
+                                    
+                                 }
+                                 break;
+                            }
                         break;
                         case 2: 
-                           for(Producto producto : p){
-                              do{
-                               modCategorias=JOptionPane.showOptionDialog(null, "¿Qué categoría desea poner?", "Categorías", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null,// null para icono por defecto.
-                               new Object[]{"Comidas", "Bebidas", "Postres"}, "");
-                                if(producto.getID()==id){
-                                    if((producto.getSubCategorias()==SubCategorias.HELADOS)||(producto.getSubCategorias()==SubCategorias.TARTAS)||(producto.getSubCategorias()==SubCategorias.VARIOS)){
-                                        producto.setCategorias(Categorias.POSTRES);
-                                        modValido=true;
-                                        break;
-                                    }else{
-                                        System.out.println("Esa categoría no es válida");
-                                        modValido=false;    
-                                    }  
-                                }
-                                break;
-                              }while(!modValido);
+                            for(Producto producto : p){
+                                modCategorias=JOptionPane.showOptionDialog(null, "¿Qué categoría desea poner?", "Categorías", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null,// null para icono por defecto.
+                                new Object[]{"Comidas", "Bebidas", "Postres"}, "");
+                                 if(producto.getID()==id){
+                                    producto.setCategorias(Categorias.COMIDAS);
+                                    
+                                 }  
+                                 break;
                            }
                         break;
                     }
@@ -214,12 +199,138 @@ public class UtilidadesAdmin {
                         }
                     }
                 break;
+                case "7":
+                    JOptionPane.showMessageDialog(null, "Has salido de la modificación del producto");
+                    repetir = false;
+                break;
             }
-            opcionRepetir = JOptionPane.showInputDialog("¿Deseas cambiar otro dato del producto?: ");
-            if(!(opcionRepetir.equalsIgnoreCase("si"))){
-                repetir = false;
-            }
+            do{
+                opcionRepetir = JOptionPane.showInputDialog("¿Deseas cambiar otro dato del producto?: ");
+                if((opcionRepetir.equalsIgnoreCase("si"))){
+                    repetir = true;
+                    repetirFinal = false;
+                }else if((opcionRepetir.equalsIgnoreCase("no"))){
+                    repetir = false;
+                    repetirFinal = false;
+                }else if(!(opcionRepetir.equalsIgnoreCase("si"))||!(opcionRepetir.equalsIgnoreCase("no"))){
+                    repetirFinal = true;
+                }
+            }while(repetirFinal);
         }while(repetir);
        return p;
+    }
+    public static void borrarProducto(ArrayList<Producto> p,int id){
+       for(Producto producto : p){
+           if(producto.getID()==id){
+               p.remove(producto);
+               break;
+           }
+       }
+    }
+    public static ArrayList<Producto> añadirProducto(ArrayList<Producto> p){
+        Producto p17 = new Producto();
+        boolean repDesc = true;
+        boolean repStock = true;
+        boolean repPrecio = true;
+        String descripcion = "";
+        int stock = 0;
+        int subCategorias = 0;
+        double precio = 0;
+        do{
+             try{
+                 descripcion = JOptionPane.showInputDialog("Introduce la descripción del producto: ");
+                 p17.setDescripción(descripcion);
+                 repDesc = false;
+             }catch(InputMismatchException ime){
+                 JOptionPane.showMessageDialog(null, "No es un dato válido");
+             }
+        }while(repDesc);
+        int categorias=JOptionPane.showOptionDialog(null, "¿Qué categoría desea poner?", "Categorías", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null,// null para icono por defecto.
+                                new Object[]{"Comidas", "Bebidas", "Postres"}, "");
+        switch(categorias){
+            case 0:  
+               p17.setCategorias(Categorias.COMIDAS);
+                 subCategorias = JOptionPane.showOptionDialog(null, "¿Qué subcategoría  desea poner?", "Subcategorías de comidas", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null,// null para icono por defecto.
+                    new Object[]{"Ensaladas", "Carnes", "Pastas","Tacos"}, "");
+                        switch(subCategorias){
+                            case 0: 
+                                p17.setSubCategorias(SubCategorias.ENSALADAS);
+                            break;
+                            case 1: 
+                                p17.setSubCategorias(SubCategorias.CARNES);
+                            break;
+                            case 2: 
+                                p17.setSubCategorias(SubCategorias.PASTAS);
+                            break;
+                            case 3: 
+                                p17.setSubCategorias(SubCategorias.TACOS);
+                            break;
+                        }
+            break;
+            case 1:    
+               p17.setCategorias(Categorias.BEBIDAS);
+                subCategorias = JOptionPane.showOptionDialog(null, "¿Qué subcategoría desea poner?", "Subcategorías de bebidas", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null,// null para icono por defecto.
+                    new Object[]{"Refrescos", "Vinos", "Alcohol"}, "");
+                        switch(subCategorias){
+                            case 0: 
+                                p17.setSubCategorias(SubCategorias.REFRESCOS);
+                            break;
+                            case 1: 
+                                p17.setSubCategorias(SubCategorias.VINOS);
+                            break;
+                            case 2: 
+                                p17.setSubCategorias(SubCategorias.ALCOHOL);
+                            break;
+                        }
+            break;
+            case 2:
+               p17.setCategorias(Categorias.POSTRES);
+               subCategorias = JOptionPane.showOptionDialog(null, "¿Qué subcategoría desea poner?", "Subcategorias de postres", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null,// null para icono por defecto.
+               new Object[]{"Tartas", "Helados", "Varios"}, ""); 
+               switch(subCategorias){
+                   case 0: 
+                       p17.setSubCategorias(SubCategorias.TARTAS);
+                   break;
+                   case 1:
+                       p17.setSubCategorias(SubCategorias.HELADOS);
+                   break;
+                   case 2: 
+                       p17.setSubCategorias(SubCategorias.VARIOS);
+                   break;
+               }
+            break;
+        }
+        do{
+             try{
+                 stock = Integer.parseInt(JOptionPane.showInputDialog("Introduce la cantidad de stock del producto: "));
+                 p17.setStock(stock);
+                 repStock = false;
+             }catch(InputMismatchException ime){
+                 JOptionPane.showMessageDialog(null, "No es un dato válido");
+             }catch(NumberFormatException nfe){
+                 JOptionPane.showMessageDialog(null, "No has introducido un número entero");
+             }
+        }while(repStock);
+        do{
+             try{
+                 precio = Double.parseDouble(JOptionPane.showInputDialog("Introduce el precio del producto: "));
+                 p17.setPrecio(precio);
+                 repPrecio = false;
+             }catch(NumberFormatException nfe){
+                 JOptionPane.showMessageDialog(null, "No has introducido un número entero");
+             }
+        }while(repPrecio);
+        int iva = JOptionPane.showOptionDialog(null, "¿Qué subcategoría desea poner?", "Subcategorias de postres", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null,// null para icono por defecto.
+               new Object[]{"10%", "20%"}, ""); 
+        switch(iva){
+            case 0: 
+                p17.setTipoIva(IVA.DIEZ);
+            break;
+            case 1: 
+                p17.setTipoIva(IVA.VEINTIUNO);
+            break;
+        }
+        p.add(p17);
+        return p;
     }
 }

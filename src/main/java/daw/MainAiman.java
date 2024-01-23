@@ -53,8 +53,8 @@ public class MainAiman {
 //        int seleccion = JOptionPane.showOptionDialog(null, "Seleccion el tipo de usuario", "Tipo de Usuarios", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null,// null para icono por defecto.
 //                new Object[]{"Modo Usuario", "Modo Administrador"}, "");
 //
-          Producto p1 = new Producto("cocacola", Categorias.BEBIDAS, SubCategorias.PASTAS, 7, 10.0); 
-          System.out.println(p1);
+//          Producto p1 = new Producto("cocacola", Categorias.BEBIDAS, SubCategorias.PASTAS, 7, 10.0); 
+//          System.out.println(p1);
 //        
 //        ArrayList<Producto> productos = p1.mostrarProducto();
 //        int num = Integer.parseInt(JOptionPane.showInputDialog("Elige el producto: "+productos));
@@ -67,11 +67,14 @@ public class MainAiman {
 //          String nombre = "Aiman";
 //          System.out.println(Tarjeta.generarTarjeta(nombre));
 //            System.out.println(p1);
-            ArrayList<Producto> p = Producto.listaProductos();
-            p.add(p1);
-            int id = Integer.parseInt(JOptionPane.showInputDialog("Introduce el id del producto:"));
-            UtilidadesAdmin.modificarProducto(p,id);
-            System.out.println(p);
+            Producto p4 = new Producto("Cocacola sin cafeina",Categorias.COMIDAS,SubCategorias.ALCOHOL,3,20.00);
             
+            ArrayList<Producto> p = Producto.listaProductos();
+//            p.add(p1);
+            p.add(p4);
+//            int id = Integer.parseInt(JOptionPane.showInputDialog("Introduce el id del producto:"));
+//            UtilidadesAdmin.modificarProducto(p,id);
+            UtilidadesAdmin.añadirProducto(p);
+            System.out.println(p);
     }
 }
