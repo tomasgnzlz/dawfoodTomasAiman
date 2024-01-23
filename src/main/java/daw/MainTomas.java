@@ -33,6 +33,17 @@ public class MainTomas {
 
 Tarjeta t1 = Tarjeta.generarTarjeta("tomas");
         System.out.println(t1);
+        /* texto = "Introduce el mes de vencimiento de tu tarjeta";
+                    mes = pedirEnteroRango(texto, 1, 31);
+                    texto = "Introduce el mes de vencimiento de tu tarjeta";
+                    año = pedirEnteroRango(texto, 2023, Integer.MAX_VALUE);
+
+                    LocalDate fecha = LocalDate.of(año, Month.of(mes), 2);
+
+                    if (fecha) // LA COMPRA SE PUEDE REALIZAR
+                    {
+                        tarjeta.setSaldoTarjeta(tarjeta.getSaldoTarjeta() - importeTotal); // actualizo el saldo de la tarjeta
+                    }  */
       
        
 

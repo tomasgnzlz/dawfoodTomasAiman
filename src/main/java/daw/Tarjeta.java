@@ -81,7 +81,10 @@ public class Tarjeta {
         sb.append("Tarjeta{");
         sb.append("nombre del titular=").append(nombreTitular);
         sb.append(", numero de la tarjeta=").append(numeroTarjeta);
-        sb.append(", fecha de vencimiento=").append(fechaVencimiento.getMonthValue()+fechaVencimiento.getYear());
+        sb.append(", fecha de vencimiento=").append(fechaVencimiento.getMonthValue());
+        sb.append("/");
+        sb.append(fechaVencimiento.getYear());
+        
         sb.append(", CVV=").append(CVV);
         sb.append(", saldo en la tarjeta=").append(saldoTarjeta);
         sb.append('}');

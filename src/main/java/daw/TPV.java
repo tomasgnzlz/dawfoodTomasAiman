@@ -82,7 +82,7 @@ public class TPV {
         ArrayList<Producto> listaComidas = UtilidadesUsuario.devolverListaCategoriaComida(listaProductos);
         ArrayList<Producto> listaBebidas = UtilidadesUsuario.devolverListaCategoriaBebida(listaProductos);
         ArrayList<Producto> listaPostres = UtilidadesUsuario.devolverListaCategoriaPostre(listaProductos);
-
+        Tarjeta tarjeta = Tarjeta.generarTarjeta("Aiman/Tomas");
         do {
             tipoUsuario = seleccionarTipoUsuario();
             switch (tipoUsuario) {
@@ -118,7 +118,10 @@ public class TPV {
 
                                 switch (decisionComprar) {
                                     case 0 -> { // Cuando escoge la opción comprar
-                                        UtilidadesUsuario.pasarelaDePago(listaProductosSeleccionados);
+                                        UtilidadesUsuario.pasarelaDePago(listaProductosSeleccionados, tarjeta);
+                                        
+                                        // Una vez se muestre el ticket y se haya realizado la compra
+                                        salirSecundario = true;
 
                                     }
                                     case 1 -> { // Cuando escoge la opción de no comprar

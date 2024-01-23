@@ -5,7 +5,12 @@
 package daw;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.Month;
+import java.time.YearMonth;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.InputMismatchException;
 import java.util.List;
 import javax.swing.JCheckBox;
@@ -219,11 +224,40 @@ public class UtilidadesUsuario {
         JCheckBox chec = new JCheckBox();
 
         // Categoria , Descripcion, precio
-        //PRECIOsTOTALES (CON/SinIVA)sss
+        //PRECIOsTOTALES (CON/SinIVA)
         sb.append("\n");
+//        for (Producto producto : listaProductosSeleccionados) {
+//            sb.append("Producto: ").append(producto.getDescripción());
+//            sb.append(", Precio: ").append(producto.getPrecio()).append("€ \n");
+//        }
+
+//        for (Producto producto : listaProductosSeleccionados) {
+//            int contador = 0;
+//
+//            // Contar cuántas veces aparece el producto en la lista
+//            for (Producto p : listaProductosSeleccionados) {
+//                if (listaProductosSeleccionados.contains(p)) {
+//                    contador++;
+//                }
+//            }
+//
+//            // Evitar mostrar el mismo producto varias veces
+//            if (contador > 0) {
+//                sb.append(contador).append(" -> Producto: ").append(producto.getDescripción());
+//                sb.append(", Precio: ").append(producto.getPrecio()).append("\n");
+//
+//                // Restablecer el contador para evitar duplicados en futuras iteraciones
+//                contador = 0;
+//            }
+//        }
         for (Producto producto : listaProductosSeleccionados) {
-            sb.append("Producto: ").append(producto.getDescripción());
-            sb.append(", Precio: ").append(producto.getPrecio()).append("€ \n");
+            int contador = Collections.frequency(listaProductosSeleccionados, producto);
+
+            // Evitar mostrar el mismo producto varias veces
+            if (contador > 0) {
+                sb.append(contador).append(" -> Producto: ").append(producto.getDescripción());
+                sb.append(", Precio: ").append(producto.getPrecio()).append("\n");
+            }
         }
         sb.append("\n");
 
@@ -244,67 +278,48 @@ public class UtilidadesUsuario {
         }
     }
 
-    /*
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-     */
     //+++++++++++++++++++++++++++++++METODOS_SI_DECIDE_COMPRAR+++++++++++++++++++++++++++++++
-    public static void pasarelaDePago(ArrayList<Producto> listaProductosSeleccionados) {
-        Tarjeta tarjeta = Tarjeta.generarTarjeta("aiman");
+    public static void pasarelaDePago(ArrayList<Producto> listaProductosSeleccionados, Tarjeta tarjeta) {
         System.out.println("Datos Tarjeta: " + tarjeta);
         int numerosTarjeta = 0;
         int numCVV = 0;
-        LocalDate fechaVencimiento = LocalDate.MAX; // para inicializar la variable
+        int mes;
+        int año;
         double saldoTarjeta = 0;
-        // PreguntarDatos de la tarjeta al usuario y si son todos los datos correctos pasa una cosa u otra
-        // si sale todo bien el metodo devuelve un booleano y sino sale true el proceso se cancela
+        Tarjeta fechaVencimiento;
 
-        //
-        // IMPORTE TOTAL DEL CARRITO
-        double importeTotal = obtenerImporteTotal(listaProductosSeleccionados);
-        //
-        if (tarjeta.getSaldoTarjeta() >= importeTotal) {
+        double importeTotalConIVA = obtenerImporteTotal(listaProductosSeleccionados);
+        if (tarjeta.getSaldoTarjeta() >= importeTotalConIVA) {
             String texto = "Introduce los ultimos 4 digitos de tu tarjeta";
             numerosTarjeta = pedirEntero(texto);
-            
+
             if (tarjeta.getNumeroTarjeta() == numerosTarjeta) { // si los digitos son iguales
 
                 texto = "Introduce el CVV de tu tarjeta";
-                numCVV = Integer.parseInt(JOptionPane.showInputDialog(texto));
+                numCVV = pedirEntero(texto);
 
                 if (tarjeta.getCVV() == numCVV) {
 
-                    texto = "Introduce la fecha de nacimiento de tu tarjeta";
-                    fechaVencimiento = LocalDate.parse(texto);
-                    if (fechaVencimiento == tarjeta.getFechaVencimiento()) {
+                    texto = "Introduce el mes de vencimiento de tu tarjeta";
+                    mes = pedirEnteroRango(texto, 1, 31);
+                    System.out.println(mes);
+                    texto = "Introduce el año de vencimiento de tu tarjeta";
+                    año = pedirEnteroRango(texto, 2023, Integer.MAX_VALUE);
+
+                    LocalDate fecha = LocalDate.of(año, Month.of(mes), 2);
+
+                    if (fecha.getMonthValue() == tarjeta.getFechaVencimiento().getMonthValue() && fecha.getYear() == tarjeta.getFechaVencimiento().getYear()) {
                         // LA COMPRA SE PUEDE REALIZAR
-                        tarjeta.setSaldoTarjeta(tarjeta.getSaldoTarjeta() - importeTotal); // actualizo el saldo de la tarjeta
+                        tarjeta.setSaldoTarjeta(tarjeta.getSaldoTarjeta() - importeTotalConIVA); // actualizo el saldo de la tarjeta
+                        Ticket t = new Ticket(listaProductosSeleccionados);
+                        JOptionPane.showMessageDialog(null, t.toString());
+                        System.out.println(t.toString());
                         // GENERO EL TICKET Y CREO UN REGISTRO DE LOS TICKETS QUE SE CREAN;
-
                     }
-
                 }
-
             }
-        }else{
-            JOptionPane.showMessageDialog(null, "Saldo de tarjeta insuficiente");
-        }
 
+        }
     }
 
     public static int pedirEntero(String texto) {
@@ -325,6 +340,27 @@ public class UtilidadesUsuario {
         return numero;
     }
 
+    public static int pedirEnteroRango(String texto, int rangoMinimo, int rangoMaximo) {
+        boolean salir = false;
+        int numero = 0;
+
+        do {
+            try {
+                System.out.println(texto);
+                numero = Integer.parseInt(JOptionPane.showInputDialog(texto));
+                if (numero >= rangoMinimo && numero <= rangoMaximo) {
+                    salir = true;
+                } else {
+                    System.out.println("ERROR: Introduce un entero dentro del rango especificado.");
+                }
+            } catch (NumberFormatException e) {
+                System.out.println("ERROR: Introduce un entero válido.");
+            }
+        } while (!salir);
+
+        return numero;
+    }
+
     public static double obtenerImporteTotal(ArrayList<Producto> lista) {
         double importeTotal = 0;
         for (Producto producto : lista) {
@@ -332,62 +368,5 @@ public class UtilidadesUsuario {
         }
         return importeTotal;
     }
-
 }
-/*
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
- */
-//////////////////    
-//////////////////    // ESTO CUANDO SE DECIDA COMPRAR,COMPRUEBA LA TARJETA Y CUANDO SE TERMINA LA COMPRA ENSEÑA EL TICKET Y LO METE EN UNA NUEVA  LISTA DE TCKETS
-//////////////////    // Método que termina la compra una vez se selecciona comprar en el carrito
-//////////////////    public static int opcionesCarrito(ArrayList<Producto> listaProductosSeleccionados) {
-//////////////////        
-//////////////////        StringBuilder sb = new StringBuilder();
-//////////////////        JCheckBox chec = new JCheckBox();
-//////////////////        Ticket t1 = new Ticket(listaProductosSeleccionados);
-//////////////////
-//////////////////        // Categoria , Descripcion, precio
-//////////////////        //PRECIOsTOTALES (CON/SinIVA)
-//////////////////        int opcion = JOptionPane.showOptionDialog(null, t1.toString(), "Decision Compra", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null,// null para icono por defecto.
-//////////////////                new Object[]{"Comprar", "No Comprar"}, "");
-//////////////////        
-//////////////////        return opcion;
-//////////////////        
-//////////////////    }
 
