@@ -7,6 +7,7 @@ package daw;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Objects;
+import java.util.Random;
 
 /**
  *
@@ -17,8 +18,8 @@ public class Producto {
     // Declaración de atributos;
     private int ID;
     private String descripcion;
-    private Categorias categorias;      // enum
-    private SubCategorias subCategoria;// enum
+    private Categorias categorias;
+    private SubCategorias subCategoria;
     private IVA tipoIva;
     private double precio;
     private int stock;
@@ -30,7 +31,7 @@ public class Producto {
     public Producto() {
     }
 
-    public Producto(/*int ID,*/String descripción, Categorias categorias, SubCategorias subCategorias, int stock, Double precio) {
+    public Producto(String descripción, Categorias categorias, SubCategorias subCategorias, int stock, Double precio) {
 
         this.ID = contador++;
         this.descripcion = descripción;
@@ -38,25 +39,26 @@ public class Producto {
 
         // Controlo que si la categoria es comida solo se puedan acceder a los
         // a las subcategorias de las comidas y no de las bebidas o postres.
-        if (categorias == Categorias.COMIDAS && (subCategorias == SubCategorias.ENSALADAS || subCategorias == SubCategorias.CARNES || subCategorias == SubCategorias.PASTAS || subCategorias == SubCategorias.TACOS)) {
+        if (categorias == Categorias.COMIDAS
+                && (subCategorias == SubCategorias.ENSALADAS
+                || subCategorias == SubCategorias.CARNES
+                || subCategorias == SubCategorias.PASTAS
+                || subCategorias == SubCategorias.TACOS)) {
             this.subCategoria = subCategorias;
-        } else {
-            //this.subCategoria = null;
-            //throw new IllegalArgumentException("Subcategoría no válida para BEBIDAS");
         }
 
-        if (categorias == categorias.BEBIDAS && (subCategorias == SubCategorias.ALCOHOL || subCategorias == SubCategorias.VINOS || subCategorias == SubCategorias.REFRESCOS)) {
+        if (categorias == categorias.BEBIDAS
+                && (subCategorias == SubCategorias.ALCOHOL
+                || subCategorias == SubCategorias.VINOS
+                || subCategorias == SubCategorias.REFRESCOS)) {
             this.subCategoria = subCategorias;
-        } else {
-            //this.subCategoria = null;
-            //throw new IllegalArgumentException("Subcategoría no válida para BEBIDAS");
         }
 
-        if (categorias == categorias.POSTRES && (subCategorias == SubCategorias.HELADOS || subCategorias == SubCategorias.TARTAS || subCategorias == SubCategorias.VARIOS)) {
+        if (categorias == categorias.POSTRES
+                && (subCategorias == SubCategorias.HELADOS
+                || subCategorias == SubCategorias.TARTAS
+                || subCategorias == SubCategorias.VARIOS)) {
             this.subCategoria = subCategorias;
-        } else {
-            //this.subCategoria = null;
-            //throw new IllegalArgumentException("Subcategoría no válida para POSTRES");
         }
 
         // El iva se asigna automaticamente
@@ -65,7 +67,9 @@ public class Producto {
         } else {
             this.tipoIva = IVA.DIEZ;
         }
-
+        Random rd = new Random();
+        int stockk = rd.nextInt(1, 51);
+        //CAMBIAR A EL STOCK AUTOMATICO
         // Controlo que el Stock no sea negativo
         if (stock >= 1 && stock < 1000) {
             this.stock = stock;
@@ -203,25 +207,24 @@ public class Producto {
     }
 
     // ****************************** MÉTODOS ****************************** 
-    //metodo para mostrar producto , los productos se crean desde aqui?
+    // Método que devuelve la lista de productos
     public static ArrayList<Producto> listaProductos() {
         ArrayList<Producto> listaProductos = new ArrayList<>();
-        //el id lo ponemos segun la posicion del producto para que no pete, mientras buscamos otra manera d llegar al producto
-        // comidas
+        // Comidas
         Producto p1 = new Producto("Pizza", Categorias.COMIDAS, SubCategorias.PASTAS, 7, 10.0);
         Producto p2 = new Producto("Tacos gratinados", Categorias.COMIDAS, SubCategorias.TACOS, 2, 19.99);
         Producto p3 = new Producto("Entrecot", Categorias.COMIDAS, SubCategorias.CARNES, 7, 1.0);
         Producto p4 = new Producto("Ensalada", Categorias.COMIDAS, SubCategorias.ENSALADAS, 2, 12.50);
-        // bebidas
+        // Bebidas
         Producto p5 = new Producto("Coca-Cola", Categorias.BEBIDAS, SubCategorias.REFRESCOS, 76, 1.80);
         Producto p6 = new Producto("RonCola", Categorias.BEBIDAS, SubCategorias.ALCOHOL, 76, 1.80);
         Producto p7 = new Producto("Ribera", Categorias.BEBIDAS, SubCategorias.VINOS, 76, 1.80);
-        // postres
+        // Postres
         Producto p8 = new Producto("Helado", Categorias.POSTRES, SubCategorias.HELADOS, 20, 3.50);
         Producto p9 = new Producto("Brownie", Categorias.POSTRES, SubCategorias.TARTAS, 20, 4.50);
         Producto p10 = new Producto("Tarta aueso", Categorias.POSTRES, SubCategorias.VARIOS, 20, 4.0);
 
-        // añado los elementos a la carta
+        // Añado los elementos a la carta
         listaProductos.add(p1);
         listaProductos.add(p2);
         listaProductos.add(p3);
@@ -235,20 +238,4 @@ public class Producto {
 
         return listaProductos;
     }
-////    public ArrayList<Producto> añadirProductoCarrito(ArrayList<Producto> productos, int num) {
-////        ArrayList<Producto> carrito = new ArrayList<>();
-////        try {
-////            carrito.add(productos.get(num));
-////        } catch (IndexOutOfBoundsException iofbe) {
-////            System.out.println("Ya has pedido ese producto");
-////        }
-////        return carrito;
-////
-////        //funciona
-////        //falta hacer que si se añade un producto anteriormente añadido que salte la excepcion y se pregunte de nuevo 
-////    }
-////    //* comentarios para explicar entre nosotros para luego borrar *
-////    //he pensado que mostrando el arrayList de productos y que el cliente elija n producto
-////    //se intercambie la posicion que el cliente elija introduciendo el id del producto, y desde 
-////    // ese id llegas a la posicion del producto y se iguala y se añade ese producto , al arrayList carrito
 }

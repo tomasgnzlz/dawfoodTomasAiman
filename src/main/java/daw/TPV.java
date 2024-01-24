@@ -21,6 +21,7 @@ public class TPV {
     private UUID id;  //??
     private String ubicacion;
     private LocalDateTime fechaHora;
+    private ArrayList<Ticket> listaTicketsVentas;
 
     // Constructor con parametros.
     public TPV(UUID id, String ubicacion, LocalDateTime fechaHora) {
@@ -58,6 +59,15 @@ public class TPV {
         this.fechaHora = fechaHora;
     }
 
+    // Productos
+    public ArrayList<Ticket> getListaTicketsVentas() {
+        return listaTicketsVentas;
+    }
+
+    public void setListaTicketsVentas(ArrayList<Ticket> listaTicketsVentas) {
+        this.listaTicketsVentas = listaTicketsVentas;
+    }
+
     //toString
     @Override
     public String toString() {
@@ -70,7 +80,7 @@ public class TPV {
         return sb.toString();
     }
 
-    public static void encenderTPV() {
+    public void encenderTPV() {
         int tipoUsuario = 9999;
         int tipoComida = 9999;
         boolean salirPrimario = false;
@@ -82,9 +92,9 @@ public class TPV {
 //        ArrayList<Producto> listaBebidas = UtilidadesUsuario.devolverListasPorCategoria(listaProductos, Categorias.BEBIDAS);
 //        ArrayList<Producto> listaPostres = UtilidadesUsuario.devolverListasPorCategoria(listaProductos, Categorias.POSTRES);
 
-        ArrayList<Producto> listaComidas = UtilidadesUsuario.devolverListaCategoriaComida(listaProductos);
-        ArrayList<Producto> listaBebidas = UtilidadesUsuario.devolverListaCategoriaBebida(listaProductos);
-        ArrayList<Producto> listaPostres = UtilidadesUsuario.devolverListaCategoriaPostre(listaProductos);
+//        ArrayList<Producto> listaComidas = UtilidadesUsuario.devolverListaCategoriaComida(listaProductos);
+//        ArrayList<Producto> listaBebidas = UtilidadesUsuario.devolverListaCategoriaBebida(listaProductos);
+//        ArrayList<Producto> listaPostres = UtilidadesUsuario.devolverListaCategoriaPostre(listaProductos);
         Tarjeta tarjeta = Tarjeta.generarTarjeta("Aiman/Tomas");
         do {
             tipoUsuario = seleccionarTipoUsuario();
@@ -119,11 +129,18 @@ public class TPV {
 
                                 switch (decisionComprar) {
                                     case 0 -> { // Cuando escoge la opción comprar
-                                        UtilidadesUsuario.pasarelaDePago(listaProductosSeleccionados, tarjeta);
-
+                                        // NO ELIMINAR LINEA DE ABAJO
+                                        //UtilidadesUsuario.pasarelaDePago(listaProductosSeleccionados, tarjeta);
+                                        boolean verificado = UtilidadesUsuario.pasarelaDePago2(listaProductosSeleccionados, tarjeta);
+                                        if (verificado) {
+                                            Ticket t = new Ticket(listaProductosSeleccionados);
+                                            JOptionPane.showMessageDialog(null, t.toString());
+                                            listaTicketsVentas.add(t);
+                                        } else {
+                                            JOptionPane.showMessageDialog(null, "Proceso de compra fallido, vuelva a seleccionar comprar si es necesario");
+                                        }
                                         // Una vez se muestre el ticket y se haya realizado la compra
                                         salirSecundario = true;
-
                                     }
                                     case 1 -> { // Cuando escoge la opción de no comprar
                                         listaProductosSeleccionados.clear();
@@ -182,9 +199,9 @@ public class TPV {
                                 UtilidadesAdmin.borrarProducto(listaProductos, id);
                                 System.out.println(p);
                                 salirSecundario = true;
-                                
+
                             }
-                            case 3 ->{
+                            case 3 -> {
                                 int id = 0;
                                 do {
                                     try {
@@ -197,14 +214,14 @@ public class TPV {
                                     }
                                 } while (!idvalido);
                                 UtilidadesAdmin.modificarProducto(listaProductos, id);
-                                for(Producto producto : listaProductos){
-                                    if(producto.getID()==id){
+                                for (Producto producto : listaProductos) {
+                                    if (producto.getID() == id) {
                                         System.out.println(producto);
                                     }
                                 }
                                 salirSecundario = true;
                             }
-                            case 4 ->{
+                            case 4 -> {
                                 System.out.println("Has salido a la selección de usuario");
                                 salirSecundario = true;
                             }

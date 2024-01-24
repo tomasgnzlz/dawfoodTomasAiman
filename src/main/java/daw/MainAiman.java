@@ -76,6 +76,8 @@ public class MainAiman {
 //            UtilidadesAdmin.modificarProducto(p,id);
 ////            UtilidadesAdmin.añadirProducto(p);
 //            System.out.println(p);
-              TPV.encenderTPV();
+
+//LO COMENNTO PORQUE ME DABA ERROR AIMAN PERDONA
+              //TPV.encenderTPV();
     }
 }

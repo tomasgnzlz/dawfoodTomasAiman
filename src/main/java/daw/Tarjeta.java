@@ -16,12 +16,12 @@ import org.apache.commons.lang3.RandomStringUtils;
  * @author aiman
  */
 public class Tarjeta {
+
     private String nombreTitular;
     private int numeroTarjeta;
     private LocalDate fechaVencimiento;
     private int CVV;
     private double saldoTarjeta;
-    
     private static Random random = new Random();
 
     public Tarjeta(String nombreTitular, int numeroTarjeta, LocalDate fechaVencimiento, int CVV, double saldoTarjeta) {
@@ -31,30 +31,35 @@ public class Tarjeta {
         this.CVV = CVV;
         this.saldoTarjeta = saldoTarjeta;
     }
+
     //genera una tarjeta automática 
-    public static Tarjeta generarTarjeta(String nombre){;
+    public static Tarjeta generarTarjeta(String nombre) {;
         int numTarjeta = numTarjetaAleatorio();
         int numCVV = numCvvAleatorio();
         double saldo = saldoCuentaAleatorio();
-        Tarjeta t1 = new Tarjeta(nombre,numTarjeta,LocalDate.now().plusYears(5),numCVV,Math.round(saldo * 100.0) / 100.0);
+        Tarjeta t1 = new Tarjeta(nombre, numTarjeta, LocalDate.now().plusYears(5), numCVV, Math.round(saldo * 100.0) / 100.0);
         return t1;
     }
-   private static int numTarjetaAleatorio(){
+
+    private static int numTarjetaAleatorio() {
         int numRandom = 0;
         return numRandom = Integer.parseInt(RandomStringUtils.randomNumeric(4));
     }
-    private static int numCvvAleatorio(){
+
+    private static int numCvvAleatorio() {
         int numRandom = 0;
         //return numRandom = Integer.parseInt(RandomStringUtils.randomNumeric(3));
-       return new Random().nextInt(999);
+        return new Random().nextInt(999);
     }
-    private static double saldoCuentaAleatorio(){
+
+    private static double saldoCuentaAleatorio() {
         double numAleatorio = 0;
-        return numAleatorio = random.nextDouble(10,100);
+        return numAleatorio = random.nextDouble(10, 100);
     }
+
     public Tarjeta() {
-    } 
-    
+    }
+
     public String getNombreTitular() {
         return nombreTitular;
     }
@@ -74,7 +79,7 @@ public class Tarjeta {
     public double getSaldoTarjeta() {
         return saldoTarjeta;
     }
-    
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
@@ -84,7 +89,7 @@ public class Tarjeta {
         sb.append(", fecha de vencimiento=").append(fechaVencimiento.getMonthValue());
         sb.append("/");
         sb.append(fechaVencimiento.getYear());
-        
+
         sb.append(", CVV=").append(CVV);
         sb.append(", saldo en la tarjeta=").append(saldoTarjeta);
         sb.append('}');
@@ -110,6 +115,5 @@ public class Tarjeta {
     public void setSaldoTarjeta(double saldoTarjeta) {
         this.saldoTarjeta = saldoTarjeta;
     }
-    
-    
+
 }

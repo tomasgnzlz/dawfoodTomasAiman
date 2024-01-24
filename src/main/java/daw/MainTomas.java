@@ -5,6 +5,7 @@
 package daw;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import javax.swing.JCheckBox;
 import javax.swing.JOptionPane;
 
@@ -44,9 +45,34 @@ Tarjeta t1 = Tarjeta.generarTarjeta("tomas");
                     {
                         tarjeta.setSaldoTarjeta(tarjeta.getSaldoTarjeta() - importeTotal); // actualizo el saldo de la tarjeta
                     }  */
+        
+        ArrayList<Producto> lista = Producto.listaProductos();
+        
+        ArrayList<Producto> listaDeseada = new ArrayList<>();
+        listaDeseada.add(lista.get(1));
+        listaDeseada.add(lista.get(2));
+        listaDeseada.add(lista.get(1));
+        listaDeseada.add(lista.get(4));
+        listaDeseada.add(lista.get(6));
+        listaDeseada.add(lista.get(4));
+        listaDeseada.add(lista.get(4));
+        
+        
+       
+        
+        System.out.println("Lista de productos Deseados: \n");
+        for (Producto producto : listaDeseada) {
+            System.out.println(producto);
+        }
+        Ticket tAux = new Ticket(listaDeseada);
+        System.out.println(tAux.toString());
+        
+        
       
        
 
     }
 
 }
+
+
