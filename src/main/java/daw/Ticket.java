@@ -90,26 +90,26 @@ public class Ticket {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
+
         ArrayList<String> listaProductos = obtenerProductosUnicosConContador();
 
-        sb.append("\n\n\n\n");
-        sb.append("***********************************_DAWFOOD TOMAS Y AIMAN_*********************************************\n");
-        sb.append("Ticket{ \n");
-        sb.append("IDTicket=").append(id);
-        sb.append("  numeroPedido=").append(numeroPedido);
-        sb.append("  Fecha=").append(fechaHora.getDayOfMonth()).append("/").append(fechaHora.getMonthValue()).append("/").append(fechaHora.getYear());
-        sb.append("  Hora=").append(fechaHora.getHour()).append(":").append(fechaHora.getMinute());
+        sb.append("\n*********************************** DAWFOOD TOMAS Y AIMAN ***********************************\n");
+        sb.append("Ticket {\n");
+        sb.append("  IDTicket=").append(id);
+        sb.append("  Numero de Pedido=").append(numeroPedido);
+        sb.append("  Fecha=").append(fechaHora.toLocalDate());
+        sb.append("  Hora=").append(fechaHora.toLocalTime());
         sb.append("\n");
 
         for (String productoConContador : listaProductos) {
-            sb.append(productoConContador).append("\n");
+            sb.append("  ").append(productoConContador).append("\n");
         }
 
         sb.append("\n");
-        sb.append(", importeTotal=").append(importeTotal).append("€");
-        sb.append("\n");
-        sb.append("}\n");
+        sb.append("  Importe total=").append(importeTotal).append("€");
+        sb.append("\n}\n");
         sb.append("********************************************************************************");
+
         return sb.toString();
     }
 

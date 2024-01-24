@@ -300,8 +300,8 @@ public class UtilidadesUsuario {
         }
         sb.append("\n");
 
-        int opcion = JOptionPane.showOptionDialog(null, sb.toString(), "Decision Compra", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null,// null para icono por defecto.
-                new Object[]{"Comprar", "No Comprar", "SeguirComprando"}, "");
+        int opcion = JOptionPane.showOptionDialog(null, sb.toString(), "Decisión Compra", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null,// null para icono por defecto.
+                new Object[]{"Comprar", "No Comprar", "Seguir comprando"}, "");
 
         return opcion;
     }

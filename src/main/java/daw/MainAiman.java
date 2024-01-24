@@ -78,6 +78,7 @@ public class MainAiman {
 //            System.out.println(p);
 
 //LO COMENNTO PORQUE ME DABA ERROR AIMAN PERDONA
-              //TPV.encenderTPV();
+              TPV tpv = new TPV();
+              tpv.encenderTPV();
     }
 }

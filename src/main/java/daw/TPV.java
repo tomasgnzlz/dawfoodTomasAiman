@@ -149,7 +149,7 @@ public class TPV {
                                 }
                             }
                             case 4 -> {
-                                System.out.println("Ha SeleccionadoSalir");
+                                System.out.println("Ha Seleccionado Salir");
                                 // Como se decide cancelar la compra,se elimina está lista
                                 listaProductosSeleccionados.clear();
                                 salirSecundario = true;
@@ -175,12 +175,29 @@ public class TPV {
                                 System.out.println("Introduce la contraseña de nuevo");
                             }
                         } while (pass);
-                        int opcionAdmin = JOptionPane.showOptionDialog(null, "Opciones de administrador", "Categorías", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null,
+                        int opcionAdmin = JOptionPane.showOptionDialog(null, "Opciones de administrador", "Administrador", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null,
                                 new Object[]{"Consultar ventas", "Añadir producto", "Borrar Producto", "Modificar producto", "Salir",}, "");
                         switch (opcionAdmin) {
                             case 0 -> {
-                                int opcionVentas = JOptionPane.showOptionDialog(null, "¿Qué categoría desea poner?", "Categorías", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null,
+                                int opcionVentas = JOptionPane.showOptionDialog(null, "¿Que consulta de la venta quieres realizar?", "Ventas", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null,
                                         new Object[]{"Consultar ventas por día", "Consultar ventas por fecha", "Consultar el total de ventas"}, "");
+                                switch(opcionVentas){
+                                    case 0 -> {
+                                        int dia = Integer.parseInt(JOptionPane.showInputDialog("Introduce el dia que desea consultar: "));
+                                        int mes = Integer.parseInt(JOptionPane.showInputDialog("Introduce el mes correspondiente: "));
+                                        int a = Integer.parseInt(JOptionPane.showInputDialog("Introduce el mes correspondiente: "));
+                                        UtilidadesAdmin.consultarVentasPorDia(LocalDate.of(a, mes, dia)  , listaTicketsVentas);
+                                    }
+                                    case 1 -> {
+                                        int dia = Integer.parseInt(JOptionPane.showInputDialog("Introduce el dia que desea consultar: "));
+                                        int mes = Integer.parseInt(JOptionPane.showInputDialog("Introduce el mes correspondiente: "));
+                                        int a = Integer.parseInt(JOptionPane.showInputDialog("Introduce el mes correspondiente: "));
+                                        UtilidadesAdmin.consultarVentasPorFecha(LocalDate.of(a, mes, dia)  , listaTicketsVentas);
+                                    }
+                                    case 2 -> {
+                                        UtilidadesAdmin.consultarTodasLasVentas(listaTicketsVentas);
+                                    }
+                                }
                             }
                             case 1 ->
                                 UtilidadesAdmin.añadirProducto(listaProductos);
