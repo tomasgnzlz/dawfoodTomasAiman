@@ -4,8 +4,10 @@
  */
 package daw;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.InputMismatchException;
 import java.util.UUID;
 import javax.swing.JCheckBox;
 import javax.swing.JOptionPane;
@@ -73,6 +75,7 @@ public class TPV {
         int tipoComida = 9999;
         boolean salirPrimario = false;
         boolean salirSecundario = false;
+        boolean idvalido = false;
         ArrayList<Producto> listaProductos = Producto.listaProductos(); // La lista de todos los productos que hay
         ArrayList<Producto> listaProductosSeleccionados = new ArrayList<>(); // La lista de los productos que se seleccionan(los que van al ticket)
 //        ArrayList<Producto> listaComidas = UtilidadesUsuario.devolverListasPorCategoria(listaProductos, Categorias.COMIDAS);
@@ -92,17 +95,16 @@ public class TPV {
                         switch (tipoComida) {
                             case 0 -> {
                                 System.out.println("Ha seleccionado comida\n");
-                                
+
                                 int idProductoDeseado = UtilidadesUsuario.preguntarIDProductoComida(listaProductos);
-                                listaProductosSeleccionados = UtilidadesUsuario.añadirAlCarrito(listaProductosSeleccionados, listaProductos, idProductoDeseado); 
+                                listaProductosSeleccionados = UtilidadesUsuario.añadirAlCarrito(listaProductosSeleccionados, listaProductos, idProductoDeseado);
                             }
                             case 1 -> {
                                 System.out.println("Ha seleccionado Bebida");
-                                
-                                
+
                                 int idProductoDeseado = UtilidadesUsuario.preguntarIDProductoBebida(listaProductos); // Cuando pongo la lista de solo bebidas no me deja escoger ningun id.
                                 listaProductosSeleccionados = UtilidadesUsuario.añadirAlCarrito(listaProductosSeleccionados, listaProductos, idProductoDeseado);
-                                
+
                             }
                             case 2 -> {
                                 System.out.println("Ha seleccionado Postre");
@@ -114,12 +116,11 @@ public class TPV {
                             case 3 -> {
                                 System.out.println("Ha seleccionado Ver Carrito");
                                 int decisionComprar = UtilidadesUsuario.verCarrito(listaProductosSeleccionados);
-                                
 
                                 switch (decisionComprar) {
                                     case 0 -> { // Cuando escoge la opción comprar
                                         UtilidadesUsuario.pasarelaDePago(listaProductosSeleccionados, tarjeta);
-                                        
+
                                         // Una vez se muestre el ticket y se haya realizado la compra
                                         salirSecundario = true;
 
@@ -142,7 +143,73 @@ public class TPV {
 
                 }
                 case 1 -> { //TIPO ADMINISTRADOR
-                    // Se llamarán a los metodos de la clase UtilidadesAdministrador
+                    // Se llamarán a los metodos de la clase UtilidadesAdministradorç
+                    do {
+                        String inputPass = "";
+                        boolean pass = true;
+                        String passw = Contraseñas.generarContraseña();
+                        System.out.println(passw);
+                        ArrayList<Producto> p = Producto.listaProductos();
+                        do {
+                            inputPass = JOptionPane.showInputDialog("Introduce la contraseña de administrador: ");
+                            if (passw.equals(inputPass)) {
+                                pass = false;
+                            } else {
+                                System.out.println("Introduce la contraseña de nuevo");
+                            }
+                        } while (pass);
+                        int opcionAdmin = JOptionPane.showOptionDialog(null, "Opciones de administrador", "Categorías", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null,
+                                new Object[]{"Consultar ventas", "Añadir producto", "Borrar Producto", "Modificar producto", "Salir",}, "");
+                        switch (opcionAdmin) {
+                            case 0 -> {
+                                int opcionVentas = JOptionPane.showOptionDialog(null, "¿Qué categoría desea poner?", "Categorías", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null,
+                                        new Object[]{"Consultar ventas por día", "Consultar ventas por fecha", "Consultar el total de ventas"}, "");
+                            }
+                            case 1 ->
+                                UtilidadesAdmin.añadirProducto(listaProductos);
+                            case 2 -> {
+                                int id = 0;
+                                do {
+                                    try {
+                                        id = Integer.parseInt(JOptionPane.showInputDialog("Introduce el ID del producto que desea borrar"));
+                                        idvalido = true;
+                                    } catch (NullPointerException npe) {
+                                        System.out.println("Debes introducir el ID del producto");
+                                    } catch (NumberFormatException nfe) {
+                                        System.out.println("Introduce un número en el ID");
+                                    }
+                                } while (!idvalido);
+                                UtilidadesAdmin.borrarProducto(listaProductos, id);
+                                System.out.println(p);
+                                salirSecundario = true;
+                                
+                            }
+                            case 3 ->{
+                                int id = 0;
+                                do {
+                                    try {
+                                        id = Integer.parseInt(JOptionPane.showInputDialog("Introduce el ID del producto que desea borrar"));
+                                        idvalido = true;
+                                    } catch (NullPointerException npe) {
+                                        System.out.println("Debes introducir el ID del producto");
+                                    } catch (NumberFormatException nfe) {
+                                        System.out.println("Introduce un número en el ID");
+                                    }
+                                } while (!idvalido);
+                                UtilidadesAdmin.modificarProducto(listaProductos, id);
+                                for(Producto producto : listaProductos){
+                                    if(producto.getID()==id){
+                                        System.out.println(producto);
+                                    }
+                                }
+                                salirSecundario = true;
+                            }
+                            case 4 ->{
+                                System.out.println("Has salido a la selección de usuario");
+                                salirSecundario = true;
+                            }
+                        }
+                    } while (!salirSecundario);
                 }
             }
             if (tipoUsuario == 2) {

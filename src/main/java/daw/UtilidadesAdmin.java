@@ -21,7 +21,7 @@ public class UtilidadesAdmin {
     //   ● en un día concreto,
     //   ● hasta una fecha concreta, y
     //   ● todas las ventas que haya registradas.
-    public void consultarVentasPorDia(LocalDate dia, ArrayList<Ticket> lista) {
+    public static void consultarVentasPorDia(LocalDate dia, ArrayList<Ticket> lista) {
         for (Ticket ticket : lista) {
             if (ticket.getFechaHora().getDayOfMonth() == dia.getDayOfMonth()) {
                 System.out.println(ticket);
@@ -29,7 +29,7 @@ public class UtilidadesAdmin {
         }
     }
 
-    public void consultarVentasPorFecha(LocalDate fecha, ArrayList<Ticket> lista) {
+    public static void consultarVentasPorFecha(LocalDate fecha, ArrayList<Ticket> lista) {
         for (Ticket ticket : lista) {
             if (ticket.getFechaHora().isBefore(ChronoLocalDateTime.from(fecha))) { //PROBAR
                 System.out.println(ticket);
@@ -37,7 +37,7 @@ public class UtilidadesAdmin {
         }
     }
 
-    public void consultarTodasLasVentas(ArrayList<Ticket> lista) {
+    public static void consultarTodasLasVentas(ArrayList<Ticket> lista) {
         lista.forEach(System.out::println);
     }
 
@@ -78,7 +78,7 @@ public class UtilidadesAdmin {
                         }
                     }
 
-                    break;
+                break;
                 case "2":
                     int modCategorias = 0;
                     for (Producto producto : p) {

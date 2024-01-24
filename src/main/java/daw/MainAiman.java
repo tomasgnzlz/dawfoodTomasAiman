@@ -67,14 +67,15 @@ public class MainAiman {
 //          String nombre = "Aiman";
 //          System.out.println(Tarjeta.generarTarjeta(nombre));
 //            System.out.println(p1);
-            Producto p4 = new Producto("Cocacola sin cafeina",Categorias.COMIDAS,SubCategorias.ALCOHOL,3,20.00);
-            
-            ArrayList<Producto> p = Producto.listaProductos();
-//            p.add(p1);
-            p.add(p4);
-            int id = Integer.parseInt(JOptionPane.showInputDialog("Introduce el id del producto:"));
-            UtilidadesAdmin.modificarProducto(p,id);
-//            UtilidadesAdmin.añadirProducto(p);
-            System.out.println(p);
+//            Producto p4 = new Producto("Cocacola sin cafeina",Categorias.COMIDAS,SubCategorias.ALCOHOL,3,20.00);
+//            
+//            ArrayList<Producto> p = Producto.listaProductos();
+////            p.add(p1);
+//            p.add(p4);
+//            int id = Integer.parseInt(JOptionPane.showInputDialog("Introduce el id del producto:"));
+//            UtilidadesAdmin.modificarProducto(p,id);
+////            UtilidadesAdmin.añadirProducto(p);
+//            System.out.println(p);
+              TPV.encenderTPV();
     }
 }
