@@ -187,20 +187,25 @@ public class TPV {
                                         int mes = Integer.parseInt(JOptionPane.showInputDialog("Introduce el mes correspondiente: "));
                                         int a = Integer.parseInt(JOptionPane.showInputDialog("Introduce el mes correspondiente: "));
                                         UtilidadesAdmin.consultarVentasPorDia(LocalDate.of(a, mes, dia)  , listaTicketsVentas);
+                                        salirSecundario = true;
                                     }
                                     case 1 -> {
                                         int dia = Integer.parseInt(JOptionPane.showInputDialog("Introduce el dia que desea consultar: "));
                                         int mes = Integer.parseInt(JOptionPane.showInputDialog("Introduce el mes correspondiente: "));
                                         int a = Integer.parseInt(JOptionPane.showInputDialog("Introduce el mes correspondiente: "));
                                         UtilidadesAdmin.consultarVentasPorFecha(LocalDate.of(a, mes, dia)  , listaTicketsVentas);
+                                        salirSecundario = true;
                                     }
                                     case 2 -> {
                                         UtilidadesAdmin.consultarTodasLasVentas(listaTicketsVentas);
+                                        salirSecundario = true;
                                     }
                                 }
                             }
-                            case 1 ->
+                            case 1 ->{
                                 UtilidadesAdmin.añadirProducto(listaProductos);
+                                salirSecundario = true;
+                            }
                             case 2 -> {
                                 int id = 0;
                                 do {
