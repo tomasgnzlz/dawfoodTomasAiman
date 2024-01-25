@@ -27,6 +27,13 @@ public class UtilidadesUsuario {
         return JOptionPane.showOptionDialog(null, "+++++ ¿QUÉ DESEA? +++++", "Menú", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null,// null para icono por defecto.
                 new Object[]{"Comidas", "Bebidas", "Postres", "Ver Carrito", "VolverAtras"}, "");
     }
+    
+    public static int opcionesSubCategoriasComida() {
+        return JOptionPane.showOptionDialog(null, "Elije SubCategoria de comida", "SubCategorias Comida", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null,// null para icono por defecto.
+                new Object[]{"Ensaladas", "Carnes", "Pastas", "Tacos", "VolverAtras"}, "");
+    }
+    //ENSALADAS,CARNES,PASTAS,TACOS,
+    
 
     // Carta de Productos
     public static void mostrarListas(ArrayList<Producto> lista) {
@@ -37,73 +44,8 @@ public class UtilidadesUsuario {
         JOptionPane.showMessageDialog(null, elementosLista.toString());
     }
 
-    // me da error cuando pregunto las bebidas o los postres
-    public static int preguntarIDProductoGeneral(ArrayList<Producto> lista) {
-        StringBuilder elementosLista = new StringBuilder();
-        int id = 999999999;
-        boolean valido = false;
-        for (Producto producto : lista) {
-            elementosLista.append(producto).append("\n");
-        }
+    
 
-        do {
-            try {
-                id = Integer.parseInt(JOptionPane.showInputDialog(null, elementosLista.toString()
-                        + "\nIntroduce el ID del producto:"));
-
-                // Controlo que el valor que introduzca este en la lista
-                if (id >= 1 && id <= lista.size()) {
-                    valido = true;
-                } else {
-                    JOptionPane.showMessageDialog(null, "ID Incorrecto,vuelva a intentarlo");
-                }
-
-            } catch (NumberFormatException nfe) {
-                JOptionPane.showMessageDialog(null, "ERROR,Formato incorrecto");
-
-            }
-        } while (!valido);
-
-        return id;
-    }
-
-    public static int preguntarIDProductoGeneral2(ArrayList<Producto> lista) {
-        StringBuilder elementosLista = new StringBuilder();
-        int id = 999999999;
-        boolean valido = false;
-
-        // Mostrar productos disponibles y su stock
-        for (Producto producto : lista) {
-            elementosLista.append(producto.getID()).append(". ").append(producto.getDescripción())
-                    .append(" - Stock: ").append(producto.getStock()).append("\n");
-        }
-
-        do {
-            try {
-                id = Integer.parseInt(JOptionPane.showInputDialog(null, elementosLista.toString()
-                        + "\nIntroduce el ID del producto:"));
-
-                // Controlo que el valor que introduzca esté en la lista y tenga stock disponible
-                if (id >= 1 && id <= lista.size()) {
-                    Producto productoSeleccionado = lista.get(id - 1);
-
-                    if (productoSeleccionado.getStock() > 0) {
-                        valido = true;
-                    } else { // FUNCIONAFUNCIONAFUNCIONAFUNCIONAFUNCIONA
-                        JOptionPane.showMessageDialog(null, "Producto seleccionado sin stock. Por favor, elige otro.");
-                    }
-
-                } else {
-                    JOptionPane.showMessageDialog(null, "ID Incorrecto, vuelva a intentarlo");
-                }
-
-            } catch (NumberFormatException nfe) {
-                JOptionPane.showMessageDialog(null, "ERROR, Formato incorrecto");
-            }
-        } while (!valido);
-
-        return id;
-    }
 
     // Método que pregunta al usuario el id del elemento que quiere pedir.
     public static int preguntarIDProductoComida(ArrayList<Producto> lista) {
@@ -115,46 +57,13 @@ public class UtilidadesUsuario {
                 elementosLista.append(producto).append("\n");
             }
         }
+        int opcionSubCategoria = opcionesSubCategoriasComida();
+        switch (opcionSubCategoria) {
+            case 0 -> {
+            }
+            default -> throw new AssertionError();
+        }
 
-//        do {
-//            try {
-//                id = Integer.parseInt(JOptionPane.showInputDialog(null, elementosLista.toString()
-//                        + "\nIntroduce el ID del producto:"));
-//
-//                // Controlo que el valor que introduzca este en la lista
-//                if (id >= 1 && id <= lista.size()) {
-//                    //valido = true;
-//                } else {
-//                    JOptionPane.showMessageDialog(null, "ID Incorrecto,vuelva a intentarlo");
-//                }
-//            } catch (NumberFormatException nfe) {
-//                JOptionPane.showMessageDialog(null, "ERROR,Formato incorrecto");
-//
-//            }
-//        } while (!valido);
-//        do {
-//            try {
-//                id = Integer.parseInt(JOptionPane.showInputDialog(null, elementosLista.toString()
-//                        + "\nIntroduce el ID del producto:"));
-//
-//                // Controlo que el valor que introduzca esté en la lista y tenga stock disponible
-//                if (id >= 1 && id <= lista.size()) {
-//                    Producto productoSeleccionado = lista.get(id - 1);
-//
-//                    if (productoSeleccionado.getStock() > 0) {s
-//                        valido = true;
-//                    } else {
-//                        JOptionPane.showMessageDialog(null, "Producto seleccionado sin stock. Por favor, elige otro.");
-//                    }
-//
-//                } else {
-//                    JOptionPane.showMessageDialog(null, "ID Incorrecto, vuelva a intentarlo");
-//                }
-//
-//            } catch (NumberFormatException nfe) {
-//                JOptionPane.showMessageDialog(null, "ERROR, Formato incorrecto");
-//            }
-//        } while (!valido);
         id = preguntarIDGeneral(lista, elementosLista);
 
         return id;
@@ -169,30 +78,6 @@ public class UtilidadesUsuario {
                 elementosLista.append(producto).append("\n");
             }
         }
-
-//        do {
-//            try {
-//                id = Integer.parseInt(JOptionPane.showInputDialog(null, elementosLista.toString()
-//                        + "\nIntroduce el ID del producto:"));
-//
-//                // Controlo que el valor que introduzca esté en la lista y tenga stock disponible
-//                if (id >= 1 && id <= lista.size()) {
-//                    Producto productoSeleccionado = lista.get(id - 1);
-//
-//                    if (productoSeleccionado.getStock() > 0) {
-//                        valido = true;
-//                    } else {
-//                        JOptionPane.showMessageDialog(null, "Producto seleccionado sin stock. Por favor, elige otro.");
-//                    }
-//
-//                } else {
-//                    JOptionPane.showMessageDialog(null, "ID Incorrecto, vuelva a intentarlo");
-//                }
-//
-//            } catch (NumberFormatException nfe) {
-//                JOptionPane.showMessageDialog(null, "ERROR, Formato incorrecto");
-//            }
-//        } while (!valido);
         id = preguntarIDGeneral(lista, elementosLista);
 
         return id;
@@ -208,29 +93,6 @@ public class UtilidadesUsuario {
             }
         }
 
-//        do {
-//            try {
-//                id = Integer.parseInt(JOptionPane.showInputDialog(null, elementosLista.toString()
-//                        + "\nIntroduce el ID del producto:"));
-//
-//                // Controlo que el valor que introduzca esté en la lista y tenga stock disponible
-//                if (id >= 1 && id <= lista.size()) {
-//                    Producto productoSeleccionado = lista.get(id - 1);
-//
-//                    if (productoSeleccionado.getStock() > 0) {
-//                        valido = true;
-//                    } else {
-//                        JOptionPane.showMessageDialog(null, "Producto seleccionado sin stock. Por favor, elige otro.");
-//                    }
-//
-//                } else {
-//                    JOptionPane.showMessageDialog(null, "ID Incorrecto, vuelva a intentarlo");
-//                }
-//
-//            } catch (NumberFormatException nfe) {
-//                JOptionPane.showMessageDialog(null, "ERROR, Formato incorrecto");
-//            }
-//        } while (!valido);
         id = preguntarIDGeneral(lista, elementosLista);
 
         return id;
@@ -340,14 +202,12 @@ public class UtilidadesUsuario {
             }
         }
     }
-    
-    
 
     /*
         +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
         +++++++++++++++++++++++++++++++METODOS_SI_DECIDE_COMPRAR+++++++++++++++++++++++++++++++
         +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-    */
+     */
 //////    // NO MODIFICAR NO MODIFICAR NO MODIFICAR NO MODIFICAR NO MODIFICAR
 //////    public static void pasarelaDePago(ArrayList<Producto> listaProductosSeleccionados, Tarjeta tarjeta) {
 //////        System.out.println("Datos Tarjeta: " + tarjeta);
