@@ -340,15 +340,14 @@ public class UtilidadesUsuario {
             }
         }
     }
+    
+    
 
     /*
-    
         +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
         +++++++++++++++++++++++++++++++METODOS_SI_DECIDE_COMPRAR+++++++++++++++++++++++++++++++
         +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-    
-    
-     */
+    */
 //////    // NO MODIFICAR NO MODIFICAR NO MODIFICAR NO MODIFICAR NO MODIFICAR
 //////    public static void pasarelaDePago(ArrayList<Producto> listaProductosSeleccionados, Tarjeta tarjeta) {
 //////        System.out.println("Datos Tarjeta: " + tarjeta);
@@ -400,7 +399,6 @@ public class UtilidadesUsuario {
 //////            JOptionPane.showMessageDialog(null, "No tiene saldo suficiente para comprar");
 //////        }
 //////    }
-
     public static boolean pasarelaDePago2(ArrayList<Producto> listaProductosSeleccionados, Tarjeta tarjeta) {
         System.out.println("Datos Tarjeta: " + tarjeta);
         boolean verificado = false;
@@ -433,7 +431,7 @@ public class UtilidadesUsuario {
                         // LA COMPRA SE PUEDE REALIZAR
                         tarjeta.setSaldoTarjeta(tarjeta.getSaldoTarjeta() - importeTotalConIVA); // actualizo el saldo de la tarjeta
                         Ticket t = new Ticket(listaProductosSeleccionados);
-                        JOptionPane.showMessageDialog(null, t.toString());
+                        //JOptionPane.showMessageDialog(null, t.toString());
                         System.out.println(t.toString());
                         // como todo está correcto devuelvo true;
                         verificado = true;
@@ -463,20 +461,6 @@ public class UtilidadesUsuario {
         return t;
     }
 
-    /*
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-     */
     public static int pedirEntero(String texto) {
         boolean salir = false;
         int numero = 0;

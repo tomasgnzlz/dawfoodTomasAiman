@@ -82,6 +82,7 @@ public class TPV {
     public void encenderTPV() {
         int tipoUsuario = 9999;
         int tipoComida = 9999;
+        // reseteo los valores de estas
         boolean salirPrimario = false;
         boolean salirSecundario = false;
         boolean idvalido = false;
@@ -90,6 +91,9 @@ public class TPV {
 
 //        Tarjeta tarjeta = Tarjeta.generarTarjeta("Aiman/Tomas");
         do {
+            salirPrimario = false;
+            salirSecundario = false;
+            idvalido = false;
             tipoUsuario = seleccionarTipoUsuario();
             switch (tipoUsuario) {
                 case 0 -> {//TIPO USUARIO
