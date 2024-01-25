@@ -77,8 +77,11 @@ public class MainAiman {
 ////            UtilidadesAdmin.añadirProducto(p);
 //            System.out.println(p);
 
-//LO COMENNTO PORQUE ME DABA ERROR AIMAN PERDONA
-              TPV tpv = new TPV();
-              tpv.encenderTPV();
+////LO COMENNTO PORQUE ME DABA ERROR AIMAN PERDONA
+//              TPV tpv = new TPV();
+//              tpv.encenderTPV();
+
+        Tarjeta tarjeta = Tarjeta.generarTarjeta("Aiman/Tomas");
+        System.out.println(tarjeta);
     }
 }

@@ -42,14 +42,13 @@ public class Tarjeta {
     }
 
     private static int numTarjetaAleatorio() {
-        int numRandom = 0;
-        return numRandom = Integer.parseInt(RandomStringUtils.randomNumeric(4));
+        return new Random().nextInt(0000,10000);
     }
 
     private static int numCvvAleatorio() {
         int numRandom = 0;
         //return numRandom = Integer.parseInt(RandomStringUtils.randomNumeric(3));
-        return new Random().nextInt(999);
+        return new Random().nextInt(1000);
     }
 
     private static double saldoCuentaAleatorio() {

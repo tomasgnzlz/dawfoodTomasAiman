@@ -21,7 +21,49 @@ public class UtilidadesAdmin {
     //   ● en un día concreto,
     //   ● hasta una fecha concreta, y
     //   ● todas las ventas que haya registradas.
-    public static void consultarVentasPorDia(LocalDate dia, ArrayList<Ticket> lista) {
+    public static void consultarVentasPorDia(ArrayList<Ticket> lista) {
+        int inputDia = 0; 
+        int inputMes = 0;
+        int inputAnio = 0;
+         do{
+             try{
+                 inputDia = Integer.parseInt(JOptionPane.showInputDialog("Introduce el dia que desea consultar: "));
+             }catch(NumberFormatException nfe){
+                 System.out.println("Introduce un número: ");
+             }catch(NullPointerException npe){
+                 System.out.println("Debes introducir un número");
+             }
+         }while(inputDia>0||inputDia<31);
+         do{
+             try{
+                 inputMes = Integer.parseInt(JOptionPane.showInputDialog("Introduce el mes que desea consultar: "));
+             }catch(NumberFormatException nfe){
+                 System.out.println("Introduce un número: ");
+             }catch(NullPointerException npe){
+                 System.out.println("Debes introducir un número");
+             }
+         }while(inputMes>0||inputMes<13);
+         do{
+             try{
+                 inputMes = Integer.parseInt(JOptionPane.showInputDialog("Introduce el dia que desea consultar: "));
+             }catch(NumberFormatException nfe){
+                 System.out.println("Introduce un mes válido: ");
+             }catch(NullPointerException npe){
+                 System.out.println("Debes introducir un número");
+             }
+         }while(inputMes>0||inputMes<31);
+         do{
+             try{
+                 inputAnio = Integer.parseInt(JOptionPane.showInputDialog("Introduce el dia que desea consultar: "));
+             }catch(NumberFormatException nfe){
+                 System.out.println("Introduce un año válido: ");
+             }catch(NullPointerException npe){
+                 System.out.println("Debes introducir un número");
+             }
+         }while(inputAnio>=2024);
+         int mes = Integer.parseInt(JOptionPane.showInputDialog("Introduce el mes correspondiente: "));
+         int a = Integer.parseInt(JOptionPane.showInputDialog("Introduce el mes correspondiente: "));
+         LocalDate dia = LocalDate.of(a, mes, inputDia);
         for (Ticket ticket : lista) {
             if (ticket.getFechaHora().getDayOfMonth() == dia.getDayOfMonth()) {
                 System.out.println(ticket);
