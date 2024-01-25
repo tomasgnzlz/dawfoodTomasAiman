@@ -22,48 +22,6 @@ import javax.swing.JOptionPane;
  */
 public class UtilidadesUsuario {
 
-    
-
-    public static ArrayList<Producto> devolverListasPorCategoria(ArrayList<Producto> lista, Categorias categoria) {
-        ArrayList<Producto> l1 = new ArrayList<>();
-        for (Producto producto : lista) {
-            if (producto.getCategorias() == categoria) {
-                l1.add(producto);
-            }
-        }
-        return l1;
-    }
-
-    public static ArrayList<Producto> devolverListaCategoriaComida(ArrayList<Producto> lista) {
-        ArrayList<Producto> l1 = new ArrayList<>();
-        for (Producto producto : lista) {
-            if (producto.getCategorias() == Categorias.COMIDAS) {
-                l1.add(producto);
-            }
-        }
-        return l1;
-    }
-
-    public static ArrayList<Producto> devolverListaCategoriaBebida(ArrayList<Producto> lista) {
-        ArrayList<Producto> l1 = new ArrayList<>();
-        for (Producto producto : lista) {
-            if (producto.getCategorias() == Categorias.BEBIDAS) {
-                l1.add(producto);
-            }
-        }
-        return l1;
-    }
-
-    public static ArrayList<Producto> devolverListaCategoriaPostre(ArrayList<Producto> lista) {
-        ArrayList<Producto> l1 = new ArrayList<>();
-        for (Producto producto : lista) {
-            if (producto.getCategorias() == Categorias.POSTRES) {
-                l1.add(producto);
-            }
-        }
-        return l1;
-    }
-
     // Método que muestra las diferentes opciones del menú
     public static int opcionesMenu() {
         return JOptionPane.showOptionDialog(null, "+++++ ¿QUÉ DESEA? +++++", "Menú", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null,// null para icono por defecto.
@@ -131,9 +89,10 @@ public class UtilidadesUsuario {
 
                     if (productoSeleccionado.getStock() > 0) {
                         valido = true;
-                    } else {
+                    } else { // FUNCIONAFUNCIONAFUNCIONAFUNCIONAFUNCIONA
                         JOptionPane.showMessageDialog(null, "Producto seleccionado sin stock. Por favor, elige otro.");
                     }
+
                 } else {
                     JOptionPane.showMessageDialog(null, "ID Incorrecto, vuelva a intentarlo");
                 }
@@ -157,22 +116,46 @@ public class UtilidadesUsuario {
             }
         }
 
-        do {
-            try {
-                id = Integer.parseInt(JOptionPane.showInputDialog(null, elementosLista.toString()
-                        + "\nIntroduce el ID del producto:"));
-
-                // Controlo que el valor que introduzca este en la lista
-                if (id >= 1 && id <= lista.size()) {
-                    valido = true;
-                } else {
-                    JOptionPane.showMessageDialog(null, "ID Incorrecto,vuelva a intentarlo");
-                }
-            } catch (NumberFormatException nfe) {
-                JOptionPane.showMessageDialog(null, "ERROR,Formato incorrecto");
-
-            }
-        } while (!valido);
+//        do {
+//            try {
+//                id = Integer.parseInt(JOptionPane.showInputDialog(null, elementosLista.toString()
+//                        + "\nIntroduce el ID del producto:"));
+//
+//                // Controlo que el valor que introduzca este en la lista
+//                if (id >= 1 && id <= lista.size()) {
+//                    //valido = true;
+//                } else {
+//                    JOptionPane.showMessageDialog(null, "ID Incorrecto,vuelva a intentarlo");
+//                }
+//            } catch (NumberFormatException nfe) {
+//                JOptionPane.showMessageDialog(null, "ERROR,Formato incorrecto");
+//
+//            }
+//        } while (!valido);
+//        do {
+//            try {
+//                id = Integer.parseInt(JOptionPane.showInputDialog(null, elementosLista.toString()
+//                        + "\nIntroduce el ID del producto:"));
+//
+//                // Controlo que el valor que introduzca esté en la lista y tenga stock disponible
+//                if (id >= 1 && id <= lista.size()) {
+//                    Producto productoSeleccionado = lista.get(id - 1);
+//
+//                    if (productoSeleccionado.getStock() > 0) {s
+//                        valido = true;
+//                    } else {
+//                        JOptionPane.showMessageDialog(null, "Producto seleccionado sin stock. Por favor, elige otro.");
+//                    }
+//
+//                } else {
+//                    JOptionPane.showMessageDialog(null, "ID Incorrecto, vuelva a intentarlo");
+//                }
+//
+//            } catch (NumberFormatException nfe) {
+//                JOptionPane.showMessageDialog(null, "ERROR, Formato incorrecto");
+//            }
+//        } while (!valido);
+        id = preguntarIDGeneral(lista, elementosLista);
 
         return id;
     }
@@ -187,22 +170,30 @@ public class UtilidadesUsuario {
             }
         }
 
-        do {
-            try {
-                id = Integer.parseInt(JOptionPane.showInputDialog(null, elementosLista.toString()
-                        + "\nIntroduce el ID del producto:"));
-
-                // Controlo que el valor que introduzca este en la lista
-                if (id >= 1 && id <= lista.size()) {
-                    valido = true;
-                } else {
-                    JOptionPane.showMessageDialog(null, "ID Incorrecto,vuelva a intentarlo");
-                }
-            } catch (NumberFormatException nfe) {
-                JOptionPane.showMessageDialog(null, "ERROR,Formato incorrecto");
-
-            }
-        } while (!valido);
+//        do {
+//            try {
+//                id = Integer.parseInt(JOptionPane.showInputDialog(null, elementosLista.toString()
+//                        + "\nIntroduce el ID del producto:"));
+//
+//                // Controlo que el valor que introduzca esté en la lista y tenga stock disponible
+//                if (id >= 1 && id <= lista.size()) {
+//                    Producto productoSeleccionado = lista.get(id - 1);
+//
+//                    if (productoSeleccionado.getStock() > 0) {
+//                        valido = true;
+//                    } else {
+//                        JOptionPane.showMessageDialog(null, "Producto seleccionado sin stock. Por favor, elige otro.");
+//                    }
+//
+//                } else {
+//                    JOptionPane.showMessageDialog(null, "ID Incorrecto, vuelva a intentarlo");
+//                }
+//
+//            } catch (NumberFormatException nfe) {
+//                JOptionPane.showMessageDialog(null, "ERROR, Formato incorrecto");
+//            }
+//        } while (!valido);
+        id = preguntarIDGeneral(lista, elementosLista);
 
         return id;
     }
@@ -217,31 +208,64 @@ public class UtilidadesUsuario {
             }
         }
 
+//        do {
+//            try {
+//                id = Integer.parseInt(JOptionPane.showInputDialog(null, elementosLista.toString()
+//                        + "\nIntroduce el ID del producto:"));
+//
+//                // Controlo que el valor que introduzca esté en la lista y tenga stock disponible
+//                if (id >= 1 && id <= lista.size()) {
+//                    Producto productoSeleccionado = lista.get(id - 1);
+//
+//                    if (productoSeleccionado.getStock() > 0) {
+//                        valido = true;
+//                    } else {
+//                        JOptionPane.showMessageDialog(null, "Producto seleccionado sin stock. Por favor, elige otro.");
+//                    }
+//
+//                } else {
+//                    JOptionPane.showMessageDialog(null, "ID Incorrecto, vuelva a intentarlo");
+//                }
+//
+//            } catch (NumberFormatException nfe) {
+//                JOptionPane.showMessageDialog(null, "ERROR, Formato incorrecto");
+//            }
+//        } while (!valido);
+        id = preguntarIDGeneral(lista, elementosLista);
+
+        return id;
+    }
+
+    public static int preguntarIDGeneral(ArrayList<Producto> lista, StringBuilder elementosLista) {
+        //StringBuilder elementosLista = new StringBuilder();
+        int id = 999999999;
+        boolean valido = false;
         do {
             try {
                 id = Integer.parseInt(JOptionPane.showInputDialog(null, elementosLista.toString()
                         + "\nIntroduce el ID del producto:"));
-                // Controlo que el valor que introduzca este en la lista
 
-//                for (Producto producto : lista) {
-//                    if (producto.getID() == id) {
-//                        valido = true;
-//                    } else {
-//                        JOptionPane.showMessageDialog(null, "ID Incorrecto,vuelva a intentarlo");
-//                    }
-//                }
-                // ESTO NO ME FUNCIONA CUANDO MUESTRO LOS PRODUCTOS EN LISTAS DIFERENTES, ME COGE ALGUNOS QUE NO SON O NO COGE LOS QUE DEBERIA
+                // Controlo que el valor que introduzca esté en la lista y tenga stock disponible
                 if (id >= 1 && id <= lista.size()) {
-                    valido = true;
+                    Producto productoSeleccionado = lista.get(id - 1);
+
+                    if (productoSeleccionado.getStock() > 0) {
+                        valido = true;
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Producto seleccionado sin stock. Por favor, elige otro.");
+                    }
+
                 } else {
-                    JOptionPane.showMessageDialog(null, "ID Incorrecto,vuelva a intentarlo");
+                    JOptionPane.showMessageDialog(null, "ID Incorrecto, vuelva a intentarlo");
                 }
+
             } catch (NumberFormatException nfe) {
-                JOptionPane.showMessageDialog(null, "ERROR,Formato incorrecto");
+                JOptionPane.showMessageDialog(null, "ERROR, Formato incorrecto");
             }
         } while (!valido);
 
         return id;
+
     }
 
     // Métodos de la opvión VerCarrito
@@ -325,59 +349,58 @@ public class UtilidadesUsuario {
     
     
      */
-    // NO MODIFICAR NO MODIFICAR NO MODIFICAR NO MODIFICAR NO MODIFICAR
-    public static void pasarelaDePago(ArrayList<Producto> listaProductosSeleccionados, Tarjeta tarjeta) {
-        System.out.println("Datos Tarjeta: " + tarjeta);
-        int numerosTarjeta = 0;
-        int numCVV = 0;
-        int mes;
-        int año;
-        double saldoTarjeta = 0;
-        Tarjeta fechaVencimiento;
+//////    // NO MODIFICAR NO MODIFICAR NO MODIFICAR NO MODIFICAR NO MODIFICAR
+//////    public static void pasarelaDePago(ArrayList<Producto> listaProductosSeleccionados, Tarjeta tarjeta) {
+//////        System.out.println("Datos Tarjeta: " + tarjeta);
+//////        int numerosTarjeta = 0;
+//////        int numCVV = 0;
+//////        int mes;
+//////        int año;
+//////        double saldoTarjeta = 0;
+//////        Tarjeta fechaVencimiento;
+//////
+//////        double importeTotalConIVA = obtenerImporteTotal(listaProductosSeleccionados);
+//////        if (tarjeta.getSaldoTarjeta() >= importeTotalConIVA) {
+//////            String texto = "Introduce los ultimos 4 digitos de tu tarjeta";
+//////            numerosTarjeta = pedirEntero(texto);
+//////
+//////            if (tarjeta.getNumeroTarjeta() == numerosTarjeta) { // Si los digitos son iguales
+//////                texto = "Introduce el CVV de tu tarjeta";
+//////                numCVV = pedirEntero(texto);
+//////
+//////                if (tarjeta.getCVV() == numCVV) {
+//////                    texto = "Introduce el mes de vencimiento de tu tarjeta";
+//////                    mes = pedirEnteroRango(texto, 1, 31);
+//////                    System.out.println(mes);
+//////
+//////                    texto = "Introduce el año de vencimiento de tu tarjeta";
+//////                    año = pedirEnteroRango(texto, 2023, Integer.MAX_VALUE);
+//////                    LocalDate fecha = LocalDate.of(año, Month.of(mes), 2);
+//////
+//////                    if (fecha.getMonthValue() == tarjeta.getFechaVencimiento().getMonthValue() && fecha.getYear() == tarjeta.getFechaVencimiento().getYear()) {
+//////                        // LA COMPRA SE PUEDE REALIZAR
+//////                        tarjeta.setSaldoTarjeta(tarjeta.getSaldoTarjeta() - importeTotalConIVA); // actualizo el saldo de la tarjeta
+//////                        Ticket t = new Ticket(listaProductosSeleccionados);
+////////                        JOptionPane.showMessageDialog(null, t.toString());
+//////                        System.out.println(t.toString());
+//////
+//////                        // GENERO EL TICKET Y CREO UN REGISTRO DE LOS TICKETS QUE SE CREAN;
+//////                    } else {
+//////                        JOptionPane.showMessageDialog(null, "Fecha de caducidad incorrecta,repita el proceso");
+//////                    }
+//////                } else {
+//////                    JOptionPane.showMessageDialog(null, "CVV tarjeta incorrectos,repita el proceso");
+//////                }
+//////
+//////            } else {
+//////                JOptionPane.showMessageDialog(null, "Digitos de tarjeta incorrectos,repita el proceso");
+//////            }
+//////
+//////        } else {
+//////            JOptionPane.showMessageDialog(null, "No tiene saldo suficiente para comprar");
+//////        }
+//////    }
 
-        double importeTotalConIVA = obtenerImporteTotal(listaProductosSeleccionados);
-        if (tarjeta.getSaldoTarjeta() >= importeTotalConIVA) {
-            String texto = "Introduce los ultimos 4 digitos de tu tarjeta";
-            numerosTarjeta = pedirEntero(texto);
-
-            if (tarjeta.getNumeroTarjeta() == numerosTarjeta) { // Si los digitos son iguales
-                texto = "Introduce el CVV de tu tarjeta";
-                numCVV = pedirEntero(texto);
-
-                if (tarjeta.getCVV() == numCVV) {
-                    texto = "Introduce el mes de vencimiento de tu tarjeta";
-                    mes = pedirEnteroRango(texto, 1, 31);
-                    System.out.println(mes);
-
-                    texto = "Introduce el año de vencimiento de tu tarjeta";
-                    año = pedirEnteroRango(texto, 2023, Integer.MAX_VALUE);
-                    LocalDate fecha = LocalDate.of(año, Month.of(mes), 2);
-
-                    if (fecha.getMonthValue() == tarjeta.getFechaVencimiento().getMonthValue() && fecha.getYear() == tarjeta.getFechaVencimiento().getYear()) {
-                        // LA COMPRA SE PUEDE REALIZAR
-                        tarjeta.setSaldoTarjeta(tarjeta.getSaldoTarjeta() - importeTotalConIVA); // actualizo el saldo de la tarjeta
-                        Ticket t = new Ticket(listaProductosSeleccionados);
-                        JOptionPane.showMessageDialog(null, t.toString());
-                        System.out.println(t.toString());
-                        
-                        // GENERO EL TICKET Y CREO UN REGISTRO DE LOS TICKETS QUE SE CREAN;
-
-                    }else{
-                        JOptionPane.showMessageDialog(null, "Fecha de caducidad incorrecta,repita el proceso");
-                    }
-                }else{
-                    JOptionPane.showMessageDialog(null, "CVV tarjeta incorrectos,repita el proceso");
-                }
-                      
-            }else{
-                JOptionPane.showMessageDialog(null, "Digitos de tarjeta incorrectos,repita el proceso");
-            }
-            
-        }else{
-            JOptionPane.showMessageDialog(null, "No tiene saldo suficiente para comprar");
-        }
-    }
-    
     public static boolean pasarelaDePago2(ArrayList<Producto> listaProductosSeleccionados, Tarjeta tarjeta) {
         System.out.println("Datos Tarjeta: " + tarjeta);
         boolean verificado = false;
@@ -414,26 +437,24 @@ public class UtilidadesUsuario {
                         System.out.println(t.toString());
                         // como todo está correcto devuelvo true;
                         verificado = true;
-                        
-                        // GENERO EL TICKET Y CREO UN REGISTRO DE LOS TICKETS QUE SE CREAN;
 
-                    }else{
+                        // GENERO EL TICKET Y CREO UN REGISTRO DE LOS TICKETS QUE SE CREAN;
+                    } else {
                         JOptionPane.showMessageDialog(null, "Fecha de caducidad incorrecta,repita el proceso");
                     }
-                }else{
+                } else {
                     JOptionPane.showMessageDialog(null, "CVV tarjeta incorrectos,repita el proceso");
                 }
-                      
-            }else{
+
+            } else {
                 JOptionPane.showMessageDialog(null, "Digitos de tarjeta incorrectos,repita el proceso");
             }
-            
-        }else{
+
+        } else {
             JOptionPane.showMessageDialog(null, "No tiene saldo suficiente para comprar");
         }
         return verificado;
     }
-    
 
     // Método que recibe el ticket generado y lo guarda en la lista de Tickets de la clase TPV.
     public static Ticket guardartickets(ArrayList<Ticket> listaTickets, Ticket t) {

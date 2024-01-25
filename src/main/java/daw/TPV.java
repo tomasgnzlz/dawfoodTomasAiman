@@ -21,7 +21,7 @@ public class TPV {
     private UUID id;  //??
     private String ubicacion;
     private LocalDateTime fechaHora;
-    private ArrayList<Ticket> listaTicketsVentas;
+    private ArrayList<Ticket> listaTicketsVentas = new ArrayList<>();
 
     // Constructor con parametros.
     public TPV(UUID id, String ubicacion, LocalDateTime fechaHora) {
@@ -59,7 +59,6 @@ public class TPV {
         this.fechaHora = fechaHora;
     }
 
-    // Productos
     public ArrayList<Ticket> getListaTicketsVentas() {
         return listaTicketsVentas;
     }
@@ -88,14 +87,8 @@ public class TPV {
         boolean idvalido = false;
         ArrayList<Producto> listaProductos = Producto.listaProductos(); // La lista de todos los productos que hay
         ArrayList<Producto> listaProductosSeleccionados = new ArrayList<>(); // La lista de los productos que se seleccionan(los que van al ticket)
-//        ArrayList<Producto> listaComidas = UtilidadesUsuario.devolverListasPorCategoria(listaProductos, Categorias.COMIDAS);
-//        ArrayList<Producto> listaBebidas = UtilidadesUsuario.devolverListasPorCategoria(listaProductos, Categorias.BEBIDAS);
-//        ArrayList<Producto> listaPostres = UtilidadesUsuario.devolverListasPorCategoria(listaProductos, Categorias.POSTRES);
 
-//        ArrayList<Producto> listaComidas = UtilidadesUsuario.devolverListaCategoriaComida(listaProductos);
-//        ArrayList<Producto> listaBebidas = UtilidadesUsuario.devolverListaCategoriaBebida(listaProductos);
-//        ArrayList<Producto> listaPostres = UtilidadesUsuario.devolverListaCategoriaPostre(listaProductos);
-        Tarjeta tarjeta = Tarjeta.generarTarjeta("Aiman/Tomas");
+//        Tarjeta tarjeta = Tarjeta.generarTarjeta("Aiman/Tomas");
         do {
             tipoUsuario = seleccionarTipoUsuario();
             switch (tipoUsuario) {
@@ -124,6 +117,9 @@ public class TPV {
                             }
 
                             case 3 -> {
+                                // PUEDO CREAR LA TARJETA AHORA, PARA QUE SI 1 TARJETA NO TIENE SALDO
+                                // SE SALGA DEL PROCESO DE COMPRA Y SE USE OTRA TARJETA PARA
+                                Tarjeta tarjeta = Tarjeta.generarTarjeta("Aiman/Tomas");
                                 System.out.println("Ha seleccionado Ver Carrito");
                                 int decisionComprar = UtilidadesUsuario.verCarrito(listaProductosSeleccionados);
 
@@ -136,11 +132,16 @@ public class TPV {
                                             Ticket t = new Ticket(listaProductosSeleccionados);
                                             JOptionPane.showMessageDialog(null, t.toString());
                                             listaTicketsVentas.add(t);
+                                            // Una vez se muestre el ticket y se haya realizado la compra
+                                            salirSecundario = true;
+                                            // Como la compra se realiza correctamente, se imprime el ticket y se guarda en una lista
+                                            // entonces si se quiere realizar otra compra despues de esta 
+                                            // elimino los productos del carrito
+                                            listaProductosSeleccionados.clear();
                                         } else {
-                                            JOptionPane.showMessageDialog(null, "Proceso de compra fallido, vuelva a seleccionar comprar si es necesario");
+                                            JOptionPane.showMessageDialog(null, "Proceso de compra fallido");
                                         }
-                                        // Una vez se muestre el ticket y se haya realizado la compra
-                                        salirSecundario = true;
+
                                     }
                                     case 1 -> { // Cuando escoge la opción de no comprar
                                         listaProductosSeleccionados.clear();
@@ -181,19 +182,19 @@ public class TPV {
                             case 0 -> {
                                 int opcionVentas = JOptionPane.showOptionDialog(null, "¿Que consulta de la venta quieres realizar?", "Ventas", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null,
                                         new Object[]{"Consultar ventas por día", "Consultar ventas por fecha", "Consultar el total de ventas"}, "");
-                                switch(opcionVentas){
+                                switch (opcionVentas) {
                                     case 0 -> {
                                         int dia = Integer.parseInt(JOptionPane.showInputDialog("Introduce el dia que desea consultar: "));
                                         int mes = Integer.parseInt(JOptionPane.showInputDialog("Introduce el mes correspondiente: "));
                                         int a = Integer.parseInt(JOptionPane.showInputDialog("Introduce el mes correspondiente: "));
-                                        UtilidadesAdmin.consultarVentasPorDia(LocalDate.of(a, mes, dia)  , listaTicketsVentas);
+                                        UtilidadesAdmin.consultarVentasPorDia(LocalDate.of(a, mes, dia), listaTicketsVentas);
                                         salirSecundario = true;
                                     }
                                     case 1 -> {
                                         int dia = Integer.parseInt(JOptionPane.showInputDialog("Introduce el dia que desea consultar: "));
                                         int mes = Integer.parseInt(JOptionPane.showInputDialog("Introduce el mes correspondiente: "));
                                         int a = Integer.parseInt(JOptionPane.showInputDialog("Introduce el mes correspondiente: "));
-                                        UtilidadesAdmin.consultarVentasPorFecha(LocalDate.of(a, mes, dia)  , listaTicketsVentas);
+                                        UtilidadesAdmin.consultarVentasPorFecha(LocalDate.of(a, mes, dia), listaTicketsVentas);
                                         salirSecundario = true;
                                     }
                                     case 2 -> {
@@ -202,7 +203,7 @@ public class TPV {
                                     }
                                 }
                             }
-                            case 1 ->{
+                            case 1 -> {
                                 UtilidadesAdmin.añadirProducto(listaProductos);
                                 salirSecundario = true;
                             }
