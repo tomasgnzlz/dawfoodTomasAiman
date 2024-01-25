@@ -5,6 +5,7 @@
 package daw;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Collections;
 import org.apache.commons.lang3.RandomStringUtils;
@@ -90,6 +91,7 @@ public class Ticket {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
+        DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm"); 
 
         ArrayList<String> listaProductos = obtenerProductosUnicosConContador();
 
@@ -98,7 +100,7 @@ public class Ticket {
         sb.append("  IDTicket=").append(id);
         sb.append("  Numero de Pedido=").append(numeroPedido);
         sb.append("  Fecha=").append(fechaHora.toLocalDate());
-        sb.append("  Hora=").append(fechaHora.toLocalTime());
+        sb.append("  Hora=").append(fechaHora.format(timeFormatter)); 
         sb.append("\n");
 
         for (String productoConContador : listaProductos) {
@@ -106,7 +108,7 @@ public class Ticket {
         }
 
         sb.append("\n");
-        sb.append("  Importe total=").append(importeTotal).append("€");
+        sb.append("  Importe total=").append(String.format("%.2f", importeTotal)).append("€"); 
         sb.append("\n}\n");
         sb.append("********************************************************************************");
 
