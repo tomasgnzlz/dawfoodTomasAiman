@@ -188,17 +188,14 @@ public class TPV {
                                         new Object[]{"Consultar ventas por día", "Consultar ventas por fecha", "Consultar el total de ventas"}, "");
                                 switch (opcionVentas) {
                                     case 0 -> {
-//                                        int dia = Integer.parseInt(JOptionPane.showInputDialog("Introduce el dia que desea consultar: "));
-//                                        int mes = Integer.parseInt(JOptionPane.showInputDialog("Introduce el mes correspondiente: "));
-//                                        int a = Integer.parseInt(JOptionPane.showInputDialog("Introduce el mes correspondiente: "));
-//                                        UtilidadesAdmin.consultarVentasPorDia(LocalDate.of(a, mes, dia), listaTicketsVentas);
+                                        UtilidadesAdmin.consultarVentasPorDia(listaTicketsVentas);
                                         salirSecundario = true;
                                     }
                                     case 1 -> {
                                         int dia = Integer.parseInt(JOptionPane.showInputDialog("Introduce el dia que desea consultar: "));
                                         int mes = Integer.parseInt(JOptionPane.showInputDialog("Introduce el mes correspondiente: "));
                                         int a = Integer.parseInt(JOptionPane.showInputDialog("Introduce el mes correspondiente: "));
-                                        UtilidadesAdmin.consultarVentasPorFecha(LocalDate.of(a, mes, dia), listaTicketsVentas);
+                                        UtilidadesAdmin.consultarVentasPorFecha(listaTicketsVentas);
                                         salirSecundario = true;
                                     }
                                     case 2 -> {
@@ -215,7 +212,7 @@ public class TPV {
                                 int id = 0;
                                 do {
                                     try {
-                                        id = Integer.parseInt(JOptionPane.showInputDialog("Introduce el ID del producto que desea borrar"));
+                                        id = Integer.parseInt(JOptionPane.showInputDialog("Introduce el ID del producto que desea modificar"));
                                         idvalido = true;
                                     } catch (NullPointerException npe) {
                                         System.out.println("Debes introducir el ID del producto");
