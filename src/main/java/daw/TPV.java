@@ -212,7 +212,7 @@ public class TPV {
                                 int id = 0;
                                 do {
                                     try {
-                                        id = Integer.parseInt(JOptionPane.showInputDialog("Introduce el ID del producto que desea modificar"));
+                                        id = Integer.parseInt(JOptionPane.showInputDialog("Introduce el ID del producto que desea borrar"));
                                         idvalido = true;
                                     } catch (NullPointerException npe) {
                                         System.out.println("Debes introducir el ID del producto");
@@ -229,7 +229,7 @@ public class TPV {
                                 int id = 0;
                                 do {
                                     try {
-                                        id = Integer.parseInt(JOptionPane.showInputDialog("Introduce el ID del producto que desea borrar"));
+                                        id = Integer.parseInt(JOptionPane.showInputDialog("Introduce el ID del producto que desea modificar"));
                                         idvalido = true;
                                     } catch (NullPointerException npe) {
                                         System.out.println("Debes introducir el ID del producto");
