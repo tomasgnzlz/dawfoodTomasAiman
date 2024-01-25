@@ -25,15 +25,24 @@ public class UtilidadesUsuario {
     // Método que muestra las diferentes opciones del menú
     public static int opcionesMenu() {
         return JOptionPane.showOptionDialog(null, "+++++ ¿QUÉ DESEA? +++++", "Menú", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null,// null para icono por defecto.
-                new Object[]{"Comidas", "Bebidas", "Postres", "Ver Carrito", "VolverAtras"}, "");
+                new Object[]{"Comidas", "Bebidas", "Postres", "Ver Carrito", "Volver Atras"}, "");
     }
-    
+
     public static int opcionesSubCategoriasComida() {
         return JOptionPane.showOptionDialog(null, "Elije SubCategoria de comida", "SubCategorias Comida", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null,// null para icono por defecto.
                 new Object[]{"Ensaladas", "Carnes", "Pastas", "Tacos", "VolverAtras"}, "");
+
     }
-    //ENSALADAS,CARNES,PASTAS,TACOS,
-    
+
+    public static int opcionesSubCategoriasBebida() {
+        return JOptionPane.showOptionDialog(null, "Elije SubCategoria de comida", "SubCategorias Comida", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null,// null para icono por defecto.
+                new Object[]{"Refrescos", "Vinos", "Alcohol", "Volver Atras"}, "");
+    }
+
+    public static int opcionesSubCategoriasPostres() {
+        return JOptionPane.showOptionDialog(null, "Elije SubCategoria de comida", "SubCategorias Comida", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null,// null para icono por defecto.
+                new Object[]{"Tartas", "Helados", "Varios", "Volver Atras"}, "");
+    }
 
     // Carta de Productos
     public static void mostrarListas(ArrayList<Producto> lista) {
@@ -44,42 +53,114 @@ public class UtilidadesUsuario {
         JOptionPane.showMessageDialog(null, elementosLista.toString());
     }
 
-    
-
-
     // Método que pregunta al usuario el id del elemento que quiere pedir.
     public static int preguntarIDProductoComida(ArrayList<Producto> lista) {
         StringBuilder elementosLista = new StringBuilder();
         int id = 999999999;
         boolean valido = false;
-        for (Producto producto : lista) {
-            if (producto.getCategorias() == Categorias.COMIDAS) {
-                elementosLista.append(producto).append("\n");
-            }
-        }
+//        for (Producto producto : lista) {
+//            if (producto.getCategorias() == Categorias.COMIDAS) {
+//                elementosLista.append(producto).append("\n");
+//            }
+//        }
+
         int opcionSubCategoria = opcionesSubCategoriasComida();
         switch (opcionSubCategoria) {
-            case 0 -> {
+            case 0 -> { // Ensaladas
+                for (Producto producto : lista) {
+                    if (producto.getSubCategorias() == SubCategorias.ENSALADAS) {
+                        elementosLista.append(producto).append("\n");
+                    }
+                }
+                id = preguntarIDGeneral(lista, elementosLista);
+
             }
-            default -> throw new AssertionError();
+
+            case 1 -> { // Carnes
+                for (Producto producto : lista) {
+                    if (producto.getSubCategorias() == SubCategorias.CARNES) {
+                        elementosLista.append(producto).append("\n");
+                    }
+                }
+                id = preguntarIDGeneral(lista, elementosLista);
+            }
+            case 2 -> { // Pastas
+                for (Producto producto : lista) {
+                    if (producto.getSubCategorias() == SubCategorias.PASTAS) {
+                        elementosLista.append(producto).append("\n");
+                    }
+                }
+                id = preguntarIDGeneral(lista, elementosLista);
+
+            }
+            case 3 -> { // Tacos
+                for (Producto producto : lista) {
+                    if (producto.getSubCategorias() == SubCategorias.TACOS) {
+                        elementosLista.append(producto).append("\n");
+                    }
+                }
+                id = preguntarIDGeneral(lista, elementosLista);
+
+            }
+            case 4 -> {
+                System.out.println("VOLVER AL MENU SECUNDARIO");
+                // Decide volver atras
+                break;
+            }
+
         }
 
-        id = preguntarIDGeneral(lista, elementosLista);
-
+        //id = preguntarIDGeneral(lista, elementosLista);
         return id;
+
     }
 
     public static int preguntarIDProductoBebida(ArrayList<Producto> lista) {
         StringBuilder elementosLista = new StringBuilder();
         int id = 999999999;
         boolean valido = false;
-        for (Producto producto : lista) {
-            if (producto.getCategorias() == Categorias.BEBIDAS) {
-                elementosLista.append(producto).append("\n");
+//        for (Producto producto : lista) {
+//            if (producto.getCategorias() == Categorias.BEBIDAS) {
+//                elementosLista.append(producto).append("\n");
+//            }
+//        }
+        //REFRESCOS,VINOS,ALCOHOL,
+        int opcionSubCategoria = opcionesSubCategoriasBebida();
+        switch (opcionSubCategoria) {
+            case 0 -> { // Refrescos
+                for (Producto producto : lista) {
+                    if (producto.getSubCategorias() == SubCategorias.REFRESCOS) {
+                        elementosLista.append(producto).append("\n");
+                    }
+                }
+                id = preguntarIDGeneral(lista, elementosLista);
+            }
+
+            case 1 -> { // Vinos
+                for (Producto producto : lista) {
+                    if (producto.getSubCategorias() == SubCategorias.VINOS) {
+                        elementosLista.append(producto).append("\n");
+                    }
+                }
+                id = preguntarIDGeneral(lista, elementosLista);
+            }
+            case 2 -> { // Alcohol
+                for (Producto producto : lista) {
+                    if (producto.getSubCategorias() == SubCategorias.ALCOHOL) {
+                        elementosLista.append(producto).append("\n");
+                    }
+                }
+                id = preguntarIDGeneral(lista, elementosLista);
+            }
+
+            case 3 -> {
+                System.out.println("VOLVER AL MENU SECUNDARIO");
+                // Decide volver atras
+                break;
             }
         }
-        id = preguntarIDGeneral(lista, elementosLista);
 
+//        id = preguntarIDGeneral(lista, elementosLista);
         return id;
     }
 
@@ -87,14 +168,50 @@ public class UtilidadesUsuario {
         StringBuilder elementosLista = new StringBuilder();
         int id = 999999999;
         boolean valido = false;
-        for (Producto producto : lista) {
-            if (producto.getCategorias() == Categorias.POSTRES) {
-                elementosLista.append(producto).append("\n");
+//        for (Producto producto : lista) {
+//            if (producto.getCategorias() == Categorias.POSTRES) {
+//                elementosLista.append(producto).append("\n");
+//            }
+//        }
+        //REFRESCOS,VINOS,ALCOHOL,
+        int opcionSubCategoria = opcionesSubCategoriasPostres();
+        switch (opcionSubCategoria) {
+
+            case 0 -> { // Tartas
+                for (Producto producto : lista) {
+                    if (producto.getSubCategorias() == SubCategorias.TARTAS) {
+                        elementosLista.append(producto).append("\n");
+                    }
+                }
+                id = preguntarIDGeneral(lista, elementosLista);
+            }
+
+            case 1 -> { // Helados
+                for (Producto producto : lista) {
+                    if (producto.getSubCategorias() == SubCategorias.HELADOS) {
+                        elementosLista.append(producto).append("\n");
+                    }
+                }
+                id = preguntarIDGeneral(lista, elementosLista);
+            }
+
+            case 2 -> { // Varios
+                for (Producto producto : lista) {
+                    if (producto.getSubCategorias() == SubCategorias.VARIOS) {
+                        elementosLista.append(producto).append("\n");
+                    }
+                }
+                id = preguntarIDGeneral(lista, elementosLista);
+            }
+
+            case 3 -> {
+                System.out.println("VOLVER AL MENU SECUNDARIO");
+                // Decide volver atras
+                break;
             }
         }
 
-        id = preguntarIDGeneral(lista, elementosLista);
-
+        //id = preguntarIDGeneral(lista, elementosLista);
         return id;
     }
 
@@ -122,7 +239,8 @@ public class UtilidadesUsuario {
                 }
 
             } catch (NumberFormatException nfe) {
-                JOptionPane.showMessageDialog(null, "ERROR, Formato incorrecto");
+                JOptionPane.showMessageDialog(null, "VUELVE AL MENU PRINCIPAL");
+                valido = true;
             }
         } while (!valido);
 
