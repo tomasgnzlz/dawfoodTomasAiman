@@ -55,7 +55,7 @@ public class UtilidadesAdmin {
     }
 
     public static void consultarVentasPorFecha(ArrayList<Ticket> lista) {
-                int inputDia = 0; 
+        int inputDia = 0; 
         int inputMes = 0;
         int inputAnio = 0;
          do{
@@ -375,5 +375,12 @@ public class UtilidadesAdmin {
         }
         p.add(p17);
         return p;
+    }
+    public static StringBuilder mostrarLista(ArrayList<Producto> p){
+        StringBuilder elementosLista = new StringBuilder();
+        for(int i = 0;i<p.size();i++){
+            elementosLista.append(p.get(i)).append("\n");
+        }
+        return elementosLista;
     }
 }
