@@ -32,43 +32,44 @@ public class MainTomas {
 //        System.out.println(seleccion);
 //        
 
-Tarjeta t1 = Tarjeta.generarTarjeta("tomas");
-        System.out.println(t1);
-        /* texto = "Introduce el mes de vencimiento de tu tarjeta";
-                    mes = pedirEnteroRango(texto, 1, 31);
-                    texto = "Introduce el mes de vencimiento de tu tarjeta";
-                    año = pedirEnteroRango(texto, 2023, Integer.MAX_VALUE);
-
-                    LocalDate fecha = LocalDate.of(año, Month.of(mes), 2);
-
-                    if (fecha) // LA COMPRA SE PUEDE REALIZAR
-                    {
-                        tarjeta.setSaldoTarjeta(tarjeta.getSaldoTarjeta() - importeTotal); // actualizo el saldo de la tarjeta
-                    }  */
+//Tarjeta t1 = Tarjeta.generarTarjeta("tomas");
+//        System.out.println(t1);
+//        /* texto = "Introduce el mes de vencimiento de tu tarjeta";
+//                    mes = pedirEnteroRango(texto, 1, 31);
+//                    texto = "Introduce el mes de vencimiento de tu tarjeta";
+//                    año = pedirEnteroRango(texto, 2023, Integer.MAX_VALUE);
+//
+//                    LocalDate fecha = LocalDate.of(año, Month.of(mes), 2);
+//
+//                    if (fecha) // LA COMPRA SE PUEDE REALIZAR
+//                    {
+//                        tarjeta.setSaldoTarjeta(tarjeta.getSaldoTarjeta() - importeTotal); // actualizo el saldo de la tarjeta
+//                    }  */
+//        
+//        ArrayList<Producto> lista = Producto.listaProductos();
+//        
+//        ArrayList<Producto> listaDeseada = new ArrayList<>();
+//        listaDeseada.add(lista.get(1));
+//        listaDeseada.add(lista.get(2));
+//        listaDeseada.add(lista.get(1));
+//        listaDeseada.add(lista.get(4));
+//        listaDeseada.add(lista.get(6));
+//        listaDeseada.add(lista.get(4));
+//        listaDeseada.add(lista.get(4));
+//        
+//        
+//       
+//        
+//        System.out.println("Lista de productos Deseados: \n");
+//        for (Producto producto : listaDeseada) {
+//            System.out.println(producto);
+//        }
+//        Ticket tAux = new Ticket(listaDeseada);
+//        System.out.println(tAux.toString());
         
-        ArrayList<Producto> lista = Producto.listaProductos();
         
-        ArrayList<Producto> listaDeseada = new ArrayList<>();
-        listaDeseada.add(lista.get(1));
-        listaDeseada.add(lista.get(2));
-        listaDeseada.add(lista.get(1));
-        listaDeseada.add(lista.get(4));
-        listaDeseada.add(lista.get(6));
-        listaDeseada.add(lista.get(4));
-        listaDeseada.add(lista.get(4));
-        
-        
-       
-        
-        System.out.println("Lista de productos Deseados: \n");
-        for (Producto producto : listaDeseada) {
-            System.out.println(producto);
-        }
-        Ticket tAux = new Ticket(listaDeseada);
-        System.out.println(tAux.toString());
-        
-        
-      
+      int num = UtilidadesUsuario.preguntarCantidadGeneral();
+        System.out.println(num);    
        
 
     }

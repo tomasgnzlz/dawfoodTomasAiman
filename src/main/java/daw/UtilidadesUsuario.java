@@ -218,6 +218,7 @@ public class UtilidadesUsuario {
     public static int preguntarIDGeneral(ArrayList<Producto> lista, StringBuilder elementosLista) {
         //StringBuilder elementosLista = new StringBuilder();
         int id = 999999999;
+        int cantidad = 9999999;
         boolean valido = false;
         do {
             try {
@@ -248,12 +249,39 @@ public class UtilidadesUsuario {
 
     }
 
+    public static int preguntarCantidadGeneral() {
+        int cantidad = 999999999;
+
+        boolean valido = false;
+        do {
+            try {
+                cantidad = Integer.parseInt(JOptionPane.showInputDialog(null, "Introduce la cantidad del producto"));
+
+                if (cantidad > 0) {
+                    valido = true;
+                } else {
+                    JOptionPane.showMessageDialog(null, "Introduce una cantidad positiva");
+                }
+
+            } catch (NumberFormatException nfe) {
+                JOptionPane.showMessageDialog(null, "ERROR, Formato incorrecto");
+            }
+        } while (!valido);
+
+        return cantidad;
+    }
+
     // Métodos de la opvión VerCarrito
     public static ArrayList<Producto> añadirAlCarrito(ArrayList<Producto> listaProductosSeleccionados, ArrayList<Producto> listaProductos, int idAux) {
 
         for (int i = 0; i < listaProductos.size(); i++) {
             if (listaProductos.get(i).getID() == idAux) {
-                listaProductosSeleccionados.add(listaProductos.get(i));
+                int cantidadProductos = 0;
+                cantidadProductos = preguntarCantidadGeneral();
+                for (int j = 0; j < cantidadProductos; j++) {
+                    listaProductosSeleccionados.add(listaProductos.get(i));
+                }
+
             }
         }
         // Modifico stock
@@ -265,42 +293,26 @@ public class UtilidadesUsuario {
     public static int verCarrito(ArrayList<Producto> listaProductosSeleccionados) {
         StringBuilder sb = new StringBuilder();
         JCheckBox chec = new JCheckBox();
+        ArrayList<Producto> listaProductos = new ArrayList<>();
 
-        // Categoria , Descripcion, precio
-        //PRECIOsTOTALES (CON/SinIVA)
         sb.append("\n");
 //        for (Producto producto : listaProductosSeleccionados) {
 //            sb.append("Producto: ").append(producto.getDescripción());
 //            sb.append(", Precio: ").append(producto.getPrecio()).append("€ \n");
 //        }
-
-//        for (Producto producto : listaProductosSeleccionados) {
-//            int contador = 0;
-//
-//            // Contar cuántas veces aparece el producto en la lista
-//            for (Producto p : listaProductosSeleccionados) {
-//                if (listaProductosSeleccionados.contains(p)) {
-//                    contador++;
-//                }
-//            }
-//
-//            // Evitar mostrar el mismo producto varias veces
-//            if (contador > 0) {
-//                sb.append(contador).append(" -> Producto: ").append(producto.getDescripción());
-//                sb.append(", Precio: ").append(producto.getPrecio()).append("\n");
-//
-//                // Restablecer el contador para evitar duplicados en futuras iteraciones
-//                contador = 0;
-//            }
-//        }
-        for (Producto producto : listaProductosSeleccionados) {
-            int contador = Collections.frequency(listaProductosSeleccionados, producto);
-
-            // Evitar mostrar el mismo producto varias veces
+        int contador = 0;
+        for (Producto p : listaProductosSeleccionados) {
+            contador = Collections.frequency(listaProductosSeleccionados, p);
+            System.out.println(contador);
+            
+            
+            // si elijo un producto 3 veces quiero que solo me lo imprima 1 sola vez, y la cantidad 3
+            // pero que si lo imprimo 1 ves solo me salga 1 con cantidad 1
             if (contador > 0) {
-                sb.append(contador).append(" -> Producto: ").append(producto.getDescripción());
-                sb.append(", Precio: ").append(producto.getPrecio()).append(" C/U\n");
+                sb.append(contador).append(" -> Producto: ").append(p.getDescripción());
+                sb.append(", Precio: ").append(p.getPrecio()).append(" C/U\n");
             }
+            contador = 0;
         }
         sb.append("\n");
 
@@ -321,62 +333,6 @@ public class UtilidadesUsuario {
         }
     }
 
-    /*
-        +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-        +++++++++++++++++++++++++++++++METODOS_SI_DECIDE_COMPRAR+++++++++++++++++++++++++++++++
-        +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-     */
-//////    // NO MODIFICAR NO MODIFICAR NO MODIFICAR NO MODIFICAR NO MODIFICAR
-//////    public static void pasarelaDePago(ArrayList<Producto> listaProductosSeleccionados, Tarjeta tarjeta) {
-//////        System.out.println("Datos Tarjeta: " + tarjeta);
-//////        int numerosTarjeta = 0;
-//////        int numCVV = 0;
-//////        int mes;
-//////        int año;
-//////        double saldoTarjeta = 0;
-//////        Tarjeta fechaVencimiento;
-//////
-//////        double importeTotalConIVA = obtenerImporteTotal(listaProductosSeleccionados);
-//////        if (tarjeta.getSaldoTarjeta() >= importeTotalConIVA) {
-//////            String texto = "Introduce los ultimos 4 digitos de tu tarjeta";
-//////            numerosTarjeta = pedirEntero(texto);
-//////
-//////            if (tarjeta.getNumeroTarjeta() == numerosTarjeta) { // Si los digitos son iguales
-//////                texto = "Introduce el CVV de tu tarjeta";
-//////                numCVV = pedirEntero(texto);
-//////
-//////                if (tarjeta.getCVV() == numCVV) {
-//////                    texto = "Introduce el mes de vencimiento de tu tarjeta";
-//////                    mes = pedirEnteroRango(texto, 1, 31);
-//////                    System.out.println(mes);
-//////
-//////                    texto = "Introduce el año de vencimiento de tu tarjeta";
-//////                    año = pedirEnteroRango(texto, 2023, Integer.MAX_VALUE);
-//////                    LocalDate fecha = LocalDate.of(año, Month.of(mes), 2);
-//////
-//////                    if (fecha.getMonthValue() == tarjeta.getFechaVencimiento().getMonthValue() && fecha.getYear() == tarjeta.getFechaVencimiento().getYear()) {
-//////                        // LA COMPRA SE PUEDE REALIZAR
-//////                        tarjeta.setSaldoTarjeta(tarjeta.getSaldoTarjeta() - importeTotalConIVA); // actualizo el saldo de la tarjeta
-//////                        Ticket t = new Ticket(listaProductosSeleccionados);
-////////                        JOptionPane.showMessageDialog(null, t.toString());
-//////                        System.out.println(t.toString());
-//////
-//////                        // GENERO EL TICKET Y CREO UN REGISTRO DE LOS TICKETS QUE SE CREAN;
-//////                    } else {
-//////                        JOptionPane.showMessageDialog(null, "Fecha de caducidad incorrecta,repita el proceso");
-//////                    }
-//////                } else {
-//////                    JOptionPane.showMessageDialog(null, "CVV tarjeta incorrectos,repita el proceso");
-//////                }
-//////
-//////            } else {
-//////                JOptionPane.showMessageDialog(null, "Digitos de tarjeta incorrectos,repita el proceso");
-//////            }
-//////
-//////        } else {
-//////            JOptionPane.showMessageDialog(null, "No tiene saldo suficiente para comprar");
-//////        }
-//////    }
     public static boolean pasarelaDePago2(ArrayList<Producto> listaProductosSeleccionados, Tarjeta tarjeta) {
         System.out.println("Datos Tarjeta: " + tarjeta);
         boolean verificado = false;
