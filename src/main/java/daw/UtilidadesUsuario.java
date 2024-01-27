@@ -31,16 +31,15 @@ public class UtilidadesUsuario {
     public static int opcionesSubCategoriasComida() {
         return JOptionPane.showOptionDialog(null, "Elije SubCategoria de comida", "SubCategorias Comida", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null,// null para icono por defecto.
                 new Object[]{"Ensaladas", "Carnes", "Pastas", "Tacos", "VolverAtras"}, "");
-
     }
 
     public static int opcionesSubCategoriasBebida() {
-        return JOptionPane.showOptionDialog(null, "Elije SubCategoria de comida", "SubCategorias Comida", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null,// null para icono por defecto.
+        return JOptionPane.showOptionDialog(null, "Elije SubCategoria de Bebida", "SubCategorias Comida", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null,// null para icono por defecto.
                 new Object[]{"Refrescos", "Vinos", "Alcohol", "Volver Atras"}, "");
     }
 
     public static int opcionesSubCategoriasPostres() {
-        return JOptionPane.showOptionDialog(null, "Elije SubCategoria de comida", "SubCategorias Comida", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null,// null para icono por defecto.
+        return JOptionPane.showOptionDialog(null, "Elije SubCategoria de Postres", "SubCategorias Comida", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null,// null para icono por defecto.
                 new Object[]{"Tartas", "Helados", "Varios", "Volver Atras"}, "");
     }
 
@@ -233,6 +232,7 @@ public class UtilidadesUsuario {
                         valido = true;
                     } else {
                         JOptionPane.showMessageDialog(null, "Producto seleccionado sin stock. Por favor, elige otro.");
+                         valido = true;
                     }
 
                 } else {
@@ -240,7 +240,7 @@ public class UtilidadesUsuario {
                 }
 
             } catch (NumberFormatException nfe) {
-                JOptionPane.showMessageDialog(null, "VUELVE AL MENU PRINCIPAL");
+                JOptionPane.showMessageDialog(null, "FORMATO/DATO INCORRECTO. VUELVE AL MENU PRINCIPAL");
                 valido = true;
             }
         } while (!valido);
@@ -251,13 +251,12 @@ public class UtilidadesUsuario {
 
     public static int preguntarCantidadGeneral() {
         int cantidad = 999999999;
-
         boolean valido = false;
         do {
             try {
                 cantidad = Integer.parseInt(JOptionPane.showInputDialog(null, "Introduce la cantidad del producto"));
 
-                if (cantidad > 0) {
+                if (cantidad >= 0) {
                     valido = true;
                 } else {
                     JOptionPane.showMessageDialog(null, "Introduce una cantidad positiva");
@@ -267,59 +266,38 @@ public class UtilidadesUsuario {
                 JOptionPane.showMessageDialog(null, "ERROR, Formato incorrecto");
             }
         } while (!valido);
-
         return cantidad;
     }
 
     // Métodos de la opvión VerCarrito
     public static ArrayList<Producto> añadirAlCarrito(ArrayList<Producto> listaProductosSeleccionados, ArrayList<Producto> listaProductos, int idAux) {
-
         for (int i = 0; i < listaProductos.size(); i++) {
             if (listaProductos.get(i).getID() == idAux) {
-                int cantidadProductos = 0;
-                cantidadProductos = preguntarCantidadGeneral();
-                for (int j = 0; j < cantidadProductos; j++) {
-                    listaProductosSeleccionados.add(listaProductos.get(i));
-                }
+                if (listaProductos.get(i).getStock() > 0) {
 
+                    int cantidadProductos = 0;
+                    cantidadProductos = preguntarCantidadGeneral();
+
+                    if (cantidadProductos <= listaProductos.get(i).getStock()) {
+                        for (int j = 0; j < cantidadProductos; j++) {
+                            listaProductosSeleccionados.add(listaProductos.get(i));
+                    modificarStock(listaProductos, idAux);
+                        }
+
+                    } else {
+                        JOptionPane.showMessageDialog(null, "LoSentimos, no hay stock suficiente para: " + cantidadProductos + " " + listaProductos.get(i).getDescripción());
+                    }
+
+                } 
+
+//                for (int j = 0; j < cantidadProductos; j++) {
+//                    listaProductosSeleccionados.add(listaProductos.get(i));
+////                    modificarStock(listaProductos, idAux);
+//                }
             }
         }
-        // Modifico stock
-        modificarStock(listaProductos, idAux);
+        // modificarStock(listaProductos, idAux);
         return listaProductosSeleccionados;
-    }
-
-    //Método que muestra la lista de productos con importe por producto y PrecioFinal(ConIVA/SinIVA)
-    public static int verCarrito(ArrayList<Producto> listaProductosSeleccionados) {
-        StringBuilder sb = new StringBuilder();
-        JCheckBox chec = new JCheckBox();
-        ArrayList<Producto> listaProductos = new ArrayList<>();
-
-        sb.append("\n");
-//        for (Producto producto : listaProductosSeleccionados) {
-//            sb.append("Producto: ").append(producto.getDescripción());
-//            sb.append(", Precio: ").append(producto.getPrecio()).append("€ \n");
-//        }
-        int contador = 0;
-        for (Producto p : listaProductosSeleccionados) {
-            contador = Collections.frequency(listaProductosSeleccionados, p);
-            System.out.println(contador);
-            
-            
-            // si elijo un producto 3 veces quiero que solo me lo imprima 1 sola vez, y la cantidad 3
-            // pero que si lo imprimo 1 ves solo me salga 1 con cantidad 1
-            if (contador > 0) {
-                sb.append(contador).append(" -> Producto: ").append(p.getDescripción());
-                sb.append(", Precio: ").append(p.getPrecio()).append(" C/U\n");
-            }
-            contador = 0;
-        }
-        sb.append("\n");
-
-        int opcion = JOptionPane.showOptionDialog(null, sb.toString(), "Decisión Compra", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null,// null para icono por defecto.
-                new Object[]{"Comprar", "No Comprar", "Seguir comprando"}, "");
-
-        return opcion;
     }
 
     public static void modificarStock(List<Producto> lista, int id) {
@@ -327,10 +305,71 @@ public class UtilidadesUsuario {
             if (p.getID() == id) {
                 System.out.println(p.toString());
                 p.setStock(p.getStock() - 1);
-
                 System.out.println("EL STOCK DE ID: " + id + " HA CAMBIADO" + p.toString());
             }
         }
+    }
+
+    //Método que muestra la lista de productos con importe por producto y PrecioFinal(ConIVA/SinIVA)
+//    public static int verCarrito(ArrayList<Producto> listaProductosSeleccionados) {
+//        StringBuilder sb = new StringBuilder();
+//        JCheckBox chec = new JCheckBox();
+//        ArrayList<Producto> listaProductos = new ArrayList<>();
+//
+//        sb.append("\n");
+////        for (Producto producto : listaProductosSeleccionados) {
+////            sb.append("Producto: ").append(producto.getDescripción());
+////            sb.append(", Precio: ").append(producto.getPrecio()).append("€ \n");
+////        }
+//        int contador = 0;
+//        for (Producto p : listaProductosSeleccionados) {
+//            contador = Collections.frequency(listaProductosSeleccionados, p);
+//            System.out.println(contador);
+//            
+//            
+//            // si elijo un producto 3 veces quiero que solo me lo imprima 1 sola vez, y la cantidad 3
+//            // pero que si lo imprimo 1 ves solo me salga 1 con cantidad 1
+//            if (contador > 0) {
+//                sb.append(contador).append(" -> Producto: ").append(p.getDescripción());
+//                sb.append(", Precio: ").append(p.getPrecio()).append(" C/U\n");
+//            }
+//            contador = 0;
+//        }
+//        sb.append("\n");
+//
+//        int opcion = JOptionPane.showOptionDialog(null, sb.toString(), "Decisión Compra", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null,// null para icono por defecto.
+//                new Object[]{"Comprar", "No Comprar", "Seguir comprando"}, "");
+//
+//        return opcion;
+//    }
+    public static int verCarrito(ArrayList<Producto> listaProductosSeleccionados) {
+        StringBuilder sb = new StringBuilder();
+
+        sb.append("\n");
+
+        // Nueva lista para almacenar productos sin repetir
+        ArrayList<Producto> listaProductosSinRepetir = new ArrayList<>();
+
+        for (Producto p : listaProductosSeleccionados) {
+            // Comprobar si el producto ya está en la lista de productos sin repetir
+            if (!listaProductosSinRepetir.contains(p)) {
+                listaProductosSinRepetir.add(p);
+            }
+        }
+
+        for (Producto productoSinRepetir : listaProductosSinRepetir) {
+            int contador = Collections.frequency(listaProductosSeleccionados, productoSinRepetir);
+            sb.append(contador).append(" -> Producto: ").append(productoSinRepetir.getDescripción());
+            sb.append(", Precio: ").append(productoSinRepetir.getPrecio()).append(" C/U\n");
+        }
+
+        sb.append("\n");
+
+        int opcion = JOptionPane.showOptionDialog(null, sb.toString(), "Decisión Compra",
+                JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null,
+                new Object[]{"Comprar", "No Comprar", "Seguir comprando"}, "");
+
+        return opcion;
     }
 
     public static boolean pasarelaDePago2(ArrayList<Producto> listaProductosSeleccionados, Tarjeta tarjeta) {

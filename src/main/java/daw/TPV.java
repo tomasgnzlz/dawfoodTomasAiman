@@ -121,37 +121,44 @@ public class TPV {
                             }
 
                             case 3 -> {
-                                // PUEDO CREAR LA TARJETA AHORA, PARA QUE SI 1 TARJETA NO TIENE SALDO
-                                // SE SALGA DEL PROCESO DE COMPRA Y SE USE OTRA TARJETA PARA
-                                Tarjeta tarjeta = Tarjeta.generarTarjeta("Aiman/Tomas");
-                                System.out.println("Ha seleccionado Ver Carrito");
-                                int decisionComprar = UtilidadesUsuario.verCarrito(listaProductosSeleccionados);
 
-                                switch (decisionComprar) {
-                                    case 0 -> { // Cuando escoge la opción comprar
-                                        // NO ELIMINAR LINEA DE ABAJO
-                                        //UtilidadesUsuario.pasarelaDePago(listaProductosSeleccionados, tarjeta);
-                                        boolean verificado = UtilidadesUsuario.pasarelaDePago2(listaProductosSeleccionados, tarjeta);
-                                        if (verificado) {
-                                            Ticket t = new Ticket(listaProductosSeleccionados);
-                                            JOptionPane.showMessageDialog(null, t.toString());
-                                            listaTicketsVentas.add(t);
-                                            // Una vez se muestre el ticket y se haya realizado la compra
-                                            salirSecundario = true;
-                                            // Como la compra se realiza correctamente, se imprime el ticket y se guarda en una lista
-                                            // entonces si se quiere realizar otra compra despues de esta 
-                                            // elimino los productos del carrito
-                                            listaProductosSeleccionados.clear();
-                                        } else {
-                                            JOptionPane.showMessageDialog(null, "Proceso de compra fallido");
+                                if (listaProductosSeleccionados.isEmpty()) {
+                                    JOptionPane.showMessageDialog(null, "El carrito está vacio");
+                                } else {
+                                    // PUEDO CREAR LA TARJETA AHORA, PARA QUE SI 1 TARJETA NO TIENE SALDO
+                                    // SE SALGA DEL PROCESO DE COMPRA Y SE USE OTRA TARJETA PARA
+                                    Tarjeta tarjeta = Tarjeta.generarTarjeta("Aiman/Tomas");
+                                    System.out.println("Ha seleccionado Ver Carrito");
+                                    int decisionComprar = UtilidadesUsuario.verCarrito(listaProductosSeleccionados);
+
+                                    switch (decisionComprar) {
+                                        case 0 -> { // Cuando escoge la opción comprar
+                                            // NO ELIMINAR LINEA DE ABAJO
+                                            //UtilidadesUsuario.pasarelaDePago(listaProductosSeleccionados, tarjeta);
+                                            boolean verificado = UtilidadesUsuario.pasarelaDePago2(listaProductosSeleccionados, tarjeta);
+                                            if (verificado) {
+                                                Ticket t = new Ticket(listaProductosSeleccionados);
+                                                JOptionPane.showMessageDialog(null, t.toString());
+                                                listaTicketsVentas.add(t);
+                                                // Una vez se muestre el ticket y se haya realizado la compra
+                                                salirSecundario = true;
+                                                // Como la compra se realiza correctamente, se imprime el ticket y se guarda en una lista
+                                                // entonces si se quiere realizar otra compra despues de esta 
+                                                // elimino los productos del carrito
+                                                listaProductosSeleccionados.clear();
+                                            } else {
+                                                JOptionPane.showMessageDialog(null, "Proceso de compra fallido");
+                                            }
+
                                         }
+                                        case 1 -> { // Cuando escoge la opción de no comprar
+                                            listaProductosSeleccionados.clear();
+                                            salirSecundario = true;
+                                        }
+                                    }
 
-                                    }
-                                    case 1 -> { // Cuando escoge la opción de no comprar
-                                        listaProductosSeleccionados.clear();
-                                        salirSecundario = true;
-                                    }
                                 }
+
                             }
                             case 4 -> {
                                 System.out.println("Ha Seleccionado Salir");
@@ -214,7 +221,7 @@ public class TPV {
                                 String elementos = "";
                                 do {
                                     try {
-                                        id = Integer.parseInt(JOptionPane.showInputDialog("Introduce el ID del producto que desea borrar"+"\n"+UtilidadesAdmin.mostrarLista(listaProductos))) ;
+                                        id = Integer.parseInt(JOptionPane.showInputDialog("Introduce el ID del producto que desea borrar" + "\n" + UtilidadesAdmin.mostrarLista(listaProductos)));
                                         idvalido = true;
                                     } catch (NullPointerException npe) {
                                         System.out.println("Debes introducir el ID del producto");
@@ -231,7 +238,7 @@ public class TPV {
                                 int id = 0;
                                 do {
                                     try {
-                                        id = Integer.parseInt(JOptionPane.showInputDialog("Introduce el ID del producto que desea modificar"+"\n"+UtilidadesAdmin.mostrarLista(listaProductos)));
+                                        id = Integer.parseInt(JOptionPane.showInputDialog("Introduce el ID del producto que desea modificar" + "\n" + UtilidadesAdmin.mostrarLista(listaProductos)));
                                         idvalido = true;
                                     } catch (NullPointerException npe) {
                                         System.out.println("Debes introducir el ID del producto");
