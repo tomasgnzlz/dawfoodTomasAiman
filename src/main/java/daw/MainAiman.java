@@ -78,9 +78,8 @@ public class MainAiman {
 //            System.out.println(p);
 
 ////LO COMENNTO PORQUE ME DABA ERROR AIMAN PERDONA
-              TPV tpv = new TPV();
-              tpv.encenderTPV();
-
+             TPV tpv = new TPV();
+             tpv.encenderTPV();
 //        Tarjeta tarjeta = Tarjeta.generarTarjeta("Aiman/Tomas");
 //        System.out.println(tarjeta);
     }

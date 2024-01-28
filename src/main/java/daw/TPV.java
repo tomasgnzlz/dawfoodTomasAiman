@@ -166,13 +166,12 @@ public class TPV {
                                 listaProductosSeleccionados.clear();
                                 salirSecundario = true;
                             }
-
-                        }
+                        } 
                     } while (!salirSecundario);
 
                 }
                 case 1 -> { //TIPO ADMINISTRADOR
-                    // Se llamarán a los metodos de la clase UtilidadesAdministradorç
+                    // Se llamarán a los metodos de la clase UtilidadesAdministrador
                     do {
                         String inputPass = "";
                         boolean pass = true;
@@ -181,32 +180,39 @@ public class TPV {
                         ArrayList<Producto> p = Producto.listaProductos();
                         do {
                             inputPass = JOptionPane.showInputDialog("Introduce la contraseña de administrador: ");
+                            if (inputPass == null) {
+                                break;
+                            }
                             if (passw.equals(inputPass)) {
                                 pass = false;
                             } else {
                                 System.out.println("Introduce la contraseña de nuevo");
                             }
-                        } while (pass);
+                        }while (pass || inputPass == null);
+                        if (inputPass == null) {
+                                JOptionPane.showMessageDialog(null, "Saliendo al menú principal");
+                                break;
+                         }
                         int opcionAdmin = JOptionPane.showOptionDialog(null, "Opciones de administrador", "Administrador", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null,
                                 new Object[]{"Consultar ventas", "Añadir producto", "Borrar Producto", "Modificar producto", "Salir",}, "");
                         switch (opcionAdmin) {
                             case 0 -> {
                                 int opcionVentas = JOptionPane.showOptionDialog(null, "¿Que consulta de la venta quieres realizar?", "Ventas", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null,
-                                        new Object[]{"Consultar ventas por día", "Consultar ventas por fecha", "Consultar el total de ventas"}, "");
+                                        new Object[]{"Consultar ventas por día", "Consultar ventas por fecha", "Consultar el total de ventas","Salir"}, "");
                                 switch (opcionVentas) {
                                     case 0 -> {
                                         UtilidadesAdmin.consultarVentasPorDia(listaTicketsVentas);
                                         salirSecundario = true;
                                     }
                                     case 1 -> {
-                                        int dia = Integer.parseInt(JOptionPane.showInputDialog("Introduce el dia que desea consultar: "));
-                                        int mes = Integer.parseInt(JOptionPane.showInputDialog("Introduce el mes correspondiente: "));
-                                        int a = Integer.parseInt(JOptionPane.showInputDialog("Introduce el mes correspondiente: "));
                                         UtilidadesAdmin.consultarVentasPorFecha(listaTicketsVentas);
                                         salirSecundario = true;
                                     }
                                     case 2 -> {
                                         UtilidadesAdmin.consultarTodasLasVentas(listaTicketsVentas);
+                                        salirSecundario = true;
+                                    }
+                                    case 3 -> {
                                         salirSecundario = true;
                                     }
                                 }
@@ -217,22 +223,23 @@ public class TPV {
                             }
                             case 2 -> {
                                 int id = 0;
-                                StringBuilder elementosLista = new StringBuilder();
-                                String elementos = "";
                                 do {
                                     try {
                                         id = Integer.parseInt(JOptionPane.showInputDialog("Introduce el ID del producto que desea borrar" + "\n" + UtilidadesAdmin.mostrarLista(listaProductos)));
                                         idvalido = true;
-                                    } catch (NullPointerException npe) {
-                                        System.out.println("Debes introducir el ID del producto");
-                                    } catch (NumberFormatException nfe) {
+                                    }catch (NumberFormatException nfe) {
                                         System.out.println("Introduce un número en el ID");
+                                    }catch(NullPointerException npe){
+                                        System.out.println("Saliendo al menú");
+                                       idvalido = false;
+                                       salirSecundario = true;
                                     }
+                                    
                                 } while (!idvalido);
-                                UtilidadesAdmin.borrarProducto(listaProductos, id);
-                                System.out.println(p);
-                                salirSecundario = true;
-
+                                if(!salirSecundario){
+                                     UtilidadesAdmin.borrarProducto(listaProductos, id);
+                                     salirSecundario = true;
+                                }
                             }
                             case 3 -> {
                                 int id = 0;
@@ -267,7 +274,6 @@ public class TPV {
             }
             System.out.println("**********HA_SALIDO_DEL_MENU_SECUNDARIO**********");
         } while (!salirPrimario);
-
     }
 
     public static int seleccionarTipoUsuario() {

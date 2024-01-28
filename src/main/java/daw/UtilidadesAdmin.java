@@ -265,6 +265,7 @@ public class UtilidadesAdmin {
         for (Producto producto : p) {
             if (producto.getID() == id) {
                 p.remove(producto);
+                JOptionPane.showMessageDialog(null, "Se ha borrado el producto correctamente");
                 break;
             }
         }
@@ -363,7 +364,7 @@ public class UtilidadesAdmin {
                 JOptionPane.showMessageDialog(null, "No has introducido un número entero");
             }
         } while (repPrecio);
-        int iva = JOptionPane.showOptionDialog(null, "¿Qué subcategoría desea poner?", "Subcategorias de postres", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null,// null para icono por defecto.
+        int iva = JOptionPane.showOptionDialog(null, "¿Qué IVA desea poner?", "IVA", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null,// null para icono por defecto.
                 new Object[]{"10%", "20%"}, "");
         switch (iva) {
             case 0:
@@ -374,6 +375,7 @@ public class UtilidadesAdmin {
                 break;
         }
         p.add(p17);
+        JOptionPane.showMessageDialog(null, "Se ha añadido el producto: "+"\n"+p17);
         return p;
     }
     public static StringBuilder mostrarLista(ArrayList<Producto> p){
