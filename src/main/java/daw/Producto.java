@@ -24,13 +24,14 @@ public class Producto {
     private double precio;
     private int stock;
 
-    // Atributos secundarios.
+    // Atributos secundarios. Incrementa el id del producto cuando se crean
     private static int contador = 1;
 
     // Constructor vacío
     public Producto() {
     }
 
+    // Constructor parámetrizado
     public Producto(String descripción, Categorias categorias, SubCategorias subCategorias, int stock, Double precio) {
 
         this.ID = contador++;
@@ -142,8 +143,8 @@ public class Producto {
     public void setStock(int stock) {
         this.stock = stock;
     }
-    // toString
 
+    // toString
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
@@ -212,17 +213,40 @@ public class Producto {
         ArrayList<Producto> listaProductos = new ArrayList<>();
         // Comidas
         Producto p1 = new Producto("Pizza", Categorias.COMIDAS, SubCategorias.PASTAS, 7, 10.0);
+        Producto p12 = new Producto("Pasta a la boloñesa2", Categorias.COMIDAS, SubCategorias.PASTAS, 7, 5.0);
+        Producto p11 = new Producto("Pasta a la boloñesa", Categorias.COMIDAS, SubCategorias.PASTAS, 7, 5.0);
+
         Producto p2 = new Producto("Tacos gratinados", Categorias.COMIDAS, SubCategorias.TACOS, 2, 19.99);
+        Producto p13 = new Producto("Tacos", Categorias.COMIDAS, SubCategorias.TACOS, 2, 19.99);
+        Producto p14 = new Producto("Taco Frances", Categorias.COMIDAS, SubCategorias.TACOS, 2, 19.99);
+
         Producto p3 = new Producto("Entrecot", Categorias.COMIDAS, SubCategorias.CARNES, 7, 1.0);
+        Producto p15 = new Producto("Presa Ibérica", Categorias.COMIDAS, SubCategorias.CARNES, 7, 1.0);
+        Producto p16 = new Producto("Solomillo Ternera", Categorias.COMIDAS, SubCategorias.CARNES, 7, 1.0);
+
         Producto p4 = new Producto("Ensalada", Categorias.COMIDAS, SubCategorias.ENSALADAS, 2, 12.50);
+        Producto p17 = new Producto("Ensalada cesar", Categorias.COMIDAS, SubCategorias.ENSALADAS, 12, 12.50);
         // Bebidas
+
         Producto p5 = new Producto("Coca-Cola", Categorias.BEBIDAS, SubCategorias.REFRESCOS, 76, 1.80);
-        Producto p6 = new Producto("RonCola", Categorias.BEBIDAS, SubCategorias.ALCOHOL, 76, 1.80);
-        Producto p7 = new Producto("Ribera", Categorias.BEBIDAS, SubCategorias.VINOS, 76, 1.80);
+        Producto p18 = new Producto("Fanta", Categorias.BEBIDAS, SubCategorias.REFRESCOS, 76, 1.80);
+        Producto p19 = new Producto("Aquarius", Categorias.BEBIDAS, SubCategorias.REFRESCOS, 76, 1.80);
+
+        Producto p6 = new Producto("Barcelo Cola", Categorias.BEBIDAS, SubCategorias.ALCOHOL, 76, 1.80);
+        Producto p20 = new Producto("Gin tonic", Categorias.BEBIDAS, SubCategorias.ALCOHOL, 76, 1.80);
+        Producto p21 = new Producto("Whisky", Categorias.BEBIDAS, SubCategorias.ALCOHOL, 76, 1.80);
+
+        Producto p7 = new Producto("Ribera del Duero", Categorias.BEBIDAS, SubCategorias.VINOS, 76, 1.80);
+        Producto p22 = new Producto("Verdejo", Categorias.BEBIDAS, SubCategorias.VINOS, 76, 1.80);
+
         // Postres
         Producto p8 = new Producto("Helado", Categorias.POSTRES, SubCategorias.HELADOS, 20, 3.50);
+        Producto p23 = new Producto("Helado Chocolate", Categorias.POSTRES, SubCategorias.HELADOS, 20, 3.50);
+        Producto p24 = new Producto("Helado Chocolate Blanco", Categorias.POSTRES, SubCategorias.HELADOS, 20, 3.50);
+
         Producto p9 = new Producto("Brownie", Categorias.POSTRES, SubCategorias.TARTAS, 20, 4.50);
-        Producto p10 = new Producto("Tarta aueso", Categorias.POSTRES, SubCategorias.VARIOS, 20, 4.0);
+        Producto p25 = new Producto("Brownie 2", Categorias.POSTRES, SubCategorias.TARTAS, 20, 4.50);
+        Producto p10 = new Producto("Tarta queso", Categorias.POSTRES, SubCategorias.VARIOS, 20, 4.0);
 
         // Añado los elementos a la carta
         listaProductos.add(p1);
@@ -235,6 +259,21 @@ public class Producto {
         listaProductos.add(p8);
         listaProductos.add(p9);
         listaProductos.add(p10);
+        listaProductos.add(p11);
+        listaProductos.add(p12);
+        listaProductos.add(p13);
+        listaProductos.add(p14);
+        listaProductos.add(p15);
+        listaProductos.add(p16);
+        listaProductos.add(p17);
+        listaProductos.add(p18);
+        listaProductos.add(p19);
+        listaProductos.add(p20);
+        listaProductos.add(p21);
+        listaProductos.add(p22);
+        listaProductos.add(p23);
+        listaProductos.add(p24);
+        listaProductos.add(p25);
 
         return listaProductos;
     }

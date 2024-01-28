@@ -14,8 +14,8 @@ import javax.swing.JOptionPane;
 public class Main {
 
     public static void main(String[] args) {
-        // Aqui ira el main del proyecto
-        TPV t1 = new TPV();
+        // Creación del objeto TPV
+        TPV t1 = new TPV();    
         t1.encenderTPV();
     }
 }

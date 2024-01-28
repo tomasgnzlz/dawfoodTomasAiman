@@ -29,17 +29,17 @@ public class UtilidadesUsuario {
     }
 
     public static int opcionesSubCategoriasComida() {
-        return JOptionPane.showOptionDialog(null, "Elije SubCategoria de comida", "SubCategorias Comida", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null,// null para icono por defecto.
+        return JOptionPane.showOptionDialog(null, "Elije SubCategoria de comida", "SubCategorias Comidas", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null,// null para icono por defecto.
                 new Object[]{"Ensaladas", "Carnes", "Pastas", "Tacos", "VolverAtras"}, "");
     }
 
     public static int opcionesSubCategoriasBebida() {
-        return JOptionPane.showOptionDialog(null, "Elije SubCategoria de Bebida", "SubCategorias Comida", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null,// null para icono por defecto.
+        return JOptionPane.showOptionDialog(null, "Elije SubCategoria de Bebida", "SubCategorias Bebidas", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null,// null para icono por defecto.
                 new Object[]{"Refrescos", "Vinos", "Alcohol", "Volver Atras"}, "");
     }
 
     public static int opcionesSubCategoriasPostres() {
-        return JOptionPane.showOptionDialog(null, "Elije SubCategoria de Postres", "SubCategorias Comida", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null,// null para icono por defecto.
+        return JOptionPane.showOptionDialog(null, "Elije SubCategoria de Postres", "SubCategorias Postres", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null,// null para icono por defecto.
                 new Object[]{"Tartas", "Helados", "Varios", "Volver Atras"}, "");
     }
 
@@ -52,6 +52,7 @@ public class UtilidadesUsuario {
         JOptionPane.showMessageDialog(null, elementosLista.toString());
     }
 
+    
     // Método que pregunta al usuario el id del elemento que quiere pedir.
     public static int preguntarIDProductoComida(ArrayList<Producto> lista) {
         StringBuilder elementosLista = new StringBuilder();
@@ -310,38 +311,6 @@ public class UtilidadesUsuario {
         }
     }
 
-    //Método que muestra la lista de productos con importe por producto y PrecioFinal(ConIVA/SinIVA)
-//    public static int verCarrito(ArrayList<Producto> listaProductosSeleccionados) {
-//        StringBuilder sb = new StringBuilder();
-//        JCheckBox chec = new JCheckBox();
-//        ArrayList<Producto> listaProductos = new ArrayList<>();
-//
-//        sb.append("\n");
-////        for (Producto producto : listaProductosSeleccionados) {
-////            sb.append("Producto: ").append(producto.getDescripción());
-////            sb.append(", Precio: ").append(producto.getPrecio()).append("€ \n");
-////        }
-//        int contador = 0;
-//        for (Producto p : listaProductosSeleccionados) {
-//            contador = Collections.frequency(listaProductosSeleccionados, p);
-//            System.out.println(contador);
-//            
-//            
-//            // si elijo un producto 3 veces quiero que solo me lo imprima 1 sola vez, y la cantidad 3
-//            // pero que si lo imprimo 1 ves solo me salga 1 con cantidad 1
-//            if (contador > 0) {
-//                sb.append(contador).append(" -> Producto: ").append(p.getDescripción());
-//                sb.append(", Precio: ").append(p.getPrecio()).append(" C/U\n");
-//            }
-//            contador = 0;
-//        }
-//        sb.append("\n");
-//
-//        int opcion = JOptionPane.showOptionDialog(null, sb.toString(), "Decisión Compra", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null,// null para icono por defecto.
-//                new Object[]{"Comprar", "No Comprar", "Seguir comprando"}, "");
-//
-//        return opcion;
-//    }
     public static int verCarrito(ArrayList<Producto> listaProductosSeleccionados) {
         StringBuilder sb = new StringBuilder();
 

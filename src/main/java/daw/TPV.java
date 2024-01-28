@@ -18,19 +18,19 @@ import javax.swing.JOptionPane;
  */
 public class TPV {
 
-    private UUID id;  //??
+    private UUID id;  
     private String ubicacion;
     private LocalDateTime fechaHora;
     private ArrayList<Ticket> listaTicketsVentas = new ArrayList<>();
 
-    // Constructor con parametros.
+    // Constructor con parámetros.
     public TPV(UUID id, String ubicacion, LocalDateTime fechaHora) {
         this.id = id;
         this.ubicacion = ubicacion;
         this.fechaHora = fechaHora;
     }
 
-    // Constructor copia.
+    // Constructor sin parámetros.
     public TPV() {
     }
 

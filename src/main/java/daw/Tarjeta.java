@@ -17,6 +17,7 @@ import org.apache.commons.lang3.RandomStringUtils;
  */
 public class Tarjeta {
 
+    // Declaración de atributos
     private String nombreTitular;
     private int numeroTarjeta;
     private LocalDate fechaVencimiento;
@@ -24,6 +25,7 @@ public class Tarjeta {
     private double saldoTarjeta;
     private static Random random = new Random();
 
+    // Constructor con parámetros
     public Tarjeta(String nombreTitular, int numeroTarjeta, LocalDate fechaVencimiento, int CVV, double saldoTarjeta) {
         this.nombreTitular = nombreTitular;
         this.numeroTarjeta = numeroTarjeta;
@@ -37,7 +39,7 @@ public class Tarjeta {
         int numTarjeta = numTarjetaAleatorio();
         int numCVV = numCvvAleatorio();
         double saldo = saldoCuentaAleatorio();
-        Tarjeta t1 = new Tarjeta(nombre, numTarjeta, LocalDate.now().plusYears(5), numCVV, Math.round(saldo * 100.0) / 100.0);
+        Tarjeta t1 = new Tarjeta(nombre, numTarjeta, LocalDate.now().plusYears(new Random().nextInt(6)), numCVV, Math.round(saldo * 100.0) / 100.0);
         return t1;
     }
 
@@ -56,9 +58,12 @@ public class Tarjeta {
         return numAleatorio = random.nextDouble(10, 100);
     }
 
+    // Constructor vacío
     public Tarjeta() {
     }
 
+    
+    // Getters y Setters
     public String getNombreTitular() {
         return nombreTitular;
     }
@@ -79,6 +84,7 @@ public class Tarjeta {
         return saldoTarjeta;
     }
 
+    // toString
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();

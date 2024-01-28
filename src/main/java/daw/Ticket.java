@@ -39,13 +39,6 @@ public class Ticket {
 
     }
 
-    // Método para que cada vez que se genere un ticket, se haga una llamada a este método
-    // y queden guardadas las ventas que se han realizado.
-    public static ArrayList<Ticket> guardarTickets(Ticket ticketAux, ArrayList<Ticket> listaTickets) {
-        listaTickets.add(ticketAux);
-        return listaTickets;
-    }
-
     // Getters y Setters
     public String getId() {
         return id;
@@ -91,20 +84,15 @@ public class Ticket {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm");
 
-        //ArrayList<String> listaProductos = obtenerProductosUnicosConContador();
         sb.append("\n*********************************** DAWFOOD TOMAS Y AIMAN ***********************************\n");
         sb.append("Ticket {\n");
         sb.append("  IDTicket=").append(id);
         sb.append("  Numero de Pedido=").append(numeroPedido);
-        sb.append("  Fecha=").append(fechaHora.toLocalDate());
-        sb.append("  Hora=").append(fechaHora.format(timeFormatter));
+        sb.append("  Fecha=").append(fechaHora.getDayOfMonth()).append("/").append(fechaHora.getMonthValue()).append("/").append(fechaHora.getYear());
+        sb.append("  Hora=").append(fechaHora.getHour()).append(":").append(fechaHora.getHour());
         sb.append("\n");
 
-//        for (String productoConContador : listaProductos) {
-//            sb.append("  ").append(productoConContador).append("\n");
-//        }sb.append("\n");
         // Nueva lista para almacenar productos sin repetir
         ArrayList<Producto> listaProductosSinRepetir = new ArrayList<>();
 
@@ -117,8 +105,9 @@ public class Ticket {
 
         for (Producto productoSinRepetir : listaProductosSinRepetir) {
             int contador = Collections.frequency(listaProductosSeleccionados, productoSinRepetir);
-            sb.append(contador).append(" -> Producto: ").append(productoSinRepetir.getDescripción()).append(" ").append((contador*productoSinRepetir.getPrecio())*productoSinRepetir.getTipoIva().iva).append("€");
-            sb.append(", Precio: ").append(productoSinRepetir.getPrecio()).append(" C/U\n");
+            sb.append(productoSinRepetir.getID()).append("  ");
+            sb.append(contador).append(" -> ").append(productoSinRepetir.getDescripción()).append(" ").append(Math.round((contador * productoSinRepetir.getPrecio()) * productoSinRepetir.getTipoIva().iva)).append("€");
+            sb.append(", Precio: ").append(productoSinRepetir.getPrecio()).append(" C/U  IVA: ").append(productoSinRepetir.getTipoIva().iva).append("%\n");
         }
 
         sb.append("\n");
@@ -138,42 +127,4 @@ public class Ticket {
         return importeTotal;
     }
 
-//    // Método que devuelve una lista de cadenas con cada producto único y su contador
-//    public ArrayList<String> obtenerProductosUnicosConContador() {
-//        // Creo una nueva lista en la que meter los productos sin repetirlos
-//        ArrayList<String> listaProductos = new ArrayList<>();
-//
-//        for (Producto producto : listaProductosSeleccionados) {
-//            // Guardo en una variable  la cantidad de cara producto.
-//            int contador = contarProducto(listaProductosSeleccionados, producto);
-//
-//            // Variable para comprobar si un producto ya está en la nueva lista o no
-//            // de está manera no se repetirán los productos
-//            boolean productoSeleccionado = false;
-//            // Recorro la lista de productos para ver si el producto ya está en la nueva lista o no 
-//            for (String p : listaProductos) {
-//                if (p.contains(producto.getDescripción())) {
-//                    productoSeleccionado = true;
-//                    break;
-//                }
-//            }
-//
-//            if (!productoSeleccionado) {
-//                listaProductos.add(contador + " " + producto.getDescripción() + "         " + ((contador * producto.getPrecio()) * producto.getTipoIva().iva));
-//            }
-//
-//        }
-//        return listaProductos;
-//    }
-//
-//    // Método llevar la cuenta de la cantidad de cada producto(que hay en la lista que le paso al Ticket)
-//    private int contarProducto(ArrayList<Producto> lista, Producto producto) {
-//        int contador = 0;
-//        for (Producto p : lista) {
-//            if (producto.equals(p)) {
-//                contador++;
-//            }
-//        }
-//        return contador;
-//    }
 }
