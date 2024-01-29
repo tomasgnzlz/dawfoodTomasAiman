@@ -18,76 +18,108 @@ import javax.swing.JOptionPane;
 public class UtilidadesAdmin {
 
     // ■ Consultar las ventas realizadas:
-    
-        //   ● en un día concreto,
+    //   ● en un día concreto,
     public static void consultarVentasPorDia(ArrayList<Ticket> lista) {
-        int inputDia = 0; 
+        int inputDia = 0;
         int inputMes = 0;
         int inputAnio = 0;
-         do{
-             try{
-                 inputDia = Integer.parseInt(JOptionPane.showInputDialog("Introduce el dia que desea consultar: "));
-             }catch(NumberFormatException nfe){
-                 JOptionPane.showMessageDialog(null, "Introduce un valor válido");
-             }
-         }while(inputDia<0||inputDia>31);
-         do{
-             try{
-                 inputMes = Integer.parseInt(JOptionPane.showInputDialog("Introduce el mes que desea consultar: "));
-             }catch(NumberFormatException nfe){
-                 JOptionPane.showMessageDialog(null, "Introduce un valor válido");
-             }
-         }while(inputMes<0||inputMes>12);
-         do{
-             try{
-                 inputAnio = Integer.parseInt(JOptionPane.showInputDialog("Introduce el año que desea consultar: "));
-             }catch(NumberFormatException nfe){
-                 JOptionPane.showMessageDialog(null, "Introduce un valor válido");
-             }
-         }while(inputAnio<2024);
-         LocalDate dia = LocalDate.of(inputAnio, inputMes, inputDia);
-            for (Ticket ticket : lista) {
-                if (ticket.getFechaHora().getDayOfMonth() == dia.getDayOfMonth()) {
-                    JOptionPane.showMessageDialog(null, ticket.toString());
-                }
+        do {
+            try {
+                inputDia = Integer.parseInt(JOptionPane.showInputDialog("Introduce el dia que desea consultar: "));
+            } catch (NumberFormatException nfe) {
+                JOptionPane.showMessageDialog(null, "Introduce un valor válido");
             }
-    }
-    //   ● hasta una fecha concreta
-    public static void consultarVentasPorFecha(ArrayList<Ticket> lista) {
-        int inputDia = 0; 
-        int inputMes = 0;
-        int inputAnio = 0;
-         do{
-             try{
-                 inputDia = Integer.parseInt(JOptionPane.showInputDialog("Introduce el dia que desea consultar: "));
-             }catch(NumberFormatException nfe){
-                 JOptionPane.showMessageDialog(null, "Introduce un valor válido");
-             }
-         }while(inputDia<0||inputDia>31);
-         do{
-             try{
-                 inputMes = Integer.parseInt(JOptionPane.showInputDialog("Introduce el mes que desea consultar: "));
-            }catch(NumberFormatException nfe){
-                 JOptionPane.showMessageDialog(null, "Introduce un valor válido");
-             }
-         }while(inputMes<0||inputMes>12);
-         do{
-             try{
-                 inputAnio = Integer.parseInt(JOptionPane.showInputDialog("Introduce el año que desea consultar: "));
-             }catch(NumberFormatException nfe){
-                 JOptionPane.showMessageDialog(null, "Introduce un valor válido");
-             }
-         }while(inputAnio<2024);
-         LocalDate fecha = LocalDate.of(inputAnio, inputMes, inputDia);
+        } while (inputDia < 0 || inputDia > 31);
+        do {
+            try {
+                inputMes = Integer.parseInt(JOptionPane.showInputDialog("Introduce el mes que desea consultar: "));
+            } catch (NumberFormatException nfe) {
+                JOptionPane.showMessageDialog(null, "Introduce un valor válido");
+            }
+        } while (inputMes < 0 || inputMes > 12);
+        do {
+            try {
+                inputAnio = Integer.parseInt(JOptionPane.showInputDialog("Introduce el año que desea consultar: "));
+            } catch (NumberFormatException nfe) {
+                JOptionPane.showMessageDialog(null, "Introduce un valor válido");
+            }
+        } while (inputAnio < 2024);
+        LocalDate dia = LocalDate.of(inputAnio, inputMes, inputDia);
+        StringBuilder sb = new StringBuilder();
         for (Ticket ticket : lista) {
-            if (ticket.getFechaHora().isBefore(ChronoLocalDateTime.from(fecha))) { //PROBAR
-                JOptionPane.showMessageDialog(null, ticket.toString());
+            if (ticket.getFechaHora().getDayOfMonth() == dia.getDayOfMonth()) {
+                //JOptionPane.showMessageDialog(null, ticket.toString());
+                 sb.append("ID Ticket: ");
+            sb.append(ticket.getId());
+            sb.append(" -->");
+            sb.append(" Importe Total: ");
+            sb.append(ticket.getImporteTotal()).append("€\n");
+                
+                
             }
         }
+        
+        JOptionPane.showMessageDialog(null, sb.toString());
     }
-   //   ● todas las ventas que haya registradas.
+
+    //   ● hasta una fecha concreta
+    public static void consultarVentasPorFecha(ArrayList<Ticket> lista) {
+        int inputDia = 0;
+        int inputMes = 0;
+        int inputAnio = 0;
+        do {
+            try {
+                inputDia = Integer.parseInt(JOptionPane.showInputDialog("Introduce el dia que desea consultar: "));
+            } catch (NumberFormatException nfe) {
+                JOptionPane.showMessageDialog(null, "Introduce un valor válido");
+            }
+        } while (inputDia < 0 || inputDia > 31);
+        do {
+            try {
+                inputMes = Integer.parseInt(JOptionPane.showInputDialog("Introduce el mes que desea consultar: "));
+            } catch (NumberFormatException nfe) {
+                JOptionPane.showMessageDialog(null, "Introduce un valor válido");
+            }
+        } while (inputMes < 0 || inputMes > 12);
+        do {
+            try {
+                inputAnio = Integer.parseInt(JOptionPane.showInputDialog("Introduce el año que desea consultar: "));
+            } catch (NumberFormatException nfe) {
+                JOptionPane.showMessageDialog(null, "Introduce un valor válido");
+            }
+        } while (inputAnio < 2024);
+        LocalDate fecha = LocalDate.of(inputAnio, inputMes, inputDia);
+        
+        StringBuilder sb = new StringBuilder();
+        for (Ticket ticket : lista) {
+            if (ticket.getFechaHora().isBefore(ChronoLocalDateTime.from(fecha))) { //PROBAR
+                
+                
+                //JOptionPane.showMessageDialog(null, ticket.toString());
+                sb.append("ID Ticket: ");
+            sb.append(ticket.getId());
+            sb.append(" -->");
+            sb.append(" Importe Total: ");
+            sb.append(ticket.getImporteTotal()).append("€\n");
+            }
+        }
+        JOptionPane.showMessageDialog(null, sb.toString());
+    }
+    //   ● todas las ventas que haya registradas.
+
     public static void consultarTodasLasVentas(ArrayList<Ticket> lista) {
-        JOptionPane.showMessageDialog(null, lista.toString());
+        StringBuilder sb = new StringBuilder();
+        sb.append("Listado de todas las ventas:\n");
+
+        for (Ticket ticket : lista) {
+            sb.append("ID Ticket: ");
+            sb.append(ticket.getId());
+            sb.append(" -->");
+            sb.append(" Importe Total: ");
+            sb.append(ticket.getImporteTotal()).append("€\n");
+        }
+
+        JOptionPane.showMessageDialog(null, sb.toString());
     }
 
     //Modificar cualquier dato del producto excepto id;
@@ -114,15 +146,15 @@ public class UtilidadesAdmin {
                 try {
                     modificar = JOptionPane.showInputDialog(opcion);
                     menu = false;
-                }catch (NumberFormatException nfe) {
+                } catch (NumberFormatException nfe) {
                     JOptionPane.showMessageDialog(null, "Introduce un valor que corresponda con un dato del producto");
                 }
-                if(modificar == null){
+                if (modificar == null) {
                     break;
                 }
             } while (menu);
             //controlo que si pulsa cancelar vuelve  al menu anterior
-            if(modificar == null){
+            if (modificar == null) {
                 break;
             }
             switch (modificar) {
@@ -134,7 +166,7 @@ public class UtilidadesAdmin {
                         }
                     }
 
-                break;
+                    break;
                 case "2":
                     int modCategorias = 0;
                     for (Producto producto : p) {
@@ -226,7 +258,7 @@ public class UtilidadesAdmin {
                                 } catch (InputMismatchException ime) {
                                     JOptionPane.showMessageDialog(null, "No es un dato válido");
 
-                                } catch(NullPointerException npe){
+                                } catch (NullPointerException npe) {
                                     JOptionPane.showMessageDialog(null, menu);
                                 }
                             }
@@ -235,15 +267,15 @@ public class UtilidadesAdmin {
                     break;
                 case "5":
                     int modStock = 0;
-                    do{
-                        try{
-                         modStock = Integer.parseInt(JOptionPane.showInputDialog("Introduce la cantidad nueva de stock: "));
-                        }catch(InputMismatchException ime){
+                    do {
+                        try {
+                            modStock = Integer.parseInt(JOptionPane.showInputDialog("Introduce la cantidad nueva de stock: "));
+                        } catch (InputMismatchException ime) {
                             JOptionPane.showMessageDialog(null, "Error, no has introducido nada");
-                        }catch(NumberFormatException nfe){
-                             JOptionPane.showMessageDialog(null, "Has introducido un valor incorrecto");
+                        } catch (NumberFormatException nfe) {
+                            JOptionPane.showMessageDialog(null, "Has introducido un valor incorrecto");
                         }
-                    }while(modValido);
+                    } while (modValido);
                     for (Producto producto : p) {
                         if (producto.getID() == id) {
                             producto.setStock(modStock);
@@ -297,7 +329,7 @@ public class UtilidadesAdmin {
         do {
             try {
                 descripcion = JOptionPane.showInputDialog("Introduce la descripción del producto: ");
-                if(descripcion == null){
+                if (descripcion == null) {
                     repDesc = false;
                     cancelar = true;
                 }
@@ -306,109 +338,110 @@ public class UtilidadesAdmin {
             } catch (InputMismatchException ime) {
                 JOptionPane.showMessageDialog(null, "No es un dato válido");
                 repDesc = false;
-            } catch(NullPointerException npe){
-               JOptionPane.showMessageDialog(null, "No es un dato válido");
+            } catch (NullPointerException npe) {
+                JOptionPane.showMessageDialog(null, "No es un dato válido");
                 repDesc = false;
             }
         } while (repDesc);
-        if(!cancelar){
+        if (!cancelar) {
             int categorias = JOptionPane.showOptionDialog(null, "¿Qué categoría desea poner?", "Categorías", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null,// null para icono por defecto.
-                new Object[]{"Comidas", "Bebidas", "Postres"}, "");
-        switch (categorias) {
-            case 0:
-                p17.setCategorias(Categorias.COMIDAS);
-                subCategorias = JOptionPane.showOptionDialog(null, "¿Qué subcategoría  desea poner?", "Subcategorías de comidas", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null,// null para icono por defecto.
-                        new Object[]{"Ensaladas", "Carnes", "Pastas", "Tacos"}, "");
-                switch (subCategorias) {
-                    case 0:
-                        p17.setSubCategorias(SubCategorias.ENSALADAS);
-                        break;
-                    case 1:
-                        p17.setSubCategorias(SubCategorias.CARNES);
-                        break;
-                    case 2:
-                        p17.setSubCategorias(SubCategorias.PASTAS);
-                        break;
-                    case 3:
-                        p17.setSubCategorias(SubCategorias.TACOS);
-                        break;
-                }
-                break;
-            case 1:
-                p17.setCategorias(Categorias.BEBIDAS);
-                subCategorias = JOptionPane.showOptionDialog(null, "¿Qué subcategoría desea poner?", "Subcategorías de bebidas", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null,// null para icono por defecto.
-                        new Object[]{"Refrescos", "Vinos", "Alcohol"}, "");
-                switch (subCategorias) {
-                    case 0:
-                        p17.setSubCategorias(SubCategorias.REFRESCOS);
-                        break;
-                    case 1:
-                        p17.setSubCategorias(SubCategorias.VINOS);
-                        break;
-                    case 2:
-                        p17.setSubCategorias(SubCategorias.ALCOHOL);
-                        break;
-                }
-                break;
-            case 2:
-                p17.setCategorias(Categorias.POSTRES);
-                subCategorias = JOptionPane.showOptionDialog(null, "¿Qué subcategoría desea poner?", "Subcategorias de postres", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null,// null para icono por defecto.
-                        new Object[]{"Tartas", "Helados", "Varios"}, "");
-                switch (subCategorias) {
-                    case 0:
-                        p17.setSubCategorias(SubCategorias.TARTAS);
-                        break;
-                    case 1:
-                        p17.setSubCategorias(SubCategorias.HELADOS);
-                        break;
-                    case 2:
-                        p17.setSubCategorias(SubCategorias.VARIOS);
-                        break;
-                }
-                break;
-        }
-        do {
-            try {
-                stock = Integer.parseInt(JOptionPane.showInputDialog("Introduce la cantidad de stock del producto: "));
-                p17.setStock(stock);
-                repStock = false;
-            } catch (InputMismatchException ime) {
-                JOptionPane.showMessageDialog(null, "No es un dato válido");
-            } catch (NumberFormatException nfe) {
-                JOptionPane.showMessageDialog(null, "No has introducido un número entero");
+                    new Object[]{"Comidas", "Bebidas", "Postres"}, "");
+            switch (categorias) {
+                case 0:
+                    p17.setCategorias(Categorias.COMIDAS);
+                    subCategorias = JOptionPane.showOptionDialog(null, "¿Qué subcategoría  desea poner?", "Subcategorías de comidas", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null,// null para icono por defecto.
+                            new Object[]{"Ensaladas", "Carnes", "Pastas", "Tacos"}, "");
+                    switch (subCategorias) {
+                        case 0:
+                            p17.setSubCategorias(SubCategorias.ENSALADAS);
+                            break;
+                        case 1:
+                            p17.setSubCategorias(SubCategorias.CARNES);
+                            break;
+                        case 2:
+                            p17.setSubCategorias(SubCategorias.PASTAS);
+                            break;
+                        case 3:
+                            p17.setSubCategorias(SubCategorias.TACOS);
+                            break;
+                    }
+                    break;
+                case 1:
+                    p17.setCategorias(Categorias.BEBIDAS);
+                    subCategorias = JOptionPane.showOptionDialog(null, "¿Qué subcategoría desea poner?", "Subcategorías de bebidas", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null,// null para icono por defecto.
+                            new Object[]{"Refrescos", "Vinos", "Alcohol"}, "");
+                    switch (subCategorias) {
+                        case 0:
+                            p17.setSubCategorias(SubCategorias.REFRESCOS);
+                            break;
+                        case 1:
+                            p17.setSubCategorias(SubCategorias.VINOS);
+                            break;
+                        case 2:
+                            p17.setSubCategorias(SubCategorias.ALCOHOL);
+                            break;
+                    }
+                    break;
+                case 2:
+                    p17.setCategorias(Categorias.POSTRES);
+                    subCategorias = JOptionPane.showOptionDialog(null, "¿Qué subcategoría desea poner?", "Subcategorias de postres", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null,// null para icono por defecto.
+                            new Object[]{"Tartas", "Helados", "Varios"}, "");
+                    switch (subCategorias) {
+                        case 0:
+                            p17.setSubCategorias(SubCategorias.TARTAS);
+                            break;
+                        case 1:
+                            p17.setSubCategorias(SubCategorias.HELADOS);
+                            break;
+                        case 2:
+                            p17.setSubCategorias(SubCategorias.VARIOS);
+                            break;
+                    }
+                    break;
             }
-        } while (repStock);
-        do {
-            try {
-                precio = Double.parseDouble(JOptionPane.showInputDialog("Introduce el precio del producto: "));
-                p17.setPrecio(precio);
-                repPrecio = false;
-            } catch (NumberFormatException nfe) {
-                JOptionPane.showMessageDialog(null, "No has introducido un número entero");
+            do {
+                try {
+                    stock = Integer.parseInt(JOptionPane.showInputDialog("Introduce la cantidad de stock del producto: "));
+                    p17.setStock(stock);
+                    repStock = false;
+                } catch (InputMismatchException ime) {
+                    JOptionPane.showMessageDialog(null, "No es un dato válido");
+                } catch (NumberFormatException nfe) {
+                    JOptionPane.showMessageDialog(null, "No has introducido un número entero");
+                }
+            } while (repStock);
+            do {
+                try {
+                    precio = Double.parseDouble(JOptionPane.showInputDialog("Introduce el precio del producto: "));
+                    p17.setPrecio(precio);
+                    repPrecio = false;
+                } catch (NumberFormatException nfe) {
+                    JOptionPane.showMessageDialog(null, "No has introducido un número entero");
+                }
+            } while (repPrecio);
+            int iva = JOptionPane.showOptionDialog(null, "¿Qué IVA desea poner?", "IVA", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null,// null para icono por defecto.
+                    new Object[]{"10%", "20%"}, "");
+            switch (iva) {
+                case 0:
+                    p17.setTipoIva(IVA.DIEZ);
+                    break;
+                case 1:
+                    p17.setTipoIva(IVA.VEINTIUNO);
+                    break;
             }
-        } while (repPrecio);
-        int iva = JOptionPane.showOptionDialog(null, "¿Qué IVA desea poner?", "IVA", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null,// null para icono por defecto.
-                new Object[]{"10%", "20%"}, "");
-        switch (iva) {
-            case 0:
-                p17.setTipoIva(IVA.DIEZ);
-                break;
-            case 1:
-                p17.setTipoIva(IVA.VEINTIUNO);
-                break;
-        }
-        p.add(p17);
-        JOptionPane.showMessageDialog(null, "Se ha añadido el producto: "+"\n"+p17);
-            
-        }else{
+            p.add(p17);
+            JOptionPane.showMessageDialog(null, "Se ha añadido el producto: " + "\n" + p17);
+
+        } else {
             System.out.println("SALIENDO AL MENU ANTERIOR");
         }
         return p;
     }
+
     //metodo para poder mostrar la lista con string builder
-    public static StringBuilder mostrarLista(ArrayList<Producto> p){
+    public static StringBuilder mostrarLista(ArrayList<Producto> p) {
         StringBuilder elementosLista = new StringBuilder();
-        for(int i = 0;i<p.size();i++){
+        for (int i = 0; i < p.size(); i++) {
             elementosLista.append(p.get(i)).append("\n");
         }
         return elementosLista;

@@ -136,7 +136,12 @@ public class TPV {
                                             if (verificado) {
                                                 Ticket t = new Ticket(listaProductosSeleccionados);
                                                 JOptionPane.showMessageDialog(null, t.toString());
+                                                System.out.println(t.toString());
                                                 listaTicketsVentas.add(t);
+                                                // Enseño el ticket
+                                                for (Ticket ticketsLista : listaTicketsVentas) {
+                                                    System.out.println(ticketsLista);
+                                                }
                                                 // Una vez se muestre el ticket y se haya realizado la compra
                                                 salirSecundario = true;
                                                 // Como la compra se realiza correctamente, se imprime el ticket y se guarda en una lista
@@ -200,6 +205,7 @@ public class TPV {
                                                 new Object[]{"Consultar ventas por día", "Consultar ventas por fecha", "Consultar el total de ventas", "Salir"}, "");
                                         switch (opcionVentas) {
                                             case 0 -> {
+                                                System.out.println("");
                                                 UtilidadesAdmin.consultarVentasPorDia(listaTicketsVentas);
                                                 salirSecundario = true;
                                             }
