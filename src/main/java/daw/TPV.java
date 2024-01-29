@@ -192,6 +192,7 @@ public class TPV {
                                 System.out.println("Introduce la contraseña de nuevo");
                             }
                         }while (pass);
+                        //controlo que si pulsa cancelar en el joption salga
                         if (inputPass == null) {
                                 JOptionPane.showMessageDialog(null, "Saliendo al menú principal");
                                 break;
@@ -207,14 +208,18 @@ public class TPV {
                                 switch (opcionVentas) {
                                     case 0 -> {
                                         UtilidadesAdmin.consultarVentasPorDia(listaTicketsVentas);
+                                        salirSecundario = true;
                                     }
                                     case 1 -> {
                                         UtilidadesAdmin.consultarVentasPorFecha(listaTicketsVentas);
+                                        salirSecundario = true;
                                     }
                                     case 2 -> {
                                         UtilidadesAdmin.consultarTodasLasVentas(listaTicketsVentas);
+                                        salirSecundario = true;
                                     }
                                     case 3 -> {
+                                        //sale al submenu de consultar
                                         subconsulta = true;
                                     }
                                 }
@@ -222,15 +227,13 @@ public class TPV {
                             }
                             case 1 -> {
                                 UtilidadesAdmin.añadirProducto(listaProductos);
-                                salirSecundario = true;
-                                admin = true;
                             }
                             case 2 -> {
                                 int id = 0;
                                 do {
                                     try {
                                         String input = JOptionPane.showInputDialog("Introduce el ID del producto que desea borrar" + "\n" + UtilidadesAdmin.mostrarLista(listaProductos));
-                                        // Si el usuario hace clic en "Cancelar"
+                                        // Si el usuario hace clic en "Cancelar" sale
                                         if (input == null) {
                                             System.out.println("Has salido al menú principal");
                                             idvalido = true;
@@ -255,7 +258,7 @@ public class TPV {
                                 do {
                                     try {
                                         String input = JOptionPane.showInputDialog("Introduce el ID del producto que desea modificar" + "\n" + UtilidadesAdmin.mostrarLista(listaProductos));
-                                        // Si el usuario hace clic en "Cancelar"
+                                        // Si el usuario hace clic en "Cancelar" sale
                                         if (input == null) {
                                             System.out.println("Has salido al menú principal");
                                             idvalido = true;
@@ -269,6 +272,7 @@ public class TPV {
                                         System.out.println("Introduce un número en el ID");
                                     }
                                 } while (!idvalido);
+                                    // comprobar que sigue en el bucle y modificar producto 
                                     if(!salirSecundario){
                                         UtilidadesAdmin.modificarProducto(listaProductos, id);
                                         for (Producto producto : listaProductos) {
@@ -303,7 +307,6 @@ public class TPV {
         JCheckBox chec = new JCheckBox();
         return JOptionPane.showOptionDialog(null, "+++++ Seleccion el tipo de usuario +++++", "Tipo de Usuarios", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null,// null para icono por defecto.
                 new Object[]{"Modo Usuario", "Modo Administrador", "Apagar TPV"}, "");
-
     }
 
 }

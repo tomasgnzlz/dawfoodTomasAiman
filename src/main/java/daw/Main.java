@@ -15,6 +15,7 @@ public class Main {
 
     public static void main(String[] args) {
         // Creación del objeto TPV
+        
         TPV t1 = new TPV();    
         t1.encenderTPV();
     }

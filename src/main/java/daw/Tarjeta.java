@@ -44,7 +44,7 @@ public class Tarjeta {
     }
 
     private static int numTarjetaAleatorio() {
-        return new Random().nextInt(0000,10000);
+        return new Random().nextInt(1000,10000);
     }
 
     private static int numCvvAleatorio() {

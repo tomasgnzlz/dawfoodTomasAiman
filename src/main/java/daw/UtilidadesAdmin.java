@@ -18,9 +18,8 @@ import javax.swing.JOptionPane;
 public class UtilidadesAdmin {
 
     // ■ Consultar las ventas realizadas:
-    //   ● en un día concreto,
-    //   ● hasta una fecha concreta, y
-    //   ● todas las ventas que haya registradas.
+    
+        //   ● en un día concreto,
     public static void consultarVentasPorDia(ArrayList<Ticket> lista) {
         int inputDia = 0; 
         int inputMes = 0;
@@ -28,22 +27,22 @@ public class UtilidadesAdmin {
          do{
              try{
                  inputDia = Integer.parseInt(JOptionPane.showInputDialog("Introduce el dia que desea consultar: "));
-             }catch(NullPointerException npe){
-                 System.out.println("Debes introducir un número");
+             }catch(NumberFormatException nfe){
+                 JOptionPane.showMessageDialog(null, "Introduce un valor válido");
              }
          }while(inputDia<0||inputDia>31);
          do{
              try{
                  inputMes = Integer.parseInt(JOptionPane.showInputDialog("Introduce el mes que desea consultar: "));
-             }catch(NullPointerException npe){
-                 System.out.println("Debes introducir un número");
+             }catch(NumberFormatException nfe){
+                 JOptionPane.showMessageDialog(null, "Introduce un valor válido");
              }
          }while(inputMes<0||inputMes>12);
          do{
              try{
                  inputAnio = Integer.parseInt(JOptionPane.showInputDialog("Introduce el año que desea consultar: "));
-             }catch(NullPointerException npe){
-                 System.out.println("Debes introducir un número");
+             }catch(NumberFormatException nfe){
+                 JOptionPane.showMessageDialog(null, "Introduce un valor válido");
              }
          }while(inputAnio<2024);
          LocalDate dia = LocalDate.of(inputAnio, inputMes, inputDia);
@@ -53,7 +52,7 @@ public class UtilidadesAdmin {
                 }
             }
     }
-
+    //   ● hasta una fecha concreta
     public static void consultarVentasPorFecha(ArrayList<Ticket> lista) {
         int inputDia = 0; 
         int inputMes = 0;
@@ -61,22 +60,22 @@ public class UtilidadesAdmin {
          do{
              try{
                  inputDia = Integer.parseInt(JOptionPane.showInputDialog("Introduce el dia que desea consultar: "));
-             }catch(NullPointerException npe){
-                 System.out.println("Debes introducir un número");
+             }catch(NumberFormatException nfe){
+                 JOptionPane.showMessageDialog(null, "Introduce un valor válido");
              }
          }while(inputDia<0||inputDia>31);
          do{
              try{
                  inputMes = Integer.parseInt(JOptionPane.showInputDialog("Introduce el mes que desea consultar: "));
-             }catch(NullPointerException npe){
-                 System.out.println("Debes introducir un número");
+            }catch(NumberFormatException nfe){
+                 JOptionPane.showMessageDialog(null, "Introduce un valor válido");
              }
          }while(inputMes<0||inputMes>12);
          do{
              try{
                  inputAnio = Integer.parseInt(JOptionPane.showInputDialog("Introduce el año que desea consultar: "));
-             }catch(NullPointerException npe){
-                 System.out.println("Debes introducir un número");
+             }catch(NumberFormatException nfe){
+                 JOptionPane.showMessageDialog(null, "Introduce un valor válido");
              }
          }while(inputAnio<2024);
          LocalDate fecha = LocalDate.of(inputAnio, inputMes, inputDia);
@@ -86,7 +85,7 @@ public class UtilidadesAdmin {
             }
         }
     }
-
+   //   ● todas las ventas que haya registradas.
     public static void consultarTodasLasVentas(ArrayList<Ticket> lista) {
         JOptionPane.showMessageDialog(null, lista.toString());
     }
@@ -122,6 +121,7 @@ public class UtilidadesAdmin {
                     break;
                 }
             } while (menu);
+            //controlo que si pulsa cancelar vuelve  al menu anterior
             if(modificar == null){
                 break;
             }
@@ -159,13 +159,13 @@ public class UtilidadesAdmin {
                     break;
 
                 case "3":
+                    //controlo que las categorias correspondan con sus subcategorias
                     int modSubCategorias = 0;
                     for (Producto producto : p) {
                         if (producto.getID() == id) {
                             if (producto.getCategorias() == Categorias.COMIDAS) {
                                 modSubCategorias = JOptionPane.showOptionDialog(null, "¿Qué subcategoría desea poner?", "Subcategorías de comidas", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null,
                                         new Object[]{"Ensaladas", "Carnes", "Pastas", "Tacos"}, "");
-
                                 switch (modSubCategorias) {
                                     case 0:
                                         producto.setSubCategorias(SubCategorias.ENSALADAS);
@@ -215,8 +215,6 @@ public class UtilidadesAdmin {
                         }
                     }
                     break;
-
-                // Otros casos y código posterior al switch
                 case "4":
                     double modPrecio = Double.parseDouble(JOptionPane.showInputDialog("Introduce el nuevo precio: "));
                     for (Producto producto : p) {
@@ -226,19 +224,26 @@ public class UtilidadesAdmin {
                                     producto.setPrecio(modPrecio);
                                     modValido = false;
                                 } catch (InputMismatchException ime) {
-                                    System.out.println("Debes introducir el nombre del producto");
+                                    JOptionPane.showMessageDialog(null, "No es un dato válido");
 
+                                } catch(NullPointerException npe){
+                                    JOptionPane.showMessageDialog(null, menu);
                                 }
-//                                }catch(NullPointerException npe){
-//                                    System.out.println("El nombre no puede ser nulo");
-//                                    modValido=false;
-//                                }
                             }
                         } while (modValido);
                     }
                     break;
                 case "5":
-                    int modStock = Integer.parseInt(JOptionPane.showInputDialog("Introduce la cantidad nueva de stock: "));
+                    int modStock = 0;
+                    do{
+                        try{
+                         modStock = Integer.parseInt(JOptionPane.showInputDialog("Introduce la cantidad nueva de stock: "));
+                        }catch(InputMismatchException ime){
+                            JOptionPane.showMessageDialog(null, "Error, no has introducido nada");
+                        }catch(NumberFormatException nfe){
+                             JOptionPane.showMessageDialog(null, "Has introducido un valor incorrecto");
+                        }
+                    }while(modValido);
                     for (Producto producto : p) {
                         if (producto.getID() == id) {
                             producto.setStock(modStock);
@@ -267,6 +272,7 @@ public class UtilidadesAdmin {
         return p;
     }
 
+    //segun el id borrar producto indicado
     public static void borrarProducto(ArrayList<Producto> p, int id) {
         for (Producto producto : p) {
             if (producto.getID() == id) {
@@ -277,6 +283,7 @@ public class UtilidadesAdmin {
         }
     }
 
+    // añadir producto insercion de todos los atributos excepto id
     public static ArrayList<Producto> añadirProducto(ArrayList<Producto> p) {
         Producto p17 = new Producto();
         boolean repDesc = true;
@@ -300,6 +307,7 @@ public class UtilidadesAdmin {
                 JOptionPane.showMessageDialog(null, "No es un dato válido");
                 repDesc = false;
             } catch(NullPointerException npe){
+               JOptionPane.showMessageDialog(null, "No es un dato válido");
                 repDesc = false;
             }
         } while (repDesc);
@@ -392,9 +400,12 @@ public class UtilidadesAdmin {
         p.add(p17);
         JOptionPane.showMessageDialog(null, "Se ha añadido el producto: "+"\n"+p17);
             
+        }else{
+            System.out.println("SALIENDO AL MENU ANTERIOR");
         }
         return p;
     }
+    //metodo para poder mostrar la lista con string builder
     public static StringBuilder mostrarLista(ArrayList<Producto> p){
         StringBuilder elementosLista = new StringBuilder();
         for(int i = 0;i<p.size();i++){
