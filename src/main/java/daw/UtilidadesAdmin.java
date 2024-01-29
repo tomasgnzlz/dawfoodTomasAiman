@@ -49,7 +49,7 @@ public class UtilidadesAdmin {
          LocalDate dia = LocalDate.of(inputAnio, inputMes, inputDia);
             for (Ticket ticket : lista) {
                 if (ticket.getFechaHora().getDayOfMonth() == dia.getDayOfMonth()) {
-                    JOptionPane.showMessageDialog(null, ticket);
+                    JOptionPane.showMessageDialog(null, ticket.toString());
                 }
             }
     }
@@ -82,13 +82,13 @@ public class UtilidadesAdmin {
          LocalDate fecha = LocalDate.of(inputAnio, inputMes, inputDia);
         for (Ticket ticket : lista) {
             if (ticket.getFechaHora().isBefore(ChronoLocalDateTime.from(fecha))) { //PROBAR
-                System.out.println(ticket);
+                JOptionPane.showMessageDialog(null, ticket.toString());
             }
         }
     }
 
     public static void consultarTodasLasVentas(ArrayList<Ticket> lista) {
-        lista.forEach(System.out::println);
+        JOptionPane.showMessageDialog(null, lista.toString());
     }
 
     //Modificar cualquier dato del producto excepto id;
@@ -115,10 +115,16 @@ public class UtilidadesAdmin {
                 try {
                     modificar = JOptionPane.showInputDialog(opcion);
                     menu = false;
-                } catch (NumberFormatException nfe) {
+                }catch (NumberFormatException nfe) {
                     JOptionPane.showMessageDialog(null, "Introduce un valor que corresponda con un dato del producto");
                 }
+                if(modificar == null){
+                    break;
+                }
             } while (menu);
+            if(modificar == null){
+                break;
+            }
             switch (modificar) {
                 case "1":
                     String modDescripcion = JOptionPane.showInputDialog("Introduce una nueva descripción: ");
@@ -280,16 +286,25 @@ public class UtilidadesAdmin {
         int stock = 0;
         int subCategorias = 0;
         double precio = 0;
+        boolean cancelar = false;
         do {
             try {
                 descripcion = JOptionPane.showInputDialog("Introduce la descripción del producto: ");
+                if(descripcion == null){
+                    repDesc = false;
+                    cancelar = true;
+                }
                 p17.setDescripción(descripcion);
                 repDesc = false;
             } catch (InputMismatchException ime) {
                 JOptionPane.showMessageDialog(null, "No es un dato válido");
+                repDesc = false;
+            } catch(NullPointerException npe){
+                repDesc = false;
             }
         } while (repDesc);
-        int categorias = JOptionPane.showOptionDialog(null, "¿Qué categoría desea poner?", "Categorías", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null,// null para icono por defecto.
+        if(!cancelar){
+            int categorias = JOptionPane.showOptionDialog(null, "¿Qué categoría desea poner?", "Categorías", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null,// null para icono por defecto.
                 new Object[]{"Comidas", "Bebidas", "Postres"}, "");
         switch (categorias) {
             case 0:
@@ -376,6 +391,8 @@ public class UtilidadesAdmin {
         }
         p.add(p17);
         JOptionPane.showMessageDialog(null, "Se ha añadido el producto: "+"\n"+p17);
+            
+        }
         return p;
     }
     public static StringBuilder mostrarLista(ArrayList<Producto> p){

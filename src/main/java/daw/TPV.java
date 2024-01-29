@@ -86,6 +86,8 @@ public class TPV {
         boolean salirPrimario = false;
         boolean salirSecundario = false;
         boolean idvalido = false;
+        boolean admin = false;
+        boolean subconsulta = false;
         ArrayList<Producto> listaProductos = Producto.listaProductos(); // La lista de todos los productos que hay
         ArrayList<Producto> listaProductosSeleccionados = new ArrayList<>(); // La lista de los productos que se seleccionan(los que van al ticket)
 
@@ -94,6 +96,7 @@ public class TPV {
             salirPrimario = false;
             salirSecundario = false;
             idvalido = false;
+            
             tipoUsuario = seleccionarTipoUsuario();
             switch (tipoUsuario) {
                 case 0 -> {//TIPO USUARIO
@@ -188,53 +191,59 @@ public class TPV {
                             } else {
                                 System.out.println("Introduce la contraseña de nuevo");
                             }
-                        }while (pass || inputPass == null);
+                        }while (pass);
                         if (inputPass == null) {
                                 JOptionPane.showMessageDialog(null, "Saliendo al menú principal");
                                 break;
                          }
-                        int opcionAdmin = JOptionPane.showOptionDialog(null, "Opciones de administrador", "Administrador", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null,
+                        do{
+                            int opcionAdmin = JOptionPane.showOptionDialog(null, "Opciones de administrador", "Administrador", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null,
                                 new Object[]{"Consultar ventas", "Añadir producto", "Borrar Producto", "Modificar producto", "Salir",}, "");
-                        switch (opcionAdmin) {
+                            switch (opcionAdmin) {
                             case 0 -> {
-                                int opcionVentas = JOptionPane.showOptionDialog(null, "¿Que consulta de la venta quieres realizar?", "Ventas", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null,
+                               do{
+                                    int opcionVentas = JOptionPane.showOptionDialog(null, "¿Que consulta de la venta quieres realizar?", "Ventas", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null,
                                         new Object[]{"Consultar ventas por día", "Consultar ventas por fecha", "Consultar el total de ventas","Salir"}, "");
                                 switch (opcionVentas) {
                                     case 0 -> {
                                         UtilidadesAdmin.consultarVentasPorDia(listaTicketsVentas);
-                                        salirSecundario = true;
                                     }
                                     case 1 -> {
                                         UtilidadesAdmin.consultarVentasPorFecha(listaTicketsVentas);
-                                        salirSecundario = true;
                                     }
                                     case 2 -> {
                                         UtilidadesAdmin.consultarTodasLasVentas(listaTicketsVentas);
-                                        salirSecundario = true;
                                     }
                                     case 3 -> {
-                                        salirSecundario = true;
+                                        subconsulta = true;
                                     }
                                 }
+                               }while(!subconsulta);
                             }
                             case 1 -> {
                                 UtilidadesAdmin.añadirProducto(listaProductos);
                                 salirSecundario = true;
+                                admin = true;
                             }
                             case 2 -> {
                                 int id = 0;
                                 do {
                                     try {
-                                        id = Integer.parseInt(JOptionPane.showInputDialog("Introduce el ID del producto que desea borrar" + "\n" + UtilidadesAdmin.mostrarLista(listaProductos)));
-                                        idvalido = true;
+                                        String input = JOptionPane.showInputDialog("Introduce el ID del producto que desea borrar" + "\n" + UtilidadesAdmin.mostrarLista(listaProductos));
+                                        // Si el usuario hace clic en "Cancelar"
+                                        if (input == null) {
+                                            System.out.println("Has salido al menú principal");
+                                            idvalido = true;
+                                            admin = false;
+                                        } else {
+                                            id = Integer.parseInt(input);
+                                            idvalido = true;
+                                        }
                                     }catch (NumberFormatException nfe) {
                                         System.out.println("Introduce un número en el ID");
                                     }catch(NullPointerException npe){
                                         System.out.println("Saliendo al menú");
-                                       idvalido = false;
-                                       salirSecundario = true;
                                     }
-                                    
                                 } while (!idvalido);
                                 if(!salirSecundario){
                                      UtilidadesAdmin.borrarProducto(listaProductos, id);
@@ -245,27 +254,39 @@ public class TPV {
                                 int id = 0;
                                 do {
                                     try {
-                                        id = Integer.parseInt(JOptionPane.showInputDialog("Introduce el ID del producto que desea modificar" + "\n" + UtilidadesAdmin.mostrarLista(listaProductos)));
-                                        idvalido = true;
+                                        String input = JOptionPane.showInputDialog("Introduce el ID del producto que desea modificar" + "\n" + UtilidadesAdmin.mostrarLista(listaProductos));
+                                        // Si el usuario hace clic en "Cancelar"
+                                        if (input == null) {
+                                            System.out.println("Has salido al menú principal");
+                                            idvalido = true;
+                                        } else {
+                                            id = Integer.parseInt(input);
+                                            idvalido = true;
+                                        }
                                     } catch (NullPointerException npe) {
-                                        System.out.println("Debes introducir el ID del producto");
+                                        System.out.println("Has salido al menu principal");
                                     } catch (NumberFormatException nfe) {
                                         System.out.println("Introduce un número en el ID");
                                     }
                                 } while (!idvalido);
-                                UtilidadesAdmin.modificarProducto(listaProductos, id);
-                                for (Producto producto : listaProductos) {
-                                    if (producto.getID() == id) {
-                                        System.out.println(producto);
+                                    if(!salirSecundario){
+                                        UtilidadesAdmin.modificarProducto(listaProductos, id);
+                                        for (Producto producto : listaProductos) {
+                                            if (producto.getID() == id) {
+                                                System.out.println(producto);
+                                            }
+                                        }
+                                        salirSecundario = true;
+                                        admin = true;
                                     }
-                                }
-                                salirSecundario = true;
                             }
                             case 4 -> {
                                 System.out.println("Has salido a la selección de usuario");
                                 salirSecundario = true;
+                                admin = true;
                             }
                         }
+                        }while(!admin);
                     } while (!salirSecundario);
                 }
             }
