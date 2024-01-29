@@ -5,15 +5,11 @@
 package daw;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.Month;
-import java.time.YearMonth;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.InputMismatchException;
 import java.util.List;
-import javax.swing.JCheckBox;
 import javax.swing.JOptionPane;
 
 /**
@@ -24,45 +20,32 @@ public class UtilidadesUsuario {
 
     // Método que muestra las diferentes opciones del menú
     public static int opcionesMenu() {
-        return JOptionPane.showOptionDialog(null, "+++++ ¿QUÉ DESEA? +++++", "Menú", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null,// null para icono por defecto.
+        return JOptionPane.showOptionDialog(null, "+++++ ¿QUÉ DESEA? +++++", "Menú", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null,
                 new Object[]{"Comidas", "Bebidas", "Postres", "Ver Carrito", "Volver Atras"}, "");
     }
 
+    // Métodos que muestran las opciones de las diferentes subCategorias.
     public static int opcionesSubCategoriasComida() {
-        return JOptionPane.showOptionDialog(null, "Elije SubCategoria de comida", "SubCategorias Comidas", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null,// null para icono por defecto.
+        return JOptionPane.showOptionDialog(null, "Elije SubCategoria de Comida", "SubCategorias Comidas", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null,
                 new Object[]{"Ensaladas", "Carnes", "Pastas", "Tacos", "VolverAtras"}, "");
     }
 
     public static int opcionesSubCategoriasBebida() {
-        return JOptionPane.showOptionDialog(null, "Elije SubCategoria de Bebida", "SubCategorias Bebidas", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null,// null para icono por defecto.
+        return JOptionPane.showOptionDialog(null, "Elije SubCategoria de Bebida", "SubCategorias Bebidas", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null,
                 new Object[]{"Refrescos", "Vinos", "Alcohol", "Volver Atras"}, "");
     }
 
     public static int opcionesSubCategoriasPostres() {
-        return JOptionPane.showOptionDialog(null, "Elije SubCategoria de Postres", "SubCategorias Postres", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null,// null para icono por defecto.
+        return JOptionPane.showOptionDialog(null, "Elije SubCategoria de Postres", "SubCategorias Postres", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null,
                 new Object[]{"Tartas", "Helados", "Varios", "Volver Atras"}, "");
     }
 
-    // Carta de Productos
-    public static void mostrarListas(ArrayList<Producto> lista) {
-        StringBuilder elementosLista = new StringBuilder();
-        for (Producto producto : lista) {
-            elementosLista.append(producto).append("\n");
-        }
-        JOptionPane.showMessageDialog(null, elementosLista.toString());
-    }
-
-    
-    // Método que pregunta al usuario el id del elemento que quiere pedir.
+    // Método que pregunta al usuario el id del elemento que quiere pedir,
+    // hay uno por cada categoria.
     public static int preguntarIDProductoComida(ArrayList<Producto> lista) {
         StringBuilder elementosLista = new StringBuilder();
         int id = 999999999;
         boolean valido = false;
-//        for (Producto producto : lista) {
-//            if (producto.getCategorias() == Categorias.COMIDAS) {
-//                elementosLista.append(producto).append("\n");
-//            }
-//        }
 
         int opcionSubCategoria = opcionesSubCategoriasComida();
         switch (opcionSubCategoria) {
@@ -110,7 +93,6 @@ public class UtilidadesUsuario {
 
         }
 
-        //id = preguntarIDGeneral(lista, elementosLista);
         return id;
 
     }
@@ -119,11 +101,7 @@ public class UtilidadesUsuario {
         StringBuilder elementosLista = new StringBuilder();
         int id = 999999999;
         boolean valido = false;
-//        for (Producto producto : lista) {
-//            if (producto.getCategorias() == Categorias.BEBIDAS) {
-//                elementosLista.append(producto).append("\n");
-//            }
-//        }
+
         //REFRESCOS,VINOS,ALCOHOL,
         int opcionSubCategoria = opcionesSubCategoriasBebida();
         switch (opcionSubCategoria) {
@@ -160,7 +138,6 @@ public class UtilidadesUsuario {
             }
         }
 
-//        id = preguntarIDGeneral(lista, elementosLista);
         return id;
     }
 
@@ -168,11 +145,7 @@ public class UtilidadesUsuario {
         StringBuilder elementosLista = new StringBuilder();
         int id = 999999999;
         boolean valido = false;
-//        for (Producto producto : lista) {
-//            if (producto.getCategorias() == Categorias.POSTRES) {
-//                elementosLista.append(producto).append("\n");
-//            }
-//        }
+
         //REFRESCOS,VINOS,ALCOHOL,
         int opcionSubCategoria = opcionesSubCategoriasPostres();
         switch (opcionSubCategoria) {
@@ -210,13 +183,12 @@ public class UtilidadesUsuario {
                 break;
             }
         }
-
-        //id = preguntarIDGeneral(lista, elementosLista);
         return id;
     }
 
+    // Metodo que pregunta los id de los productos.
     public static int preguntarIDGeneral(ArrayList<Producto> lista, StringBuilder elementosLista) {
-        //StringBuilder elementosLista = new StringBuilder();
+
         int id = 999999999;
         int cantidad = 9999999;
         boolean valido = false;
@@ -233,7 +205,7 @@ public class UtilidadesUsuario {
                         valido = true;
                     } else {
                         JOptionPane.showMessageDialog(null, "Producto seleccionado sin stock. Por favor, elige otro.");
-                         valido = true;
+                        valido = true;
                     }
 
                 } else {
@@ -250,6 +222,7 @@ public class UtilidadesUsuario {
 
     }
 
+    // Metodo que pregunta la cantidad de cada producto que desea.
     public static int preguntarCantidadGeneral() {
         int cantidad = 999999999;
         boolean valido = false;
@@ -282,22 +255,16 @@ public class UtilidadesUsuario {
                     if (cantidadProductos <= listaProductos.get(i).getStock()) {
                         for (int j = 0; j < cantidadProductos; j++) {
                             listaProductosSeleccionados.add(listaProductos.get(i));
-                    modificarStock(listaProductos, idAux);
+                            modificarStock(listaProductos, idAux);
                         }
 
                     } else {
                         JOptionPane.showMessageDialog(null, "LoSentimos, no hay stock suficiente para: " + cantidadProductos + " " + listaProductos.get(i).getDescripción());
                     }
 
-                } 
-
-//                for (int j = 0; j < cantidadProductos; j++) {
-//                    listaProductosSeleccionados.add(listaProductos.get(i));
-////                    modificarStock(listaProductos, idAux);
-//                }
+                }
             }
         }
-        // modificarStock(listaProductos, idAux);
         return listaProductosSeleccionados;
     }
 
@@ -315,34 +282,37 @@ public class UtilidadesUsuario {
         StringBuilder sb = new StringBuilder();
 
         sb.append("\n");
-
         // Nueva lista para almacenar productos sin repetir
         ArrayList<Producto> listaProductosSinRepetir = new ArrayList<>();
 
         for (Producto p : listaProductosSeleccionados) {
-            // Comprobar si el producto ya está en la lista de productos sin repetir
+            // Añado los productos sin tener en cuenta la cantidad
             if (!listaProductosSinRepetir.contains(p)) {
                 listaProductosSinRepetir.add(p);
             }
         }
 
+        // De la lista con los productos repetidos obtengo la cantidad de cada producto
+        // De la lista con los productos sin repetir obtengo los productos que desea.
         for (Producto productoSinRepetir : listaProductosSinRepetir) {
             int contador = Collections.frequency(listaProductosSeleccionados, productoSinRepetir);
             sb.append(contador).append(" -> Producto: ").append(productoSinRepetir.getDescripción());
             sb.append(", Precio: ").append(productoSinRepetir.getPrecio()).append(" C/U\n");
         }
-
         sb.append("\n");
 
         int opcion = JOptionPane.showOptionDialog(null, sb.toString(), "Decisión Compra",
                 JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null,
-                new Object[]{"Comprar", "No Comprar", "Seguir comprando"}, "");
+                new Object[]{"Comprar", "No Comprar", "Seguir Comprando"}, "");
 
         return opcion;
     }
 
+    // Método que realiza todo el proceso de compra y muestra el ticket
     public static boolean pasarelaDePago2(ArrayList<Producto> listaProductosSeleccionados, Tarjeta tarjeta) {
-        System.out.println("Datos Tarjeta: " + tarjeta);
+        System.out.println("**********************************DATOS_TARJETA**********************************");
+        System.out.println(tarjeta);
+        System.out.println("*********************************************************************************");
         boolean verificado = false;
         int numerosTarjeta = 0;
         int numCVV = 0;
@@ -373,12 +343,10 @@ public class UtilidadesUsuario {
                         // LA COMPRA SE PUEDE REALIZAR
                         tarjeta.setSaldoTarjeta(tarjeta.getSaldoTarjeta() - importeTotalConIVA); // actualizo el saldo de la tarjeta
                         Ticket t = new Ticket(listaProductosSeleccionados);
-                        //JOptionPane.showMessageDialog(null, t.toString());
                         System.out.println(t.toString());
                         // como todo está correcto devuelvo true;
                         verificado = true;
 
-                        // GENERO EL TICKET Y CREO UN REGISTRO DE LOS TICKETS QUE SE CREAN;
                     } else {
                         JOptionPane.showMessageDialog(null, "Fecha de caducidad incorrecta,repita el proceso");
                     }
@@ -396,13 +364,7 @@ public class UtilidadesUsuario {
         return verificado;
     }
 
-    // Método que recibe el ticket generado y lo guarda en la lista de Tickets de la clase TPV.
-    public static Ticket guardartickets(ArrayList<Ticket> listaTickets, Ticket t) {
-        // ESTE METODO PUEDO AHORRARLO Y METER LOS TICKETS EN LA CLASE TPV DE MANERA NORMAL
-        listaTickets.add(t);
-        return t;
-    }
-
+    // Método que pide enteros.
     public static int pedirEntero(String texto) {
         boolean salir = false;
         int numero = 0;
@@ -421,6 +383,7 @@ public class UtilidadesUsuario {
         return numero;
     }
 
+    // Método que pide entero por un rango especifico
     public static int pedirEnteroRango(String texto, int rangoMinimo, int rangoMaximo) {
         boolean salir = false;
         int numero = 0;
@@ -442,6 +405,7 @@ public class UtilidadesUsuario {
         return numero;
     }
 
+    // Método que obtiene el importe total de tods los productos que se meten en la lista.
     public static double obtenerImporteTotal(ArrayList<Producto> lista) {
         double importeTotal = 0;
         for (Producto producto : lista) {
