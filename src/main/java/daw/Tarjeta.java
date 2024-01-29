@@ -34,7 +34,7 @@ public class Tarjeta {
         this.saldoTarjeta = saldoTarjeta;
     }
 
-    //genera una tarjeta automática 
+    // Método que genera una tarjeta automática 
     public static Tarjeta generarTarjeta(String nombre) {;
         int numTarjeta = numTarjetaAleatorio();
         int numCVV = numCvvAleatorio();
@@ -44,13 +44,13 @@ public class Tarjeta {
     }
 
     private static int numTarjetaAleatorio() {
-        return new Random().nextInt(1000,10000);
+        return new Random().nextInt(1000, 10000);
     }
 
     private static int numCvvAleatorio() {
         int numRandom = 0;
         //return numRandom = Integer.parseInt(RandomStringUtils.randomNumeric(3));
-        return new Random().nextInt(1000);
+        return new Random().nextInt(100, 1000);
     }
 
     private static double saldoCuentaAleatorio() {
@@ -62,7 +62,6 @@ public class Tarjeta {
     public Tarjeta() {
     }
 
-    
     // Getters y Setters
     public String getNombreTitular() {
         return nombreTitular;
@@ -84,23 +83,6 @@ public class Tarjeta {
         return saldoTarjeta;
     }
 
-    // toString
-    @Override
-    public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("Tarjeta{");
-        sb.append("nombre del titular=").append(nombreTitular);
-        sb.append(", numero de la tarjeta=").append(numeroTarjeta);
-        sb.append(", fecha de vencimiento=").append(fechaVencimiento.getMonthValue());
-        sb.append("/");
-        sb.append(fechaVencimiento.getYear());
-
-        sb.append(", CVV=").append(CVV);
-        sb.append(", saldo en la tarjeta=").append(saldoTarjeta);
-        sb.append('}');
-        return sb.toString();
-    }
-
     public void setNombreTitular(String nombreTitular) {
         this.nombreTitular = nombreTitular;
     }
@@ -119,6 +101,23 @@ public class Tarjeta {
 
     public void setSaldoTarjeta(double saldoTarjeta) {
         this.saldoTarjeta = saldoTarjeta;
+    }
+
+    // toString
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("Tarjeta{");
+        sb.append("nombre del titular=").append(nombreTitular);
+        sb.append(", numero de la tarjeta=").append(numeroTarjeta);
+        sb.append(", fecha de vencimiento=").append(fechaVencimiento.getMonthValue());
+        sb.append("/");
+        sb.append(fechaVencimiento.getYear());
+
+        sb.append(", CVV=").append(CVV);
+        sb.append(", saldo en la tarjeta=").append(saldoTarjeta);
+        sb.append('}');
+        return sb.toString();
     }
 
 }

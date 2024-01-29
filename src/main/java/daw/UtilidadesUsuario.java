@@ -259,7 +259,7 @@ public class UtilidadesUsuario {
                         }
 
                     } else {
-                        JOptionPane.showMessageDialog(null, "LoSentimos, no hay stock suficiente para: " + cantidadProductos + " " + listaProductos.get(i).getDescripción());
+                        JOptionPane.showMessageDialog(null, "Lo sentimos, no hay stock suficiente para: " + cantidadProductos + " " + listaProductos.get(i).getDescripción());
                     }
 
                 }
@@ -271,9 +271,9 @@ public class UtilidadesUsuario {
     public static void modificarStock(List<Producto> lista, int id) {
         for (Producto p : lista) {
             if (p.getID() == id) {
-                System.out.println(p.toString());
+                
                 p.setStock(p.getStock() - 1);
-                System.out.println("EL STOCK DE ID: " + id + " HA CAMBIADO" + p.toString());
+                //System.out.println("EL STOCK DE ID: " + id + " HA CAMBIADO" + p.toString());
             }
         }
     }
@@ -333,7 +333,6 @@ public class UtilidadesUsuario {
                 if (tarjeta.getCVV() == numCVV) {
                     texto = "Introduce el mes de vencimiento de tu tarjeta";
                     mes = pedirEnteroRango(texto, 1, 31);
-                    System.out.println(mes);
 
                     texto = "Introduce el año de vencimiento de tu tarjeta";
                     año = pedirEnteroRango(texto, 2023, Integer.MAX_VALUE);
@@ -342,8 +341,8 @@ public class UtilidadesUsuario {
                     if (fecha.getMonthValue() == tarjeta.getFechaVencimiento().getMonthValue() && fecha.getYear() == tarjeta.getFechaVencimiento().getYear()) {
                         // LA COMPRA SE PUEDE REALIZAR
                         tarjeta.setSaldoTarjeta(tarjeta.getSaldoTarjeta() - importeTotalConIVA); // actualizo el saldo de la tarjeta
-                        Ticket t = new Ticket(listaProductosSeleccionados);
-                        System.out.println(t.toString());
+//                        Ticket t = new Ticket(listaProductosSeleccionados);
+//                        System.out.println(t.toString());
                         // como todo está correcto devuelvo true;
                         verificado = true;
 
@@ -371,7 +370,6 @@ public class UtilidadesUsuario {
 
         do {
             try {
-                System.out.println(texto);
                 numero = Integer.parseInt(JOptionPane.showInputDialog(texto));
                 salir = true;
             } catch (InputMismatchException ime) {
@@ -390,7 +388,6 @@ public class UtilidadesUsuario {
 
         do {
             try {
-                System.out.println(texto);
                 numero = Integer.parseInt(JOptionPane.showInputDialog(texto));
                 if (numero >= rangoMinimo && numero <= rangoMaximo) {
                     salir = true;

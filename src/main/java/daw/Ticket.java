@@ -90,7 +90,7 @@ public class Ticket {
         sb.append("  IDTicket=").append(id);
         sb.append("  Numero de Pedido=").append(numeroPedido);
         sb.append("  Fecha=").append(fechaHora.getDayOfMonth()).append("/").append(fechaHora.getMonthValue()).append("/").append(fechaHora.getYear());
-        sb.append("  Hora=").append(fechaHora.getHour()).append(":").append(fechaHora.getHour());
+        sb.append("  Hora=").append(fechaHora.getHour()).append(":").append(fechaHora.getHour()).append("\n");
         sb.append("\n");
 
         // Nueva lista para almacenar productos sin repetir
@@ -104,14 +104,23 @@ public class Ticket {
         }
 
         for (Producto productoSinRepetir : listaProductosSinRepetir) {
+            double ivaa = 0;
             int contador = Collections.frequency(listaProductosSeleccionados, productoSinRepetir);
             sb.append(productoSinRepetir.getID()).append("  ");
             sb.append(contador).append(" -> ").append(productoSinRepetir.getDescripción()).append(" ").append(Math.round((contador * productoSinRepetir.getPrecio()) * productoSinRepetir.getTipoIva().iva)).append("€");
-            sb.append(", Precio: ").append(productoSinRepetir.getPrecio()).append(" C/U  IVA: ").append(productoSinRepetir.getTipoIva().iva).append("%\n");
+
+            sb.append(", Precio: ").append(productoSinRepetir.getPrecio()).append(" C/U  IVA: ");
+
+            if (productoSinRepetir.getTipoIva() == IVA.DIEZ) {
+                sb.append(10).append("%\n");
+            }else{
+                sb.append(21).append("%\n");
+            }
+            
         }
 
         sb.append("\n");
-        sb.append("  Importe total=").append(String.format("%.2f", importeTotal)).append("€");
+        sb.append("  Importe total=").append(String.format("%.2f", obtenerImporteTotal(listaProductosSeleccionados))).append("€");
         sb.append("\n}\n");
         sb.append("********************************************************************************");
 
