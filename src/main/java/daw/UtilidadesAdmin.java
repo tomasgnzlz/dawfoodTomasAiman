@@ -45,10 +45,10 @@ public class UtilidadesAdmin {
                  JOptionPane.showMessageDialog(null, "Introduce un valor válido");
              }
          }while(inputAnio<2024);
-         LocalDate dia = LocalDate.of(inputAnio, inputMes, inputDia);
+            LocalDate dia = LocalDate.of(inputAnio, inputMes, inputDia);
             for (Ticket ticket : lista) {
                 if (ticket.getFechaHora().getDayOfMonth() == dia.getDayOfMonth()) {
-                    JOptionPane.showMessageDialog(null, ticket.toString());
+                    JOptionPane.showMessageDialog(null, lista.toString());
                 }
             }
     }
@@ -57,6 +57,7 @@ public class UtilidadesAdmin {
         int inputDia = 0; 
         int inputMes = 0;
         int inputAnio = 0;
+        String mostrarTicket = "";
          do{
              try{
                  inputDia = Integer.parseInt(JOptionPane.showInputDialog("Introduce el dia que desea consultar: "));
@@ -78,7 +79,7 @@ public class UtilidadesAdmin {
                  JOptionPane.showMessageDialog(null, "Introduce un valor válido");
              }
          }while(inputAnio<2024);
-         LocalDate fecha = LocalDate.of(inputAnio, inputMes, inputDia);
+        LocalDate fecha = LocalDate.of(inputAnio, inputMes, inputDia);
         for (Ticket ticket : lista) {
             if (ticket.getFechaHora().isBefore(ChronoLocalDateTime.from(fecha))) { //PROBAR
                 JOptionPane.showMessageDialog(null, ticket.toString());
