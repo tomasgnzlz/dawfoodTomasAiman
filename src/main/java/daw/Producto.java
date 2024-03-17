@@ -73,7 +73,7 @@ public class Producto {
         //CAMBIAR A EL STOCK AUTOMATICO
         // Controlo que el Stock no sea negativo
         if (stock >= 1 && stock < 1000) {
-            this.stock = stock;
+            this.stock = stock; 
         } else {
             this.stock = 0;
         }
@@ -92,6 +92,10 @@ public class Producto {
         return ID;
     }
 
+    public String toCSV(){
+        return this.ID+","+this.descripcion+","+this.categorias+","
+                +this.subCategoria+","+this.tipoIva+","+this.precio+","+this.stock;
+    }
     public void setID(int ID) {
         this.ID = ID;
     }
